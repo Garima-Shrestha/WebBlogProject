@@ -136,35 +136,25 @@
 
 .signUpBody #details{
     margin-left: 55px;
-    margin-top: 55px;
+    margin-top: 75px;
 }
 
-.signUpBody #reg_firstName{
+.signUpBody #reg_userName{
     margin-bottom: 20px;
     margin-left: 78px;
     border: 1px solid #cccccc;  
     border-radius: 5px;
-    height: 22px;
+    height: 25px;
     width: 197px;
     outline: none;
     
-}
-.signUpBody #reg_lastName{
-    margin-bottom: 20px;
-    margin-left: 81px;
-    border: 1px solid #cccccc;  
-    border-radius: 5px;
-    height: 22px;
-    width: 197px;
-    outline: none;
-
 }
 .signUpBody #reg_email{
     margin-bottom: 20px;
     margin-left: 111px;
     border: 1px solid #cccccc;  
     border-radius: 5px;
-    height: 22px;
+    height: 25px;
     width: 197px;
     outline: none;
 }
@@ -173,7 +163,7 @@
     margin-left: 89px;
     border: 1px solid #cccccc;  
     border-radius: 5px;
-    height: 22px;
+    height: 25px;
     width: 197px;
     outline: none;
 }
@@ -186,9 +176,16 @@
     margin-left: 26px;
     border: 1px solid #cccccc;  
     border-radius: 5px;
-    height: 22px;
+    height: 25px;
     width: 196px;
     outline: none;
+}
+.error-message{
+    color: red;
+    font-size: 12px;
+    margin-left: 170px;
+    margin-top: -1px;
+    margin-bottom: -1px;
 }
 
 

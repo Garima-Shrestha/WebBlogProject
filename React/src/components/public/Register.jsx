@@ -15,12 +15,16 @@ import inspire from '../../svg/inspire.svg'
 import inform from '../../svg/inform.svg'
 
 const RegisterPage=() =>{
-    const [first_name, setFirstName] = useState("");
-    const [last_name, setLastName] = useState("");
+    const [user_name, setUserName] = useState("");
     const [signup_email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [confirm_password, setConfirmPassword] = useState("");
+    const [emailError, setEmaiError] = useState("");
+    const [passwordError, setPasswordError] = useState('');
+
+
+
 
     const navigate = useNavigate();
 
@@ -28,34 +32,72 @@ const RegisterPage=() =>{
         setPasswordVisible(prevState=>!prevState);
     };
 
-    const handlesignup=(event)=>{
-        event.preventDefault();
+    const handlesignup=async (event)=>{
         
-        if(!first_name || !last_name || !signup_email || !password || !confirm_password){
-            alert("Please fill in all details");
-            return;
-        }
+            event.preventDefault();
+        
+            let hasError = false;           //No error have been detected initially
+        
+            // Email validation
+            const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailCheck.test(signup_email)) {                                      //It checks whether the string email matches the pattern defined by the emailCheck.
+                setEmaiError("Please enter a valid email address");
+                hasError = true;
+            } else {
+                setEmaiError("");  // Clear email error if valid
+            }
 
-        const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailCheck.test(signup_email)) {                                  //It checks whether the string email matches the pattern defined by the emailCheck.
-            alert("Please enter a valid email address");
-            return;
-        }
+            // If email has an error, return early and stop further validation
+            if (hasError) {
+                return;
+            }   
+        
+            // Password validation
+            if (password.length < 8 || password.length > 16) {
+                setPasswordError("Password must be between 8 and 16 characters");
+                hasError = true;
+            } else if (password !== confirm_password) {
+                setPasswordError("Passwords do not match");
+                hasError = true;
+            } else {
+                setPasswordError('');  // Clear password error if valid
+            }
 
-        if(password.length<8 || password.length>16){
-            alert("Password must be between 8 and 16 characters");
-            return;
-        }
+            if (hasError) {
+                return; // Stop submission if there's an error
+            }
+        
+            console.log("Sign Up Successful!");
+            navigate("/login");
+        
     
-        if(password != confirm_password){
-            alert("Passwords do not match");
-            return;
-        }
-    
-        alert("Sign Up Successful!");
+        // // Prepare the user data to send
+        // const userData ={
+        //     user_name,
+        //     signup_email,
+        //     password,
+        // };
 
-        // Redirect to the login page
-        navigate("/login");
+        // try {
+        //     const response = await fetch('http://localhost:5000/api/register', {  // Update with your backend URL
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify(userData),
+        //     });
+
+        //     if (response.ok) {
+        //         alert("Sign Up Successful!");
+        //         navigate("/login");
+        //     } else {
+        //         const errorData = await response.json();
+        //         alert(errorData.message || "Error during sign up");
+        //     }
+        // } catch (err) {
+        //     console.error('Error:', err);
+        //     alert('Error during sign up');
+        // }
     }
     return (
         <section className="register-page-container">
@@ -101,24 +143,14 @@ const RegisterPage=() =>{
                     <h2>Sign Up</h2>
 
                     <div id="details">
-                        <label htmlFor="reg_firstName">First Name:</label>
+                        <label htmlFor="reg_userName">User Name:</label>
                         <input 
                             type="text" 
-                            id="reg_firstName" 
-                            name="admin_fname" 
-                            placeholder="first name"
-                            onChange={(e) => setFirstName(e.target.value)}    //this line update the firstName state to the value the user types in the input field.
-                            required
-                        />
-                        <br/>
-
-                        <label htmlFor="reg_lastName">Last Name:</label>
-                        <input 
-                            type="text" 
-                            id="reg_lastName" 
-                            name="admin_lname" 
-                            placeholder="last name" 
-                            onChange={(e) => setLastName(e.target.value)}
+                            id="reg_userName" 
+                            name="admin_username" 
+                            placeholder="user name"
+                            value={user_name}
+                            onChange={(e) => setUserName(e.target.value)}    //this line update the userName state to the value the user types in the input field.
                             required
                         />
                         <br/>
@@ -132,6 +164,7 @@ const RegisterPage=() =>{
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
+                        {emailError && <p className="error-message">{emailError}</p>}
                         <br/>
 
                         <label htmlFor="register_password">Password:</label>
@@ -156,6 +189,7 @@ const RegisterPage=() =>{
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
                         />
+                        {passwordError && <p className="error-message">{passwordError}</p>}
                         <br/>
 
                         <input 
