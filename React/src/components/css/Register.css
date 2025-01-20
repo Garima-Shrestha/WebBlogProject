@@ -1,0 +1,285 @@
+.register-page-container {
+    /* background-color: #F8FAFC; */
+    overflow-x: hidden;
+}
+
+.wave_bottom {
+    height: 150px;
+    width: 100%;
+}
+#waveTop{
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: -1;
+    /* width: 1538px; */
+    width: 100%; 
+    max-width: 100%; 
+}
+#waveBottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1; /* Ensure the SVG stays behind the content */
+    /* width: 1538px; */
+    width: 100%;
+    max-width: 100%; 
+}
+
+#signupSVG1 {
+    position: absolute;
+    bottom: 20px; 
+    left: 20px;   
+    width: 50px;  
+    height: auto; 
+    transform: rotate(-15deg);
+    z-index: -1;  /* Ensure it doesn't overlap content */
+}
+#signupSVG2 {
+    position: absolute;
+    bottom: 40px;
+    left: 100px;  
+    width: 60px; 
+    height: auto;
+    transform: rotate(10deg);
+    z-index: -1;
+}
+#signupSVG3 {
+    position: absolute; 
+    bottom: 5px;
+    left: 190px; 
+    width: 50px; 
+    height: auto; 
+    transform: rotate(10deg);
+    z-index: -1;    
+}
+#signupSVG4 {
+    position: absolute; 
+    bottom: 30px;
+    left: 290px; 
+    width: 50px; 
+    height: auto; 
+    transform: rotate(-15deg);
+    z-index: -1;   
+}
+#signupSVG5 {
+    position: absolute; 
+    bottom: 10px;
+    left: 380px; 
+    width: 50px; 
+    height: auto; 
+    transform: rotate(10deg);
+    z-index: -1;   
+}
+
+
+#innovate{
+    width:28px;
+    height:28px;
+}
+#inspire{
+    width:28px;
+    height:28px;
+}
+#inform{
+    width:28px;
+    height: 28pxs;
+}
+.moto{
+    margin-left: 400px;
+    margin-top: 118px;
+    font-family: 'Merriweather';
+    color: #333333; 
+    line-height: 1.6;
+    
+}
+.moto strong {
+    color: #0c61a7;
+    font-size: 35px;
+    text-transform: uppercase;
+    letter-spacing: 2px; /* Add letter spacing for style */
+    
+}
+
+.signUpBody{
+    /* background-color: rgb(225, 227, 230); */
+    background-color: #363952;
+    /* margin-top: -100px; */
+    margin-top: -376px;
+    /* margin-right: 132px; */
+    margin-left: 908px;
+    align-items: center;
+    justify-content: center;
+    width: 480px;
+    height: 590px;
+    font-family:Georgia;
+    border-radius: 10px;
+    box-shadow: 9px 9px 15px rgba(0, 0, 0, 0.3);
+    flex-direction: column;
+    color: white;
+}
+
+.signUpBody #logo{
+    width: 100px;
+    height: 90px;
+    border-radius: 50px;
+    margin-left: 195px; 
+    margin-top: 35px;
+    border-radius: 50;
+}
+
+.signUpBody h2 {
+    margin-top: 28px;
+    margin-left: 195px;
+    margin-bottom: -12px;
+}
+
+.signUpBody #details{
+    margin-left: 55px;
+    margin-top: 55px;
+}
+
+.signUpBody #reg_firstName{
+    margin-bottom: 20px;
+    margin-left: 78px;
+    border: 1px solid #cccccc;  
+    border-radius: 5px;
+    height: 22px;
+    width: 197px;
+    outline: none;
+    
+}
+.signUpBody #reg_lastName{
+    margin-bottom: 20px;
+    margin-left: 81px;
+    border: 1px solid #cccccc;  
+    border-radius: 5px;
+    height: 22px;
+    width: 197px;
+    outline: none;
+
+}
+.signUpBody #reg_email{
+    margin-bottom: 20px;
+    margin-left: 111px;
+    border: 1px solid #cccccc;  
+    border-radius: 5px;
+    height: 22px;
+    width: 197px;
+    outline: none;
+}
+.signUpBody #register_password{
+    margin-bottom: 20px;
+    margin-left: 89px;
+    border: 1px solid #cccccc;  
+    border-radius: 5px;
+    height: 22px;
+    width: 197px;
+    outline: none;
+}
+.signUpBody #reg_showPass{
+    margin-left: 250px;
+    margin-bottom: 20px;
+}
+.signUpBody #reg_cPassword{
+    margin-bottom: 20px;
+    margin-left: 26px;
+    border: 1px solid #cccccc;  
+    border-radius: 5px;
+    height: 22px;
+    width: 196px;
+    outline: none;
+}
+
+
+
+.signUpBody #signUp_Button{
+    border-radius: 5px;
+    margin-top: 14px;
+    margin-left: 140px;
+    margin-bottom: 6px;
+    border-style:outset;
+    width: 97px;
+    height: 25px;
+    /* background-color: #313f5b; */
+    color: white;
+    /* box-shadow: 5px 20px 40px black;  */
+    background-color: transparent;
+    border: 2px inset rgb(237, 232, 232);
+}
+.signUpBody #signUp_Button:hover {
+    background-color: #1d3557;  
+    transition: all 0.3s ease; /* Smooth transition */
+    transform: scale(1.05);
+}
+
+.signUpBody #ask{
+    font-size: 14px;
+    margin-left: 90px;
+}
+.signUpBody #link{
+    color: rgb(153, 157, 255);
+}
+.signUpBody #link:hover{
+    color: rgb(242, 30, 30);
+}
+
+
+
+
+@media (max-width: 1500px) {
+    body {
+        /* overflow-x: hidden;    Disable horizontal scrolling */
+    }
+}
+@media (max-width: 1410px) {
+    .signUpBody{
+        margin-left: 800px;
+    }  
+    .moto{
+        margin-left: 280px;
+    }  
+}
+@media (max-width: 1295px) {
+    .signUpBody{
+        margin-left: 500px;
+    }   
+    .moto{
+        margin-left: 80px;
+    } 
+}
+@media (max-width: 1005px){
+    .signUpBody{
+        margin-left: 250px;
+        margin-top: -100px;
+    }
+    .moto{
+        display: none;
+    } 
+    #signupSVG1, #signupSVG2, #signupSVG3, #signupSVG4, #signupSVG5{ 
+        display: none;
+    }  
+}
+@media (max-width: 745px){
+    .signUpBody{
+        margin-left: 125px;
+        margin-top: -100px;
+    }
+    .moto{
+        display: none;
+    } 
+    #signupSVG1, #signupSVG2, #signupSVG3, #signupSVG4, #signupSVG5{ 
+        display: none;
+    }  
+}
+@media (max-width: 630px){
+    .signUpBody{
+        margin-left: 1.5px;
+    }
+    .moto{
+        display: none;
+    } 
+    #signupSVG1, #signupSVG2, #signupSVG3, #signupSVG4, #signupSVG5{ 
+        display: none;
+    }  
+}

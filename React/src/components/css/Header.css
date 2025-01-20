@@ -1,0 +1,112 @@
+.Header{
+    display: flex;
+    background-color: #1E293B;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    align-items: center;
+    padding: 10px 90px;
+    justify-content: space-between;
+    border-radius: 7px;
+    position: sticky; /* Make the header stick to the top */
+    top: 1px; /* Ensures it sticks to the top of the page */
+    z-index: 1000; /* Keeps the header on top of other content when scrolling (like images, sections, or fixed-position elements) */
+    height: 92px;
+}
+
+.Header .hamburger_menu{
+    margin-right: -28px;
+    display:none;
+}
+.Header #logo{
+    width: 100px;
+    height: 90px;
+    border-radius: 50px;
+    /* margin-right:100px; */
+    margin-left: 30px;
+
+} 
+
+
+.Header #NavIcons{
+    display: flex;
+    align-items: center;
+    margin-left: 34px;
+    margin-right: -102.5px;
+}
+.Header #NavIcons li{
+    list-style: none;
+    padding: 10px 20px;
+}
+.Header #NavIcons li a{
+    font-size: 17px;
+    font-family:Georgia;
+    text-decoration: underline;
+    color: whitesmoke;
+}
+
+.Header #NavIcons li a:hover{
+    color: #90CAF9;
+    font-size: 17px;
+}
+
+
+.Header .search_dashboard {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.Header #search_bar {
+    /* margin-left: 10px; */
+    width: 180px;
+    height: 22.5px;
+    border-radius: 4px;
+    border: 1px outset rgba(145, 56, 230, 0.8);
+    margin-right: 10px; 
+}
+
+
+.Header #search_button{
+    margin-right: 28px;
+    /* margin-left: 10px; */
+    width: 69px;
+    height: 22px;
+    border-radius: 4px;
+    border: 1px solid #334155;
+    background-color:  #1E293B;
+    color:#FFFFFF;
+}
+
+.Header #search_button:hover {
+    background-color: #334155;
+    border-color: #64748B;
+    color: #F8FAFC;
+}
+
+.Header #admin_dashboard {
+    padding: 5px;
+    font-size: 13px;
+    background-color: #1E293B;
+    color: white;
+    border: 1px solid #334155;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.Header #admin_dashboard option {
+    background-color: #1E293B;
+    color: white;
+}
+
+
+.Header #admin_dashboard:hover {
+    background-color: #334155;
+    color: #F8FAFC;
+}
+
+
+@media (max-width: 1330px) {
+    .Header{
+        padding: 0 50px;
+    }
+}
+

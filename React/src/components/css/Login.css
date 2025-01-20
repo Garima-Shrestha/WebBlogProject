@@ -1,0 +1,254 @@
+.login-page-container {
+    /* background-color: #F8FAFC; */
+    overflow-x: hidden;
+}
+.wave_bottom {
+    height: 150px;
+    width: 100%;
+}
+#waveTop{
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: -1;
+    width: 1538px;
+}
+#waveBottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1; /* Ensure the SVG stays behind the content */
+    width: 1538px;
+}
+
+#signupSVG1 {
+    position: absolute;
+    bottom: 20px; 
+    left: 20px;   
+    width: 50px;  
+    height: auto; 
+    transform: rotate(-15deg);
+    z-index: -1;  /* Ensure it doesn't overlap content */
+}
+#signupSVG2 {
+    position: absolute;
+    bottom: 40px;
+    left: 100px;  
+    width: 60px; 
+    height: auto;
+    transform: rotate(10deg);
+    z-index: -1;
+}
+#signupSVG3 {
+    position: absolute; 
+    bottom: 5px;
+    left: 190px; 
+    width: 50px; 
+    height: auto; 
+    transform: rotate(10deg);
+    z-index: -1;    
+}
+#signupSVG4 {
+    position: absolute; 
+    bottom: 30px;
+    left: 290px; 
+    width: 50px; 
+    height: auto; 
+    transform: rotate(-15deg);
+    z-index: -1;   
+}
+#signupSVG5 {
+    position: absolute; 
+    bottom: 10px;
+    left: 380px; 
+    width: 50px; 
+    height: auto; 
+    transform: rotate(10deg);
+    z-index: -1;   
+}
+
+#innovate{
+    width:28px;
+    height:28px;
+}
+#inspire{
+    width:28px;
+    height:28px;
+}
+#inform{
+    width:28px;
+    height: 28pxs;
+}
+.moto{
+    margin-left: 400px;
+    margin-top: 118px;
+    font-family: 'Merriweather';
+    color: #333333; 
+    line-height: 1.6;
+    
+}
+.moto strong {
+    color: #0c61a7;
+    font-size: 35px;
+    text-transform: uppercase;
+    letter-spacing: 2px; /* Add letter spacing for style */
+    
+}
+
+
+.loginBody{
+    background-color: #363952;
+    /* margin-top: -343px; */
+    margin-top: -376px;
+    /* margin-left: 950px; */
+    margin-left: 908px;
+    align-items: center;
+    justify-content: center;
+    /* width: 438px;
+    height: 558px; */
+    width: 480px;
+    height: 590px;
+    font-family:Georgia;
+    border-radius: 10px;
+    box-shadow: 9px 9px 15px rgba(0, 0, 0, 0.3);
+    flex-direction: column;
+    color: white;
+
+}
+
+.loginBody #logo{
+    width: 100px;
+    height: 90px;
+    border-radius: 50px;
+    /* margin-left: 172px; 
+    margin-top: 50px; */
+    margin-left: 195px; 
+    margin-top: 40px;
+    border-radius: 50;
+}
+
+.loginBody h2 {
+    margin-top: 36px;
+    /* margin-left: 185px; */
+    margin-left: 212px !important;
+    margin-bottom: 30px;
+}
+
+.loginBody .log_details{
+    margin-left: 55px;
+    margin-top: 55px;
+}
+
+
+.loginBody label {
+    font-size: 17px;
+    margin-bottom: 15px;
+    margin-left: 17px;
+}
+.loginBody #email_label, #password_label {
+    display: block;
+}
+
+.loginBody #login_email, #login_password{
+    margin-left: 17px;
+    margin-bottom: 20px;
+    border: 1px solid #cccccc;  
+    border-radius: 5px;
+    height: 29.5px;
+    width: 324px;
+    outline: none;
+}
+
+.loginBody #log_show_pass{
+    margin-left: 215px;
+    margin-top: 14px;
+    margin-bottom: 17px;
+}
+#login_Button{
+    border-radius: 5px;
+    margin-top: 33px;
+    margin-left: 140px;
+    margin-bottom: 6px;
+    border-style:outset;
+    width: 97px;
+    height: 27px;
+    /* background-color: #313f5b; */
+    color: white;
+    /* box-shadow: 5px 20px 40px black;  */
+    background-color: transparent;
+    border: 2px inset rgb(237, 232, 232);
+}
+.loginBody #login_Button:hover{
+    background-color: #1d3557;  
+    transform: scale(1.05);
+    transition: all 0.3s ease; /* Smooth transition */
+}
+.loginBody #ask{
+    font-size: 14px;
+    margin-left: 85px;
+}
+.loginBody #link{
+    color: rgb(145, 149, 251);
+}
+.loginBody #link:hover{
+    color: rgb(242, 30, 30);
+}
+
+
+
+@media (max-width: 1500px) {
+    body {
+        /* overflow-x: hidden;    Disable horizontal scrolling */
+    }
+}
+@media (max-width: 1410px) {
+    .loginBody{
+        margin-left: 800px;
+    }   
+    .moto{
+        margin-left: 280px;
+    }  
+}
+@media (max-width: 1295px) {
+    .loginBody{
+        margin-left: 500px;
+    }   
+    .moto{
+        margin-left: 80px;
+    }  
+}
+@media (max-width: 1005px){
+    .loginBody{
+        margin-left: 250px;
+        margin-top: -100px;
+    }
+    .moto{
+        display: none;
+    } 
+    #signupSVG1, #signupSVG2, #signupSVG3, #signupSVG4, #signupSVG5{ 
+        display: none;
+    }  
+}
+@media (max-width: 745px){
+    .loginBody{
+        margin-left: 125px;
+        margin-top: -100px;
+    }
+    .moto{
+        display: none;
+    } 
+    #signupSVG1, #signupSVG2, #signupSVG3, #signupSVG4, #signupSVG5{ 
+        display: none;
+    }  
+}
+@media (max-width: 630px){
+    .loginBody{
+        margin-left: 1.5px;
+    }
+    .moto{
+        display: none;
+    } 
+    #signupSVG1, #signupSVG2, #signupSVG3, #signupSVG4, #signupSVG5{ 
+        display: none;
+    }  
+}

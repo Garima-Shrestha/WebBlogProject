@@ -1,0 +1,145 @@
+.make-blog-page .banner{
+    width: 100%;
+    height: 400px;
+    position: relative;
+    background: #e7e7e7;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Hide any part of the image that goes out of bounds *//
+}
+
+.make-blog-page .banner-upload-btn{
+    position: absolute;
+    bottom:20px ;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    /* cursor: pointer; */
+}
+.make-blog-page .banner-upload-btn:hover {
+    background: rgba(73, 69, 69, 0.8);
+}
+
+.make-blog-page .banner-upload-btn img{
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    filter: invert(85%);            /* image colour is inverted i.e. if image is white then turns black and viceversa, 
+                                    and other colors are also converted/inverted according to their complementary colors. */
+}
+.make-blog-page .banner-uploaded-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0; /* Make sure the image stays behind the button */
+}
+
+
+
+.make-blog-page .blog{
+    /* width: 70vw; */
+    width: 70%;
+    min-width: 400px;
+    height: 100px;
+    display: block;
+    margin: auto ;    /* the element will center itself horizontally within its parent container */
+    padding: 50px 0px;
+    border-radius: 10px;
+}
+
+.make-blog-page textarea::-webkit-scrollbar{      /* is used to style the entire scrollbar (the track) to make it look better or fit the design of your website. */
+    width: 10px;
+}
+.make-blog-page textarea::-webkit-scrollbar-thumb{    /* is used to style the thumb, which is the part of the scrollbar you drag or "press" to scroll. */
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.make-blog-page .title,
+.article{
+    width: 100%;
+    min-height: 100px;
+    height: auto;  /* height of the element is automatically determined by the content inside it.*/
+    outline: none;
+    font-size: 40px;
+    resize: none;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.make-blog-page .article{
+    height: 500px;
+    font-size: 20px;
+    margin-top: 20px;
+    line-height: 30px;    /* gap between lines of text*/
+    padding-bottom: 10px;
+    white-space: pre-wrap;  /* The multiple spaces between the words are collapsed into a single space */
+
+    
+}
+
+.make-blog-page .article-container {
+    position: relative;
+    width: 100%;
+    min-height: 100px;
+    margin-top: 20px;
+}
+
+.make-blog-page .article-uploaded-image{
+    /* position: relative; */
+    width: 200px;
+    height: 200px;
+    max-height: 400px; 
+    margin-top: 20px; /* Space between the image and other elements */
+    object-fit: contain;
+    display: block;
+}
+
+
+
+.make-blog-page .blog-options{
+    position: fixed;
+    bottom:0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: #fff;
+    z-index: 9;     /*  elements appear on top of those with lower values*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.make-blog-page .btn{       
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    /* cursor: point1er; */
+}
+.make-blog-page .publish-btn {
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    padding: 7px 21px;
+}
+
+.make-blog-page .upload-img-btn{
+    background: #a5a5a5;
+    color: #fff;
+    margin-left: 20px;
+    font-size: 16px;
+    padding: 8px 16px;
+    margin-top: 15px;
+}
+

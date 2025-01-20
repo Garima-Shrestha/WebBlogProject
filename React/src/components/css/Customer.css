@@ -1,0 +1,141 @@
+body{
+    /* background-color: rgb(164, 201, 233); */
+    background-color: #F8FAFC;
+}
+
+.customer_WebBody #cInfo{
+    /* background-color:#FAF9F6; */
+    background-color: #FFFFFF; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width:540px;
+    height:1030px;
+    margin-top: 40px;
+    margin-left: 458px;
+}
+
+.customer_WebBody #c_details{
+    margin-left: 63px;
+    padding-top: 45px; 
+}
+
+.customer_WebBody #c_details h2{
+    font-size: 23px;
+    margin-left: 127px !important;
+    margin-top: -2px;
+    margin-bottom: 50px;
+}
+
+.customer_WebBody label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    margin-left: 0px;
+}
+.customer_WebBody #c_address{
+    display: block;           /*text box tala aayena so... */
+}
+.customer_WebBody #c_email{
+    display: block;
+}
+.customer_WebBody #password{
+    display: block;
+}
+.customer_WebBody #showPass{
+    margin-left: 295px;
+    margin-bottom: 10px;
+}
+
+.customer_WebBody input[type="text"],
+.customer_WebBody input[type="date"],
+.customer_WebBody input[type="email"],
+.customer_WebBody input[type="password"] {
+    width: 400px;
+    height: 32px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    outline: none;
+}
+
+.customer_WebBody input[type="radio"]{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.customer_WebBody #female{
+    margin-left: 60px;
+}
+.customer_WebBody #others{
+    margin-left: 60px;
+    margin-bottom: 40px;
+}
+
+
+.customer_WebBody #customer_submit{
+    background-color: #1E293B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-left:60px;
+    width:300px;
+    height: 30px;
+}
+.customer_WebBody #customer_submit:hover{
+    background-color: #263447;
+    border-color: #4A5D6B;
+    color: #F1F5F9;
+    transform: scale(1.02);
+}
+
+
+
+
+@media (max-width: 1330px) {
+    body {
+        overflow-x: hidden;    /* Disable horizontal scrolling */
+    }
+}
+
+@media (max-width:1295px){
+    #cInfo {
+        margin-left: 373px;
+    }
+}
+@media (max-width:1050px){
+    #cInfo {
+        margin-left: 239px;
+    }
+}
+@media (max-width:835px){
+    #cInfo {
+        margin-left: 91px;
+    }
+}
+@media (max-width:600px){
+    #cInfo {
+        margin-left: 1.5px;
+        width:400;
+    }
+    #c_details {
+        margin-left: 22px;
+    }
+    #c_fname{
+        display: block;
+    }
+    #c_lName{
+        display: block;
+    }
+    #c_dob{
+        display: block;
+    }
+    #c_contact{
+        display: block;
+    }
+    
+}
