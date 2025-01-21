@@ -15,15 +15,15 @@ import inspire from '../../svg/inspire.svg'
 import inform from '../../svg/inform.svg'
 
 const RegisterPage=() =>{
-    const [user_name, setUserName] = useState("");
-    const [signup_email, setEmail] = useState("");
+    const [userName, setUserName] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
-    const [confirm_password, setConfirmPassword] = useState("");
-    const [emailError, setEmaiError] = useState("");
+    const [passwordConfirmation, setConfirmPassword] = useState("");
+    const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState('');
-
-
+    
+    
 
 
     const navigate = useNavigate();
@@ -40,11 +40,11 @@ const RegisterPage=() =>{
         
             // Email validation
             const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-            if (!emailCheck.test(signup_email)) {                                      //It checks whether the string email matches the pattern defined by the emailCheck.
-                setEmaiError("Please enter a valid email address");
+            if (!emailCheck.test(email)) {                                      //It checks whether the string email matches the pattern defined by the emailCheck.
+                setEmailError("Please enter a valid email address");
                 hasError = true;
             } else {
-                setEmaiError("");  // Clear email error if valid
+                setEmailError("");  // Clear email error if valid
             }
 
             // If email has an error, return early and stop further validation
@@ -56,7 +56,7 @@ const RegisterPage=() =>{
             if (password.length < 8 || password.length > 16) {
                 setPasswordError("Password must be between 8 and 16 characters");
                 hasError = true;
-            } else if (password !== confirm_password) {
+            } else if (password !== passwordConfirmation) {
                 setPasswordError("Passwords do not match");
                 hasError = true;
             } else {
@@ -67,37 +67,36 @@ const RegisterPage=() =>{
                 return; // Stop submission if there's an error
             }
         
-            console.log("Sign Up Successful!");
-            navigate("/login");
         
     
-        // // Prepare the user data to send
-        // const userData ={
-        //     user_name,
-        //     signup_email,
-        //     password,
-        // };
-
-        // try {
-        //     const response = await fetch('http://localhost:5000/api/register', {  // Update with your backend URL
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify(userData),
-        //     });
-
-        //     if (response.ok) {
-        //         alert("Sign Up Successful!");
-        //         navigate("/login");
-        //     } else {
-        //         const errorData = await response.json();
-        //         alert(errorData.message || "Error during sign up");
-        //     }
-        // } catch (err) {
-        //     console.error('Error:', err);
-        //     alert('Error during sign up');
-        // }
+        // Prepare the user data to send
+        const userData = {
+            userName,
+            email,
+            password,
+            passwordConfirmation,
+        };
+    
+        try {
+            const response = await fetch('http://localhost:5003/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
+    
+            if (response.ok) {
+                console.log('Sign Up Successful!');
+                navigate('/login');
+            } else {
+                const errorData = await response.json();
+                alert(errorData.message || 'Error during sign up');
+            } 
+        } catch (err) {
+            console.error('Error:', err);
+            alert('Error during sign up');
+        }
     }
     return (
         <section className="register-page-container">
@@ -147,9 +146,9 @@ const RegisterPage=() =>{
                         <input 
                             type="text" 
                             id="reg_userName" 
-                            name="admin_username" 
+                            name="admin_userName" 
                             placeholder="user name"
-                            value={user_name}
+                            value={userName}
                             onChange={(e) => setUserName(e.target.value)}    //this line update the userName state to the value the user types in the input field.
                             required
                         />
@@ -184,7 +183,7 @@ const RegisterPage=() =>{
                         <input 
                             type={passwordVisible?"text":"password"} 
                             id="reg_cPassword" 
-                            name="confirm_password"
+                            name="passwordConfirmation"
                             placeholder="********"
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
