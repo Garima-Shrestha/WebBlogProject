@@ -22,7 +22,7 @@ const RegisterPage=() =>{
     const [passwordConfirmation, setConfirmPassword] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState('');
-    
+    const [errors, setErrors] = useState({});
     
 
 
@@ -86,16 +86,18 @@ const RegisterPage=() =>{
                 body: JSON.stringify(userData),
             });
     
+            const data = await response.json();
+  
             if (response.ok) {
-                console.log('Sign Up Successful!');
-                navigate('/login');
+                console.log('Signup successful:', data);
+                navigate('/login'); // Redirect to login page
             } else {
-                const errorData = await response.json();
-                alert(errorData.message || 'Error during sign up');
-            } 
+                console.error('Signup failed:', data.error);
+                setErrors({ general: data.error });  // Show a general error message to users
+            }
         } catch (err) {
             console.error('Error:', err);
-            alert('Error during sign up');
+            setErrors({ general: 'Error during sign up' });
         }
     }
     return (
@@ -198,6 +200,9 @@ const RegisterPage=() =>{
                             onClick={togglePasswordVisibility}
                         />
                         <label htmlFor="showPass" style={{ fontSize: '14px' }}>Show Password</label><br/>
+
+                        {errors.general && <p style={{ color: "red" }}>{errors.general}</p>}
+
 
                         <button type="submit" id="signUp_Button">Sign Up</button>            
 
