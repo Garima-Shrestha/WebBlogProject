@@ -77,7 +77,7 @@ const RegisterPage=() =>{
         };
     
         try {
-            const response = await fetch('http://localhost:5003/api/register', {
+            const response = await fetch('http://localhost:5003/api/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -200,7 +200,7 @@ const RegisterPage=() =>{
                         />
                         <label htmlFor="showPass" style={{ fontSize: '14px' }}>Show Password</label><br/>
 
-                        {errors.general && <p style={{ color: "red" }}>{errors.general}</p>}
+                        {errors.general && <span className="error-message-register">{errors.general}</span>}<br></br>
 
 
                         <button type="submit" id="signUp_Button">Sign Up</button>            

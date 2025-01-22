@@ -21,6 +21,7 @@ const LoginPage = () => {
     const[login_email, setEmail] = useState("");
     const[login_password, setPassword] = useState("");
     const[PasswordVisible,setPasswordVisible]=useState(false);
+    const [errors, setErrors] = useState({});
 
     const navigate = useNavigate();
 
@@ -28,25 +29,52 @@ const LoginPage = () => {
         setPasswordVisible(prevState=>!prevState);
     };
 
-    const handlelogin=(event)=>{
-        event.preventDefault();  
-
-        if (!login_email || !login_password) {
-            alert("Please fill in all details");
-            return;
-        }
-
+    const handlelogin = async (e) => {
+        e.preventDefault();
+        const newErrors = {};
         const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailCheck.test(login_email)) {
-            alert("Please enter a valid email address");
-            return;
+        // Validate Email
+        if (!login_email) {
+          newErrors.login_email = "Email is required.";
+        } else if (!emailCheck.test(login_email)) {
+          newErrors.login_email = "Email is invalid.";
         }
-
-        alert("Login Successful!");
-
-        // Redirect to the homepage
-        navigate("/home");  
-    }
+    
+        // Validate Password
+        if (!login_password) {
+          newErrors.login_password = "Password is required.";
+        }
+    
+        // If there are any errors, update the error state and return
+        if (Object.keys(newErrors).length > 0) {
+          setErrors(newErrors);
+          return;
+        }
+        // If no errors, proceed with the login (this can be an API call)
+        try {
+          const response = await fetch('http://localhost:5003/api/auth/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email:login_email, password:login_password }),
+          });
+    
+          const data = await response.json();
+    
+          if (response.ok) {
+            localStorage.setItem('token', data.token);
+            // Redirect user to protected page
+            navigate('/home');
+          } else {
+            console.error('Login failed:', data.error);
+            setErrors({ general: data.error });
+          }
+        } catch (err) {
+          console.error('Error:', err);
+          setErrors({ general: 'Something went wrong. Please try again.' });
+        } 
+      };
     
     return(
         <section className="login-page-container">
@@ -123,7 +151,7 @@ const LoginPage = () => {
                     <label htmlFor="log_show_pass" style={{ fontSize: '14px' }}>Show Password</label><br/>
 
                     <button type="submit" id="login_Button">Login</button> 
-
+                    {errors.general && <span className="error-message-login">{errors.general}</span>}<br></br>
                     <p id="ask">
                         Don't have an account? ? <Link to="/register" id="link">Sign in</Link>
                     </p>

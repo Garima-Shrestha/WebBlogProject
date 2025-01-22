@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import router from './routes/RegisterRoutes.js';   
+import AuthRoute from './routes/AuthRoute.js';   
 import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
 
 dotenv.config();
 const app = express();
@@ -10,10 +11,10 @@ const app = express();
 app.use(cors());
 
 // Middleware to parse incoming JSON requests
-app.use(express.json()); // Express has a built-in body parser for JSON
+app.use(bodyParser.json()); // Express has a built-in body parser for JSON
 
 // Routes
-app.use('/api', router); // Register routes from RegisterRoutes.js
+app.use('/api/auth', AuthRoute); // Register routes from RegisterRoutes.js
 
 
 export default app;
