@@ -74,7 +74,6 @@ const RegisterPage=() =>{
             userName,
             email,
             password,
-            passwordConfirmation,
         };
     
         try {
