@@ -1,4 +1,4 @@
-import {createUser, findUser} from '../models/Register.js';
+import {createUser, findEmail} from '../models/Register.js';
 import bcrypt from 'bcrypt'; // For password hashing
 import jwt from 'jsonwebtoken';  // For generating JWT tokens
 dotenv.config();
@@ -22,8 +22,8 @@ export const register= async (req, res) => {
     }
 
     // Check if the email already exists in the database
-    try {findUser
-        const existingEmail = await findSignupEmail(email);
+    try {
+        const existingEmail = await findEmail(email);
         console.log('Existing Email Result:', existingEmail);
         if (existingEmail && existingEmail.rows && existingEmail.rows.length > 0) {
             return res.status(400).json({ error: 'Email already exists' });
