@@ -1,6 +1,7 @@
 import {createUser, findUser} from '../models/Register.js';
 import bcrypt from 'bcrypt'; // For password hashing
 import jwt from 'jsonwebtoken';  // For generating JWT tokens
+dotenv.config();
 
 export const register= async (req, res) => {
     const { userName, email, password, passwordConfirmation } = req.body;
@@ -21,11 +22,11 @@ export const register= async (req, res) => {
     }
 
     // Check if the email already exists in the database
-    try {
-        const existingEmail = await findUser(email);
+    try {findUser
+        const existingEmail = await findSignupEmail(email);
         console.log('Existing Email Result:', existingEmail);
         if (existingEmail && existingEmail.rows && existingEmail.rows.length > 0) {
-            return res.status(400).json({ message: 'Email already exists' });
+            return res.status(400).json({ error: 'Email already exists' });
         }
 
         // Hash the password
@@ -39,7 +40,7 @@ export const register= async (req, res) => {
         const token = jwt.sign(
             { userId: newUser.id, email: newUser.email },
             process.env.JWT_SECRET_KEY,
-            { expiresIn: '1h' }
+            { expiresIn: '24h' }
         );
 
         return res.status(201).json({

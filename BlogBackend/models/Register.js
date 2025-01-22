@@ -13,7 +13,7 @@ export const createUser= async (userData) => {
         throw error;
     }
 }
-export const findUser=async(email)=>{
+export const findSignupEmail=async(email)=>{
     const query = `SELECT * FROM users WHERE email = $1`;
     const values = [email];
 
