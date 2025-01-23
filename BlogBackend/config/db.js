@@ -19,20 +19,22 @@ const pool = new Pool({
 //   });
 
 
-// //Code to CREATE Table in database
-// const createTable = `CREATE TABLE users (
-//     id SERIAL PRIMARY KEY,
-//     username VARCHAR(50) NOT NULL,
-//     email VARCHAR(100) UNIQUE NOT NULL,
-//     password VARCHAR(255) NOT NULL
-// );`
-// pool.query(createTable)
-//   .then(() => {
-//     console.log("Table Created");
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
+//Code to CREATE Table in database
+export const createTable = async () => {
+    try {
+      const query = `CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(50) NOT NULL,
+        email VARCHAR(100) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL
+        );
+    `;
+      await pool.query(query);
+      console.log("Table created");
+    } catch (err) {
+      console.error("Error creating table", err);
+    }
+  };
 
 // // Checking the connection and logging the database name
 // pool.connect()
