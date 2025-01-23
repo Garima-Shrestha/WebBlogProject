@@ -18,7 +18,7 @@ app.use(cors());
 app.use(bodyParser.json()); // Express has a built-in body parser for JSON
 
 // Routes
-app.use('/api/auth', AuthRoute); // Register routes from AuthRoutes.js
+app.use('/api/auth', AuthRoute); // Register routes from AuthgRoutes.js
 
 
 export default app;
