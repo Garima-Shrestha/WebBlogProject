@@ -12,7 +12,7 @@ export const createUser = async (username, email, password) => {
     }
   };
 export const findEmail = async (email) => {
-    const query = `SELECT * FROM users WHERE email = $1;`;
-    const { rows } = await pool.query(query, [email]);
-    return rows[0];
-  };
+  const query = `SELECT * FROM users WHERE email = $1;`;
+  const { rows } = await pool.query(query, [email]);
+  return rows[0];
+};
