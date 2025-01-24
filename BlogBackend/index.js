@@ -4,6 +4,7 @@ import AuthRoute from './routes/AuthRoute.js';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import {createTable} from './config/db.js';
+import HomePageRoute from './routes/HomePageRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -19,6 +20,7 @@ app.use(bodyParser.json()); // Express has a built-in body parser for JSON
 
 // Routes
 app.use('/api/auth', AuthRoute); // Register routes from AuthgRoutes.js
+app.use('/api/protected', HomePageRoute);
 
 
 export default app;
