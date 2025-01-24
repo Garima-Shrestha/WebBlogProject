@@ -17,7 +17,7 @@ import inform from '../../svg/inform.svg'
 
 
 
-const LoginPage = () => {
+const LoginPage = ({setToken}) => {
     const[login_email, setEmail] = useState("");
     const[login_password, setPassword] = useState("");
     const[PasswordVisible,setPasswordVisible]=useState(false);
@@ -63,8 +63,7 @@ const LoginPage = () => {
           const data = await response.json();
     
           if (response.ok) {
-            localStorage.setItem('token', data.token);
-            // Redirect user to protected page
+            setToken(data.token);
             navigate('/home');
           } else {
             console.error('Login failed:', data.error);
