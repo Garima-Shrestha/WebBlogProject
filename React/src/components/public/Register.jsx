@@ -147,7 +147,7 @@ const RegisterPage=() =>{
                         <input 
                             type="text" 
                             id="reg_userName" 
-                            name="admin_userName" 
+                            name="customer_userName" 
                             placeholder="user name"
                             value={userName}
                             onChange={(e) => setUserName(e.target.value)}    //this line update the userName state to the value the user types in the input field.
@@ -159,7 +159,7 @@ const RegisterPage=() =>{
                         <input 
                             type="email" 
                             id="reg_email" 
-                            name="admin_email" 
+                            name="customer_email" 
                             placeholder="email@gmail.com"   
                             onChange={(e) => setEmail(e.target.value)}
                             required
@@ -171,7 +171,7 @@ const RegisterPage=() =>{
                         <input 
                             type={passwordVisible?"text":"password"} 
                             id="register_password" 
-                            name="admin_password" 
+                            name="customer_password" 
                             minLength={8} 
                             maxLength={16} 
                             placeholder="********"
