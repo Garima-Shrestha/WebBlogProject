@@ -10,7 +10,7 @@ body{
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     padding: 20px;
     width:540px;
-    height:1030px;
+    height:930px;
     margin-top: 40px;
     margin-left: 458px;
 }
@@ -38,13 +38,6 @@ body{
 .customer_WebBody #c_email{
     display: block;
 }
-.customer_WebBody #password{
-    display: block;
-}
-.customer_WebBody #showPass{
-    margin-left: 295px;
-    margin-bottom: 10px;
-}
 
 .customer_WebBody input[type="text"],
 .customer_WebBody input[type="date"],
@@ -66,11 +59,11 @@ body{
     border: 1px solid #ddd;
 }
 
-.customer_WebBody #female{
-    margin-left: 60px;
+.customer_WebBody #c_female{
+    margin-left: 57px;
 }
-.customer_WebBody #others{
-    margin-left: 60px;
+.customer_WebBody #c_others{
+    margin-left: 57px;
     margin-bottom: 40px;
 }
 

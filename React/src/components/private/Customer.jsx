@@ -121,27 +121,6 @@ const CustomerPage = () => {
                         />
                         <br/>
 
-                        <label htmlFor="password">Password:</label>
-                        <input 
-                            type={PasswordVisible ? "text" : "password"}
-                            id="password" 
-                            name="customer_password" 
-                            placeholder="********" 
-                            minLength={8} 
-                            maxLength={16} 
-                            onChange={(e) => setCustomerPassword(e.target.value)}
-                            required
-                        />
-                        <br/>
-
-                        <input 
-                            type="checkbox" 
-                            id="showPass" 
-                            name="show_pass"
-                            onClick={togglePasswordVisibility}
-                        />
-                        <label htmlFor="showPass" style={{ fontSize: '14px' }}>Show Password</label><br/>
-
                         <label htmlFor="c_contact">Contact Information:</label>
                         <input 
                             type="text" 
