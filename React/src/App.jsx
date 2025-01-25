@@ -12,6 +12,7 @@ import AdminRegister from './components/public/AdminRegister';
 import MakeABlogPage from './components/private/MakeABlog';
 import HomePage from './components/private/HomePage';
 import BlogPage from './components/private/Blog';
+import AdminLogin from './components/public/AdminLogin';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token')); 
@@ -41,7 +42,8 @@ function LocationWrapper({setToken, token}) {
     <>
       {/* Header will not be in the login and register page */}
       {location.pathname !== '/' && location.pathname !== '/login' && 
-      location.pathname !== '/register' && location.pathname !=='/adminRegister' && <HeaderSection />}       {/* header is kept here not below because if we keep header below the routes then: 
+      location.pathname !== '/register' && location.pathname !=='/adminRegister' 
+      && location.pathname !== '/adminLogin' && <HeaderSection />}       {/* header is kept here not below because if we keep header below the routes then: 
                                                                                                                                     the routes would be displayed first, and only then would the header appear. */}
 
       <Routes>
@@ -52,6 +54,7 @@ function LocationWrapper({setToken, token}) {
         <Route path="/login" element={<LoginPage setToken={setToken} />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/adminRegister" element={<AdminRegister />} />
+        <Route path="/adminLogin" element={<AdminLogin />} />
 
         {/* Private Routes */}
         {/* <Route path="/customer" element={<PrivateRoute element={<CustomerPage />} />} /> */}

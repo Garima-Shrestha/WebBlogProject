@@ -1,0 +1,101 @@
+.Admin-Login-WebBody{
+    background-color: #F8FAFC;
+    /* color: #111827; */
+}
+
+.Admin-Login-WebBody .adminProfile {
+    background-color: #CBD5E1; 
+    color: #1E293B; /* Dark text for readability */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); 
+    color: #1E293B; 
+    border-radius: 8px; 
+    margin-top: 130px;
+    margin-left: 520px;
+    width: 490px;
+    height: 538px;
+    font-family: 'Georgia'; 
+}
+/* .Admin-Login-WebBody .adminProfile:hover {
+    transform: scale(0.99);
+} */
+.Admin-Login-WebBody .adminProfile h2{
+    font-size: 22px;
+    margin-left: 175px;
+    margin-top: -2px;
+    margin-bottom: 60px;
+    padding-top: 75px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+.Admin-Login-WebBody .admin_form{
+    margin-top: 80px;
+}
+
+.Admin-Login-WebBody label[for="a_email"],
+label[for="a_password"] {
+    font-size: 17px;
+    margin-bottom: 4px;
+    display: block;
+    margin-left: 58px;
+}
+
+.Admin-Login-WebBody input[type="text"],
+.Admin-Login-WebBody input[type="email"],
+.Admin-Login-WebBody input[type="password"] {
+    width: 370px;
+    height: 32px;
+    margin-top: 13px;
+    margin-left: 58px;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    outline: none;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.2), /* Black shadow on top */
+        inset 0 -2px 4px rgba(255, 255, 255, 0.2); /* White shadow on bottom */
+}
+
+.Admin-Login-WebBody #admin_showPass{
+    margin-left: 317px;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.error-message{
+    color: red;
+    font-size: 12px;
+    margin-left: 170px;
+    margin-top: -10px;
+    margin-bottom: -5px;
+}
+
+
+.Admin-Login-WebBody #admin_profile_button{
+    background-color: #1E293B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-top: 20px;
+    margin-left:195px;
+    width:110px;
+    height: 30px;
+}
+.Admin-Login-WebBody #admin_profile_button:hover{
+    background-color: #263447;
+    border-color: #4A5D6B;
+    color: #F1F5F9;
+    transform: scale(1.05);
+}
+.Admin-Login-WebBody #ask{
+    font-size: 14px;
+    margin-left: 140px;
+    margin-top: 18px;
+}
+.Admin-Login-WebBody #link{
+    color: #2167b1;
+}
+.Admin-Login-WebBody #link:hover{
+    color: rgb(242, 30, 30);
+}
