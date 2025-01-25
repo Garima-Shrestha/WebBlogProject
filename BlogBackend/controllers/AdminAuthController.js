@@ -45,3 +45,42 @@ export const adminRegister= async (req, res) => {
         res.status(500).json({ error: 'Server error', details: error.message });
       }
     };
+
+//login
+    export const adminLogin = async (req, res) => {
+      const { adminEmail, adminPassword } = req.body;
+  
+      try {
+          console.log('Finding admin by email...');
+          const admin = await findAdminEmail(adminEmail);
+  
+          if (!admin) {
+              return res.status(400).json({ error: 'Invalid email or password' });
+          }
+  
+          console.log('Comparing passwords...');
+          const isMatch = await bcrypt.compare(adminPassword, admin.password);
+  
+          if (!isMatch) {
+              console.log('Password does not match');
+              return res.status(400).json({ error: 'Invalid email or password' });
+          }
+  
+          console.log('Password matched. Generating JWT...');
+          const token = jwt.sign(
+              { id: admin.id, email: admin.adminEmail},
+              jwtSecret,
+              { expiresIn: '24h' }
+          );
+  
+          res.status(200).json({
+              message: 'Login successful',
+              admin: { id: admin.id, username: admin.adminName, email: admin.adminEmail },
+              token,
+          });
+      } catch (error) {
+          console.error('Login error:', error);
+          res.status(500).json({ error: 'Server error' });
+      }
+  };
+  
