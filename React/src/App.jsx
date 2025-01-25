@@ -45,8 +45,10 @@ function LocationWrapper({setToken, token}) {
                                                                                                                                     the routes would be displayed first, and only then would the header appear. */}
 
       <Routes>
+        {/* Redirect to /home if logged in, else show login */}
+        <Route path="/" element={token ? <Navigate to="/home" /> : <LoginPage setToken={setToken} />} />
+
         {/* Public Routes */}
-        <Route path="/" element={<LoginPage setToken={setToken} />} />
         <Route path="/login" element={<LoginPage setToken={setToken} />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/adminRegister" element={<AdminRegister />} />

@@ -88,7 +88,7 @@ const RegisterPage=() =>{
             const data = await response.json();
   
             if (response.ok) {
-                console.log('Signup successful:', data);
+                // console.log('Signup successful:', data);
                 navigate('/login'); // Redirect to login page
             } else {
                 console.error('Signup failed:', data.error);
