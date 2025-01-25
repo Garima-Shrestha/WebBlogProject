@@ -73,7 +73,7 @@ const AdminRegister = () => {
   
             if (response.ok) {
                 // console.log('Admin Signup successful:', data);
-                navigate('/login'); // Redirect to login page
+                navigate('/adminLogin'); // Redirect to login page
             } else {
                 console.error('Admin Signup failed:', data.error);
                 setErrors({ general: data.error });  // Show a general error message to users

@@ -21,6 +21,8 @@ const LoginPage = ({setToken}) => {
     const[login_email, setEmail] = useState("");
     const[login_password, setPassword] = useState("");
     const[PasswordVisible,setPasswordVisible]=useState(false);
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState('');
     const [errors, setErrors] = useState({});
 
     const navigate = useNavigate();
@@ -31,25 +33,32 @@ const LoginPage = ({setToken}) => {
 
     const handlelogin = async (e) => {
         e.preventDefault();
-        const newErrors = {};
+
+        let hasError = false;   
+        
         const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        // Validate Email
-        if (!login_email) {
-          newErrors.login_email = "Email is required.";
-        } else if (!emailCheck.test(login_email)) {
-          newErrors.login_email = "Email is invalid.";
+        if (!emailCheck.test(login_email)) {
+            setEmailError("Please enter a valid email address");
+            hasError = true;
         }
-    
-        // Validate Password
-        if (!login_password) {
-          newErrors.login_password = "Password is required.";
-        }
-    
-        // If there are any errors, update the error state and return
-        if (Object.keys(newErrors).length > 0) {
-          setErrors(newErrors);
+        
+        // If email has an error, return early and stop further validation
+        if (hasError) {
           return;
-        }
+      }   
+
+
+      if (!login_password) {
+        setPasswordError("Password is required.");
+        hasError = true;
+      }
+      
+      if (hasError) {
+        return; // Stop submission if there's an error
+      }
+
+
+
         // If no errors, proceed with the login (this can be an API call)
         try {
           const response = await fetch('http://localhost:5003/api/auth/login', {
@@ -127,6 +136,7 @@ const LoginPage = ({setToken}) => {
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
+                    {emailError && <p className="error-message">{emailError}</p>}
                     <br/>
 
                     <label htmlFor="login_password" id="password_label">Password:</label>
@@ -138,6 +148,7 @@ const LoginPage = ({setToken}) => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
+                    {passwordError && <p className="error-message">{passwordError}</p>}
                     <br/>
 
 

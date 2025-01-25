@@ -12,7 +12,7 @@
     margin-top: 75px;
     margin-left: 465px;
     width: 590px;
-    height: 717px;
+    height: 750px;
     font-family: 'Georgia'; 
 }
 /* .Admin-Register-WebBody .adminProfile:hover {
@@ -29,7 +29,7 @@
 
 
 .Admin-Register-WebBody .admin_form{
-    margin-top: 77px;
+    margin-top: 80px;
 }
 
 .Admin-Register-WebBody label[for="userName"],
@@ -55,7 +55,7 @@ label[for="a_confirm_password"] {
     height: 32px;
     margin-top: 10px;
     margin-left: 70px;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     border-radius: 5px;
     border: 1px solid #ddd;
     outline: none;
@@ -68,6 +68,14 @@ label[for="a_confirm_password"] {
     margin-left: 395px;
     margin-bottom: 20px;
     font-size: 15px;
+}
+
+.error-message{
+    color: red;
+    font-size: 12px;
+    margin-left: 170px;
+    margin-top: -10px;
+    margin-bottom: -5px;
 }
 
 
