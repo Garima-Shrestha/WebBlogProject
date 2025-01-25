@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import '../css/AdminRegister.css'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AdminRegister = () => {
     const [adminName, setAdminName] = useState("");
@@ -148,7 +148,11 @@ const AdminRegister = () => {
 
                 {errors.general && <span className="error-message-register">{errors.general}</span>}<br></br>
 
-                <button id="admin_profile_button">Signup</button>      
+                <button id="admin_profile_button">Signup</button>    
+
+                <p id="ask">
+                    Already have an account? <Link to="/adminLogin" id="link">Login</Link>
+                </p>  
             </form> 
         </div>   
     </section>

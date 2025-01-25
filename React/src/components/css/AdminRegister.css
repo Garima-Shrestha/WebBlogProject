@@ -12,7 +12,7 @@
     margin-top: 75px;
     margin-left: 465px;
     width: 590px;
-    height: 720px;
+    height: 740px;
     font-family: 'Georgia'; 
 }
 /* .Admin-Register-WebBody .adminProfile:hover {
@@ -71,8 +71,8 @@ label[for="a_confirm_password"] {
     border: none;
     border-radius: 5px;
     font-size: 15px;
-    margin-top: 30px;
-    margin-left:235px;
+    margin-top: 25px;
+    margin-left:243px;
     width:110px;
     height: 30px;
 }
@@ -81,4 +81,15 @@ label[for="a_confirm_password"] {
     border-color: #4A5D6B;
     color: #F1F5F9;
     transform: scale(1.05);
+}
+.Admin-Register-WebBody #ask{
+    font-size: 14px;
+    margin-left: 200px;
+    margin-top: 20px;
+}
+.Admin-Register-WebBody #link{
+    color: #2167b1;
+}
+.Admin-Register-WebBody #link:hover{
+    color: rgb(242, 30, 30);
 }
