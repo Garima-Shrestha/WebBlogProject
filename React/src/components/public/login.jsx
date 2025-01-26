@@ -73,6 +73,7 @@ const LoginPage = ({setToken}) => {
     
           if (response.ok) {
             setToken(data.token);
+            localStorage.setItem("token", data.token);  // stores the token in local storage
             navigate('/home');
           } else {
             console.error('Login failed:', data.error);
