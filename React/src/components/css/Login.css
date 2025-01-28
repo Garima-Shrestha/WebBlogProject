@@ -164,6 +164,13 @@
     margin-top: 14px;
     margin-bottom: 17px;
 }
+.login-page-container .error-message{
+    color: red;
+    font-size: 12px;
+    margin-left: 170px;
+    margin-top: -10px;
+    margin-bottom: -5px;
+}
 #login_Button{
     border-radius: 5px;
     margin-top: 33px;

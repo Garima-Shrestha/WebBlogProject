@@ -136,7 +136,7 @@
 
 .signUpBody #details{
     margin-left: 55px;
-    margin-top: 75px;
+    margin-top: 72px;
 }
 
 .signUpBody #reg_userName{
@@ -169,7 +169,7 @@
 }
 .signUpBody #reg_showPass{
     margin-left: 250px;
-    margin-bottom: 20px;
+    margin-bottom: 19px;
 }
 .signUpBody #reg_cPassword{
     margin-bottom: 20px;
@@ -180,21 +180,21 @@
     width: 196px;
     outline: none;
 }
-.error-message{
+.register-page-container .error-message{
     color: red;
     font-size: 12px;
     margin-left: 170px;
-    margin-top: -1px;
-    margin-bottom: -1px;
+    margin-top: -10px;
+    margin-bottom: -7px;
 }
 
 
 
 .signUpBody #signUp_Button{
     border-radius: 5px;
-    margin-top: 14px;
+    margin-top: 12px;
     margin-left: 140px;
-    margin-bottom: 6px;
+    margin-bottom: 3px;
     border-style:outset;
     width: 97px;
     height: 25px;
