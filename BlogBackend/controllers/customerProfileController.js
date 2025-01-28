@@ -7,19 +7,16 @@ const jwtSecret=process.env.JWT_SECRET;
 
 
 // Middleware to verify the JWT token and extract the user ID
-const verifyTokenAndGetUserId = (req, res) => {
+const verifyTokenAndGetUserId = (req) => {
     try{
         const token = req.headers.authorization?.split(' ')[1];
         if (!token) {
             res.status(401).json({ message: 'No token provided' });
-            return null;
         }
         const decoded = jwt.verify(token, jwtSecret);
-        console.log('Decoded JWT:', decoded); // Add this log to check if the user ID is correct
         return decoded.id; // User ID from JWT
         } catch (error) {
             res.status(401).json({ message: 'Invalid token' });
-            return null;
         }
   };
 
@@ -27,7 +24,7 @@ const verifyTokenAndGetUserId = (req, res) => {
   // Customer data retrival herxa
 export const getCustomer = async (req, res) => {
     try {
-        const userId = verifyTokenAndGetUserId(req, res);
+        const userId = verifyTokenAndGetUserId(req);
 
         const customer = await getCustomerByUserId(userId);
         if (!customer) {
@@ -44,7 +41,7 @@ export const getCustomer = async (req, res) => {
 // Adding a new customer
 export const addNewCustomer = async (req, res) => {
     try {
-        const userId = verifyTokenAndGetUserId(req, res);
+        const userId = verifyTokenAndGetUserId(req);
 
         const { firstName, lastName, address, dob, email, contact, gender } = req.body;
 
@@ -64,27 +61,22 @@ export const addNewCustomer = async (req, res) => {
 
 // Updating an existing customer
 export const updateCustomerDetails = async (req, res) => {
-    console.log('updateCustomerDetails function invoked'); // Added this log
 
     try {
-        const userId = verifyTokenAndGetUserId(req, res);
-        if (!userId) return;
+        const userId = verifyTokenAndGetUserId(req);
 
-        console.log('User ID:', userId); // Log the user ID
-        console.log('Request Body:', req.body); 
+        console.log('User ID:', userId); 
         const { firstName, lastName, address, dob, email, contact, gender } = req.body;
-
-        console.log('Updating Customer with Data:', { firstName, lastName, address, dob, email, contact, gender }); // Log the update data
 
         const updatedCustomer = await updateCustomer(userId, firstName, lastName, address, dob, email, contact, gender);
         if (!updatedCustomer) {
             console.log('Customer not found'); 
             return res.status(404).json({ message: 'Customer not found' });
         }
-        console.log('Customer updated successfully'); // Log if the customer is updated
+        console.log('Customer updated successfully'); 
         res.json({ message: 'Customer profile updated successfully', updatedCustomer });
     } catch (error) {
-        console.error('Error updating customer:', error.message); // Log the error message
+        console.error('Error updating customer:', error.message); 
         res.status(500).json({ message: 'Error updating customer', error: error.message });
     }
 };
