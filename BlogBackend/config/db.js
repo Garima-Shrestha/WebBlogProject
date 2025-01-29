@@ -87,6 +87,23 @@ export const createAdminTable = async () => {
   
 
 
+  export const createBlogTable = async () => {
+    try {
+        const query = `CREATE TABLE IF NOT EXISTS blogs (
+            id SERIAL PRIMARY KEY,
+            user_id INT REFERENCES users(id) ON DELETE CASCADE,
+            title VARCHAR(100) NOT NULL,
+            content TEXT NOT NULL,
+            banner_image VARCHAR(255),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );`;
+        await pool.query(query);
+        console.log("Blog Table created");
+    } catch (err) {
+        console.error("Error creating blog table", err);
+    }
+};
+
 
 
 

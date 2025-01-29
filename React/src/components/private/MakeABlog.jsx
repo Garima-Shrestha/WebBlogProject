@@ -18,16 +18,6 @@ const MakeABlogPage = () => {
     };
 
 
-    const handlePublish = () => {
-        console.log("Published Blog:", {
-            title: blogTitle,
-            article: editorRef.current.innerHTML,
-            bannerImage: banner,
-        });
-    };
-
-
-
 
   // Execute formatting commands
   const formatText = (command, value = null) => {
@@ -42,6 +32,51 @@ const MakeABlogPage = () => {
     }
   };
   
+
+
+
+  const handlePublish = async () => {
+    const blogData = {
+        title: blogTitle,
+        content: editorRef.current.innerHTML,
+        bannerImage: banner,
+      };
+
+
+
+
+    // Getting token from localStorage
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        setSaveError("You are not authenticated. Please log in.");
+        navigate('/login');
+        return;
+    }
+
+
+    try {
+        const response = await fetch('http://localhost:5003/api/createblog/makeblog/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify(blogData),
+        });
+    
+        const result = await response.json();
+        if (response.ok) {
+          console.log('Blog created:', result);
+        } else {
+          console.error('Error creating blog:', result.error);
+        }
+    } catch (error) {
+        console.error('Request failed:', error);
+    }
+};
+
+
 
     return(
         <section className="make-blog-page">
