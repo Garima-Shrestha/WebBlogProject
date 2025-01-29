@@ -38,12 +38,14 @@
 .make-blog-page .banner-uploaded-image{
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;  /* Ensure the entire image fits within the container */
     position: absolute;
     top: 0;
     left: 0;
     z-index: 0; /* Make sure the image stays behind the button */
 }
+
+
 
 
 
@@ -57,7 +59,6 @@
     padding: 50px 0px;
     border-radius: 10px;
 }
-
 .make-blog-page textarea::-webkit-scrollbar{      /* is used to style the entire scrollbar (the track) to make it look better or fit the design of your website. */
     width: 10px;
 }
@@ -65,81 +66,128 @@
     background: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
-
-.make-blog-page .title,
-.article{
+.make-blog-page .title{
     width: 100%;
     min-height: 100px;
     height: auto;  /* height of the element is automatically determined by the content inside it.*/
     outline: none;
     font-size: 40px;
+    font-family: 'Georgia', serif;
     resize: none;
     border: none;
     padding: 10px;
     border-radius: 10px;
-}
-
-.make-blog-page .article{
-    height: 500px;
-    font-size: 20px;
-    margin-top: 20px;
-    line-height: 30px;    /* gap between lines of text*/
-    padding-bottom: 10px;
-    white-space: pre-wrap;  /* The multiple spaces between the words are collapsed into a single space */
-
-    
-}
-
-.make-blog-page .article-container {
-    position: relative;
-    width: 100%;
-    min-height: 100px;
-    margin-top: 20px;
-}
-
-.make-blog-page .article-uploaded-image{
-    /* position: relative; */
-    width: 200px;
-    height: 200px;
-    max-height: 400px; 
-    margin-top: 20px; /* Space between the image and other elements */
-    object-fit: contain;
-    display: block;
+    background: rgba(255, 255, 255, 0.8); 
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);  /* Inner shadow for depth */
 }
 
 
 
-.make-blog-page .blog-options{
+
+
+
+/* text-editor */
+.make-blog-page .my-button-text{
+    background-color: #e7eaef;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: rgb(59, 59, 59);
+    font-size: 15px;
+}
+.make-blog-page .my-button-text:hover{
+    background-color: #bfcfeb;
+}
+.make-blog-page .options{
+    background-color: #e7eaef;
+    padding: 10px;
+}
+.make-blog-page .text-editor-main{
+    width: 1200px;
+    margin: auto;
+    margin-top: 50px;
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.3);
+}
+.make-blog-page .contentOutput{
+    background-color: #fff;
+    height: 400px;
+    max-height: 500px; 
+    overflow-y: auto; 
+    outline: none;
+    /* overflow-wrap: break-word; */
+    padding: 30px;
+    font-size: 18px;
+}
+.make-blog-page .contentOutput::-webkit-scrollbar{      /* is used to style the entire scrollbar (the track) to make it look better or fit the design of your website. */
+    width: 10px;
+}
+.make-blog-page .contentOutput::-webkit-scrollbar-thumb{    /* is used to style the thumb, which is the part of the scrollbar you drag or "press" to scroll. */
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+.make-blog-page .contentOutput::-webkit-scrollbar-thumb:hover{    
+    background: rgba(73, 85, 222, 0.1);
+    border-radius: 10px;
+}
+/* .make-blog-page .floating-button{
     position: fixed;
-    bottom:0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background: #fff;
-    z-index: 9;     /*  elements appear on top of those with lower values*/
+    background-color:  #1350b0;
+    padding: 10px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    bottom: 100px;
+    right: 60px;
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.3);
+    color: #eae2e2;
+}
+.make-blog-page .floating-button:hover{
+    background-color:  #1863db;
+}
+.make-blog-page .floating-button > i {
+    margin-left: 7px;
+    margin-top: 8px;
+} */
+.make-blog-page h1 {
+    font-size: 40px; 
+    margin: 20px 0;
+}
+.make-blog-page h2 {
+    font-size: 35px; 
+    margin: 18px 0;
+}
+.make-blog-page h3 {
+    font-size: 30px; 
+    margin: 16px 0;
+}
+.make-blog-page .contentOutput img {
+    max-width: 300px;
+    max-height: 300px; 
+    width: auto;     
+    height: auto;     
+    margin: 10px 0;
+    display: block; 
+    object-fit: cover;
+}
+
+
+
+
+
+
+.make-blog-page .publish-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    margin-top: 20px; 
 }
-.make-blog-page .btn{       
+.make-blog-page .publish-btn {
     border: none;
     outline: none;
     border-radius: 8px;
-    /* cursor: point1er; */
-}
-.make-blog-page .publish-btn {
     background-color: black;
     color: white;
-    font-size: 16px;
+    font-size: 18px;
     padding: 7px 21px;
-}
-
-.make-blog-page .upload-img-btn{
-    background: #a5a5a5;
-    color: #fff;
-    margin-left: 20px;
-    font-size: 16px;
-    padding: 8px 16px;
-    margin-top: 15px;
+    font-family: 'Georgia', serif;
 }
 

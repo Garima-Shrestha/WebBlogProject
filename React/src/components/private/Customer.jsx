@@ -160,7 +160,7 @@ const CustomerPage = () => {
             <form className="c_form" onSubmit={handleCustomer}>
                 <div id="cInfo">
                     <div id="c_details">
-                        <h2>Customer Details</h2>
+                        <h2>Blogger Profile</h2>
 
                         <label htmlFor="c_fname"> First Name: </label>
                         <input 
