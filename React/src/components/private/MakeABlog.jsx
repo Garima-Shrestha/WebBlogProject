@@ -19,19 +19,47 @@ const MakeABlogPage = () => {
 
 
 
-  // Execute formatting commands
-  const formatText = (command, value = null) => {
-    if (command === "insertImage") {
-      const url = prompt("Enter the image URL:");
-      if (url) document.execCommand(command, false, url);
-    } else if (command === "createLink") {
-      const url = prompt("Enter the link URL:");
-      if (url) document.execCommand(command, false, url);
-    } else {
-      document.execCommand(command, false, value);
-    }
-  };
+//   // Execute formatting commands
+//   const formatText = (command, value = null) => {
+//     if (command === "insertImage") {
+//       const url = prompt("Enter the image URL:");
+//       if (url) document.execCommand(command, false, url);
+//     } else if (command === "createLink") {
+//       const url = prompt("Enter the link URL:");
+//       if (url) document.execCommand(command, false, url);
+//     } else {
+//       document.execCommand(command, false, value);
+//     }
+//   };
   
+
+
+const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const img = document.createElement('img');
+            img.src = reader.result;
+            img.style.maxWidth = '100%'; // Optional: Set max width for the image
+            editorRef.current.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
+const formatText = (command, value = null) => {
+    if (command === "insertImage") {
+        // Trigger the file input for image upload
+        document.getElementById('image-upload').click();
+    } else if (command === "createLink") {
+        const url = prompt("Enter the link URL:");
+        if (url) document.execCommand(command, false, url);
+    } else {
+        document.execCommand(command, false, value);
+    }
+};
+
 
 
 
@@ -173,9 +201,17 @@ const MakeABlogPage = () => {
             </div>
 
 
-                <div className="contentOutput" contentEditable="true"  ref={editorRef}></div>
+            <input
+                    type="file"
+                    accept="image/*"
+                    id="image-upload"
+                    hidden
+                    onChange={handleImageUpload}
+            />
 
-                {/* <div className="floating-button"><i className="fa fa-expand-arrows-alt" aria-hidden="true"></i></div> */}
+            <div className="contentOutput" contentEditable="true"  ref={editorRef}></div>
+
+            {/* <div className="floating-button"><i className="fa fa-expand-arrows-alt" aria-hidden="true"></i></div> */}
             </div>
 
 
