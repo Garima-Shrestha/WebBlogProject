@@ -33,7 +33,7 @@
     color: rgba(0, 0, 0, 0.9);
 }
 
-.blog-page-container sub-heading{
+.blog-page-container .sub-heading{
     font-size: 30px;
     margin-top: 80px;
     color: #2d2d2d;

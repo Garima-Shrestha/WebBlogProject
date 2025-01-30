@@ -86,7 +86,7 @@ export const createAdminTable = async () => {
   };
   
 
-
+// A table for Make A Blog
   export const createBlogTable = async () => {
     try {
         const query = `CREATE TABLE IF NOT EXISTS blogs (
@@ -103,6 +103,24 @@ export const createAdminTable = async () => {
         console.error("Error creating blog table", err);
     }
 };
+
+
+//Table for storing blog pages (published content)
+export const publishedPostTable = async () =>{
+  try {
+    const query = `CREATE TABLE IF NOT EXISTS blogPage (
+      id SERIAL PRIMARY KEY,
+      blog_id INT REFERENCES blogs(id) ON DELETE CASCADE, 
+      content TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );`;
+    await pool.query(query);
+    console.log("Blog Table created");
+} catch (err) {
+    console.error("Error creating blog table", err);
+}
+}
+
 
 
 

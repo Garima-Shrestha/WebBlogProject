@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import '../css/BlogPage.css'
 
 import userProfileComment from '../../images/comment.png'
@@ -8,6 +8,64 @@ const BlogPage = () => {
     const[commentUserName, setCommentUserName]=useState("");
     const[comment, setComment]=useState("");
     const [storeComments, setStoreComments] = useState([]); // State to store all comments
+
+
+
+
+    useEffect(() => {
+        fetchBlog();
+    }, []);
+
+    const fetchBlog = async () => {
+        try {
+            // const response = await fetch(`http://localhost:5000//api/blogpage'/blog/:blogId/${blogId}`),
+            const data = await response.json();
+            if (response.ok) {
+                setBlog(data.blogPage);
+                setUpdatedContent(data.blogPage.content);
+            } else {
+                console.error(data.message);
+            }
+        } catch (error) {
+            console.error("Error fetching blog:", error);
+        }
+    };
+
+
+    const fetchBlog = async () => {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            setSaveError("You are not authenticated. Please log in.");
+            navigate('/login');
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:5000//api/blogpage'/blog/:blogId/${blogId}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            const data = await response.json();
+            if(response.ok){
+                setContentBlog(data.content);
+            }
+
+        }catch(error){
+
+        }
+       
+    }
+
+
+
+
+
+
+
     
 
     const handlePostComment = () => {
