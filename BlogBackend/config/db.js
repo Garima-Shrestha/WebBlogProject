@@ -95,10 +95,11 @@ export const createAdminTable = async () => {
             title VARCHAR(100) NOT NULL,
             content TEXT NOT NULL,
             banner_image VARCHAR(255),
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );`;
         await pool.query(query);
-        console.log("Blog Table created");
+        console.log("Make a Blog Table created");
     } catch (err) {
         console.error("Error creating blog table", err);
     }
@@ -111,11 +112,13 @@ export const publishedPostTable = async () =>{
     const query = `CREATE TABLE IF NOT EXISTS blogPage (
       id SERIAL PRIMARY KEY,
       blog_id INT REFERENCES blogs(id) ON DELETE CASCADE, 
+      banner_image VARCHAR(255),
       content TEXT NOT NULL,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );`;
     await pool.query(query);
-    console.log("Blog Table created");
+    console.log("Blog Table where blog is published is created");
 } catch (err) {
     console.error("Error creating blog table", err);
 }
