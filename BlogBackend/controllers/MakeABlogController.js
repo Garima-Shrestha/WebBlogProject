@@ -1,4 +1,4 @@
-import { createBlog } from '../models/MakeABlogModel.js'; 
+import { createBlog, getBlogById, updateBlog } from '../models/MakeABlogModel.js'; 
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
@@ -47,3 +47,57 @@ export const createNewBlog = async (req, res) => {
         res.status(500).json({ message: 'Error creating blog', error: error.message });
     }
 };
+
+
+
+//Id ko through blog fetch garnu
+export const getBlog = async (req, res) => {
+    try{
+        const userId = verifyTokenAndGetUserId(req); 
+        const {id} = req.params;
+
+        if (!id) {
+            return res.status(400).json({ message: 'Blog ID is required' });
+        }
+
+        const fetchBlog = await getBlogById(id);
+        if (!fetchBlog) {
+            return res.status(404).json({ message: 'Blog not found' });
+        }
+        res.status(200).json({message: 'Blog found successfully', fetchBlog});
+    }catch (error) {
+        console.error('Error retrieving blog:', error.message);
+        res.status(500).json({ message: 'Error retrieving blog', error: error.message });
+    }
+}
+
+
+
+//update lai handle garna
+export const updateExistingBlog = async (req, res) => {
+    try {
+        const userId = verifyTokenAndGetUserId(req);
+        const { id } = req.params;
+
+        if (!id || !title || !content || !bannerImage) {
+            return res.status(400).json({ message: 'Blog ID, title, content, and banner image are required' });
+        }
+
+
+        const blog = await getBlogById(id);
+        if (!blog) {
+            return res.status(404).json({ message: 'Blog not found' });
+        }
+
+        const updatedBlog = await updateBlog(id, title, content, bannerImage);
+
+        if (!updatedBlog) {
+            return res.status(500).json({ message: 'Failed to update blog' });
+        }
+
+        res.status(200).json({ message: 'Blog updated successfully'});
+    } catch (error) {
+        console.error('Error updating blog:', error.message);
+        res.status(500).json({ message: 'Error updating blog', error: error.message });
+    }
+}
