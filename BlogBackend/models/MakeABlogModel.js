@@ -14,10 +14,10 @@ export const createBlog = async(userId, title, content, bannerImage) => {
 }
 
 
-export const getBlogById = async (id) => {
+export const getBlogById = async (id, userId) => {
     try {
-        const query = `SELECT * FROM blogs WHERE id = $1`;     //Blog table(make a blog page) bata id fetch garne 
-        const values = [id];
+        const query = `SELECT * FROM blogs WHERE id = $1 AND user_id = $2`;     //Blog table(make a blog page) bata 'id' fetch garne 
+        const values = [id, userId];
         const result = await pool.query(query, values);
         return result.rows[0];
     }catch (error) {
@@ -27,7 +27,7 @@ export const getBlogById = async (id) => {
 }
 
 
-export const updateBlog = async (id, userId, title, content, bannerImage) => {
+export const updateBlog = async (id, title, content, bannerImage, userId) => {
     try {
         const query = `
             UPDATE blogs 
@@ -38,7 +38,20 @@ export const updateBlog = async (id, userId, title, content, bannerImage) => {
         const result = await pool.query(query, values);
         return result.rows[0];
     } catch (err) {
-        console.error('Error updating blog:', err);
+        console.error('Error updating blog:', err.message);
         throw new Error('Error updating blog');
     }
+}
+
+
+export const deleteBlog = async (id, userId) => {
+    try{
+        const query = `DELETE FROM blogs WHERE id = $1 AND user_id = $2 RETURNING *`;
+        const values = [id, userId];
+        const result = await pool.query(query, values);
+        return result.rows[0];
+    }catch(error){
+        console.error('Error deleting blog:', error);
+        throw new Error('Error deleting blog');
+    }   
 }
