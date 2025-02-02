@@ -106,23 +106,21 @@ export const createAdminTable = async () => {
 };
 
 
-//Table for storing blog pages (published content)
-export const publishedPostTable = async () =>{
+export const createCommentsTable = async () => {
   try {
-    const query = `CREATE TABLE IF NOT EXISTS blogPage (
-      id SERIAL PRIMARY KEY,
-      blog_id INT REFERENCES blogs(id) ON DELETE CASCADE, 
-      banner_image VARCHAR(255),
-      content TEXT NOT NULL,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );`;
-    await pool.query(query);
-    console.log("Blog Table where blog is published is created");
-} catch (err) {
-    console.error("Error creating blog table", err);
-}
-}
+      const query = `CREATE TABLE IF NOT EXISTS comments (
+          id SERIAL PRIMARY KEY,
+          blog_id INT REFERENCES blogs(id) ON DELETE CASCADE,
+          user_name VARCHAR(255) NOT NULL,
+          comment TEXT NOT NULL,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );`;
+      await pool.query(query);
+      console.log("Comments table created successfully");
+  } catch (err) {
+      console.error("Error creating comments table", err);
+  }
+};
 
 
 
