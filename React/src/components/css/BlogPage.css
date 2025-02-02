@@ -25,6 +25,16 @@
     white-space: normal;   /* All extra spaces between words are reduced to one space. */
 }
 
+.blog-page-container .banner img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;  /* Ensure the entire image fits within the container */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0; /* Make sure the image stays behind the button */
+}
+
 .blog-page-container .blog-published{
     margin: 20px 0px 60px;    /* 20px top space, 0px horizontal space, 60px bottom space */
     padding: 0 10px;

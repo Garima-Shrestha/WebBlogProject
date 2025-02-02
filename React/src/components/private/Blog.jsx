@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react"
 import '../css/BlogPage.css'
+import { useNavigate } from 'react-router-dom';
 
 import userProfileComment from '../../images/comment.png'
 
@@ -8,65 +9,62 @@ const BlogPage = () => {
     const[commentUserName, setCommentUserName]=useState("");
     const[comment, setComment]=useState("");
     const [storeComments, setStoreComments] = useState([]); // State to store all comments
+    const [blogData, setBlogData] = useState(null); 
 
-
-
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetchBlog();
-    }, []);
-
-    const fetchBlog = async () => {
-        try {
-            // const response = await fetch(`http://localhost:5000//api/blogpage'/blog/:blogId/${blogId}`),
-            const data = await response.json();
-            if (response.ok) {
-                setBlog(data.blogPage);
-                setUpdatedContent(data.blogPage.content);
-            } else {
-                console.error(data.message);
+        const storedBlog = localStorage.getItem("publishedBlog");
+        if (storedBlog) {
+            try {
+                const parsedBlog = JSON.parse(storedBlog);
+                console.log(parsedBlog);
+                setBlogData(parsedBlog);
+            } catch (error) {
+                console.error('Failed to parse blog data:', error);
             }
-        } catch (error) {
-            console.error("Error fetching blog:", error);
+        } else {
+            console.error('No blog data found in localStorage');
         }
-    };
+    }, []);    
 
 
-    const fetchBlog = async () => {
+
+    const handleDeleteBlog = async () => {
+        const isConfirmed = window.confirm("Are you sure you want to delete this blog?");
+        if (!isConfirmed) {
+            return; // Exit the function if the user cancels the deletion
+        }
+        
         const token = localStorage.getItem('token');
-
         if (!token) {
-            setSaveError("You are not authenticated. Please log in.");
-            navigate('/login');
+            alert("You are not authenticated. Please log in.");
             return;
         }
 
         try {
-            const response = await fetch(`http://localhost:5000//api/blogpage'/blog/:blogId/${blogId}`, {
-                method: 'GET',
+            const response = await fetch(`http://localhost:5003/api/createblog/makeblog/delete/${blogData.id}`, {
+                method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
                 },
-            });
+            });            
 
-            const data = await response.json();
-            if(response.ok){
-                setContentBlog(data.content);
+            if (response.ok) {
+                // Remove the blog from local storage
+                localStorage.removeItem("publishedBlog");
+                navigate('/blog'); // Redirect to the blog list or home page
+                console.log('Blog deleted successfully');
+            } else {
+                console.error('Error deleting blog:', await response.text());
             }
-
-        }catch(error){
-
+        } catch (error) {
+            console.error('Request failed:', error);
         }
-       
-    }
-
-
-
-
-
-
-
+    };
     
+
 
     const handlePostComment = () => {
         if (commentUserName && comment) {
@@ -77,21 +75,33 @@ const BlogPage = () => {
           alert("Please enter both name and comment.");
         }
       };
-      
+
     return(
         <section className="blog-page-container">        
-         <div className="banner"></div>
+            {blogData? (
+                <div>
+                    <div className="banner">
+                        <img src={blogData.banner_image} alt="Blog Banner" />
+                    </div>
 
-         <div className="blogss">
-            <h1 className="blog-page-title"></h1>
-            <p className="blog-published"><span>Posted on:- </span></p>
-            <div className="blog-page-article">
-                
-            </div>
-         </div>
+                    <div className="blogss">
+                        <h1 className="blog-page-title">{blogData.title || "Untitled Blog"}</h1>
+                        <p className="blog-published">
+                            <span>Posted on:- </span>
+                            {blogData.created_at ? new Date(blogData.created_at).toLocaleDateString() : "Unknown Date"}
+                        </p>
+                        <div className="blog-page-article" dangerouslySetInnerHTML={{ __html: blogData.content || "No content available" }}></div>
+                    </div>
 
-        <h1 className="sub-heading">Read more</h1>
 
+                    <h1 className="sub-heading">Read more</h1>
+
+
+
+                    <div className="blog-actions">
+                        <button className="edit-btn" onClick={() => navigate(`/makeablog/${blogData.id}`)}> Edit </button>
+                        <button className="delete-btn" onClick={handleDeleteBlog}> Delete </button>
+                    </div>
 
 
 
@@ -137,14 +147,19 @@ const BlogPage = () => {
                         </div>
                     </div>
                 </div>
+
                 <div className="comment">
-                        {storeComments.map((item, index) => (
-                        <div key={index} className="commentItem">
-                            <p><strong>{item.name}:</strong> {item.comment}</p>
-                        </div>
-                        ))}
+                    {storeComments.map((item, index) => (
+                    <div key={index} className="commentItem">
+                        <p><strong>{item.name}:</strong> {item.comment}</p>
                     </div>
+                    ))}
+                </div>
             </section> 
+            </div>
+        ) : (
+            <p>Loading blog...</p>
+        )}
 
         </section>
 

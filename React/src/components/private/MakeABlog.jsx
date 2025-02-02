@@ -40,10 +40,14 @@ const MakeABlogPage = () => {
 
                     const data = await response.json();
                     if (response.ok) {
-                        setBlogTitle(data.title);
-                        setBlogContent(data.content);
-                        setBanner(data.bannerImage);  
-                        editorRef.current.innerHTML = data.content;
+                        const fetchedBlog = data.fetchBlog;  // Access the nested fetchBlog object
+                        setBlogTitle(fetchedBlog.title || "");
+                        setBlogContent(fetchedBlog.content || "");
+                        setBanner(fetchedBlog.banner_image || null);
+                        if (editorRef.current) {
+                            editorRef.current.innerHTML = fetchedBlog.content || "";
+                        }
+
                     } else {
                         console.error('Error fetching blog data:', data.error);
                     }
@@ -87,11 +91,18 @@ const MakeABlogPage = () => {
             document.getElementById('image-upload').click();
         } else if (command === "createLink") {
             const url = prompt("Enter the link URL:");
-            if (url) document.execCommand(command, false, url);
+            if (url) {
+                const link = document.createElement('a');
+                link.href = url;
+                link.target = "_blank"; // Open in a new tab
+                link.rel = "noopener noreferrer"; // Security measure
+                link.innerText = url; // You can customize the link text if needed
+                document.execCommand("insertHTML", false, link.outerHTML);
+            }
         } else {
             document.execCommand(command, false, value);
         }
-    };
+    };  
 
 
 
@@ -101,7 +112,10 @@ const MakeABlogPage = () => {
         title: blogTitle,
         content: editorRef.current.innerHTML,
         bannerImage: banner,
+        createdAt: new Date().toISOString(),
       };
+
+      console.log('Payload:', blogData); 
 
 
     // Getting token from localStorage
@@ -126,7 +140,14 @@ const MakeABlogPage = () => {
             });
 
             const result = await response.json();
+            console.log('Server response:', result);    // Log server response for debugging
+
             if (response.ok) {
+                // Update localStorage with the updated blog data
+                localStorage.setItem("publishedBlog", JSON.stringify(result.blog));
+                localStorage.setItem("blogId", result.blog.id); // Store the blog ID if needed
+
+
                 // Reset the form if the blog is updated
                 setBlogTitle('');
                 setBlogContent('');
@@ -151,6 +172,10 @@ const MakeABlogPage = () => {
         
             const result = await response.json();
             if (response.ok) {
+                // Save the newly created blog to localStorage
+                localStorage.setItem("publishedBlog", JSON.stringify(result.blog));
+                localStorage.setItem("blogId", result.blog.id); // Store the blog ID if needed
+
                 // Reset the form after the blog is created
                 setBlogTitle('');
                 setBlogContent('');
@@ -189,6 +214,7 @@ const MakeABlogPage = () => {
                 <textarea
                     type="text"
                     className="title"
+                    value={blogTitle}
                     placeholder="What's the name of your blog?"
                     onChange={(e) => setBlogTitle(e.target.value)}
                 />
@@ -252,7 +278,7 @@ const MakeABlogPage = () => {
                 <button className="my-button-text" onClick={() => formatText('insertImage')}>
                     <i className="fas fa-images"></i>
                 </button>
-                <button className="my-button-text" onClick={() => formatText('createLink')}>
+                <button className="my-button-text" onClick={() => formatText('createLink')} target="_blank">
                     <i className="fas fa-link"></i>
                 </button>
                 <button className="my-button-text" onClick={() => formatText('formatBlock', '<blockquote>')}>
