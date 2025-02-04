@@ -79,16 +79,17 @@ export const getBlog = async (req, res) => {
 export const updateExistingBlog = async (req, res) => {
     try {
         const userId = req.user.id;
+        console.log("User ID:", userId);
 
         const { id } = req.params;
-        const { title, content, bannerImage } = req.body; 
+        const { title, content, bannerImage } = req.body;
 
         if (!id || !title || !content || !bannerImage) {
             return res.status(400).json({ message: 'Blog ID, title, content, and banner image are required' });
         }
 
 
-        const blog = await getBlogById(id);
+        const blog = await getBlogById(id, userId); // Ensure userId is passed here
         if (!blog) {
             return res.status(404).json({ message: 'Blog not found' });
         }

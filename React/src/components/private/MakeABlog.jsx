@@ -115,8 +115,6 @@ const MakeABlogPage = () => {
         createdAt: new Date().toISOString(),
       };
 
-      console.log('Payload:', blogData); 
-
 
     // Getting token from localStorage
     const token = localStorage.getItem('token');
@@ -140,7 +138,6 @@ const MakeABlogPage = () => {
             });
 
             const result = await response.json();
-            console.log('Server response:', result);    // Log server response for debugging
 
             if (response.ok) {
                 // Update localStorage with the updated blog data
@@ -278,7 +275,7 @@ const MakeABlogPage = () => {
                 <button className="my-button-text" onClick={() => formatText('insertImage')}>
                     <i className="fas fa-images"></i>
                 </button>
-                <button className="my-button-text" onClick={() => formatText('createLink')} target="_blank">
+                <button className="my-button-text" onClick={() => formatText('createLink')}>
                     <i className="fas fa-link"></i>
                 </button>
                 <button className="my-button-text" onClick={() => formatText('formatBlock', '<blockquote>')}>

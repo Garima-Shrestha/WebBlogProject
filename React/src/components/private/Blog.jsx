@@ -18,7 +18,6 @@ const BlogPage = () => {
         if (storedBlog) {
             try {
                 const parsedBlog = JSON.parse(storedBlog);
-                console.log(parsedBlog);
                 setBlogData(parsedBlog);
             } catch (error) {
                 console.error('Failed to parse blog data:', error);
