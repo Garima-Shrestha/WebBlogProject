@@ -14,15 +14,15 @@ export const createBlog = async(userId, email, title, content, bannerImage) => {
 }
 
 
-export const getBlogById = async (id, userId) => {
+export const getBlogById = async (id) => {
     try {
         const query = `
-            SELECT blogs.*, users.email
+            SELECT blogs.*, users.email, blogs.user_id
             FROM blogs
             JOIN users ON blogs.user_id = users.id
-            WHERE blogs.id = $1 AND blogs.user_id = $2`
+            WHERE blogs.id = $1`
         ;                                                               //Blog table(make a blog page) bata 'id' fetch garne 
-        const values = [id, userId];
+        const values = [id];
         const result = await pool.query(query, values);
         return result.rows[0];
     }catch (error) {

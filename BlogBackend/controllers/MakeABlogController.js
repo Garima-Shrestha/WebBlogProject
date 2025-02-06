@@ -67,27 +67,26 @@ export const createNewBlog = async (req, res) => {
 
 
 
-//Id ko through blog fetch garnu
+// Id ko through blog fetch garnu
 export const getBlog = async (req, res) => {
-    try{
-        const userId = req.user.id;
- 
-        const {id} = req.params;
+    try {
+        const { id } = req.params;
 
         if (!id) {
             return res.status(400).json({ message: 'Blog ID is required' });
-        }        
+        }
 
-        const fetchBlog = await getBlogById(id, userId);
+        const fetchBlog = await getBlogById(id);
         if (!fetchBlog) {
             return res.status(404).json({ message: 'Blog not found' });
         }
-        res.status(200).json({message: 'Blog found successfully', fetchBlog});
-    }catch (error) {
+        console.log("Fetched Blog Data:", fetchBlog);
+        res.status(200).json({ message: 'Blog found successfully', fetchBlog });
+    } catch (error) {
         console.error('Error retrieving blog:', error.message);
         res.status(500).json({ message: 'Error retrieving blog', error: error.message });
     }
-}
+};
 
 
 

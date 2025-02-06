@@ -51,8 +51,13 @@ const BlogPage = () => {
                 if (response.ok) {
                     setBlogData(data.fetchBlog); // Ensure you access the correct nested object
                 } else {
+                    if (response.status === 404) {
+                        setFetchError("Blog not found.");
+                    } else {
+                        setFetchError("Error fetching blog data.");
+                    }
                     console.error('Error fetching blog data:', data.error);
-                }
+                }                
             } catch (error) {
                 console.error('Request failed:', error);
                 setFetchError("An error occurred while fetching the blog data.");
@@ -87,7 +92,7 @@ const BlogPage = () => {
             if (response.ok) {
                 // Remove the blog from local storage
                 localStorage.removeItem("publishedBlog");
-                navigate('/blog'); // Redirect to the blog list or home page
+                navigate('/home');
                 console.log('Blog deleted successfully');
             } else {
                 console.error('Error deleting blog:', await response.text());
@@ -128,9 +133,18 @@ const BlogPage = () => {
                     </div>
 
 
-                    <div className="blog-actions">
+                    {/* <div className="blog-actions">
                         <button className="edit-btn" onClick={() => navigate(`/makeablog/${blogData.id}`)}> Edit </button>
                         <button className="delete-btn" onClick={handleDeleteBlog}> Delete </button>
+                    </div> */}
+
+                    <div className="blog-actions">
+                        {blogData?.email === localStorage.getItem('email') && (
+                            <>
+                                <button className="edit-btn" onClick={() => navigate(`/makeablog/${blogData.id}`)}> Edit </button>
+                                <button className="delete-btn" onClick={handleDeleteBlog}> Delete </button>
+                            </>
+                        )}
                     </div>
 
 
