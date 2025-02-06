@@ -47,6 +47,28 @@ export const addNewCustomer = async (req, res) => {
 
         const { firstName, lastName, address, dob, email, contact, gender } = req.body;
 
+        // Validation
+        if (!firstName || firstName.length < 1 || firstName.length > 50) {
+            return res.status(400).json({ error: 'First name must be between 1 and 50 characters' });
+        }
+        if (!lastName || lastName.length < 1 || lastName.length > 50) {
+            return res.status(400).json({ error: 'Last name must be between 1 and 50 characters' });
+        }
+        const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!email || !emailCheck.test(email)) {
+            return res.status(400).json({ error: 'Invalid email format' });
+        }
+        const phoneCheck = /^\d{10}$/;
+        if (contact && !phoneCheck.test(contact)) {
+            return res.status(400).json({ error: 'Invalid phone number format' });
+        }
+        const validGenders = ['Male', 'Female', 'Others'];
+        if (!validGenders.includes(gender)) {
+            return res.status(400).json({ error: 'Invalid gender' });
+        }
+
+        
+
         const newCustomer = await addCustomer(userId, firstName, lastName, address, dob, email, contact, gender);
 
         if (!newCustomer) {
@@ -70,6 +92,28 @@ export const updateCustomerDetails = async (req, res) => {
 
         console.log('User ID:', userId); 
         const { firstName, lastName, address, dob, email, contact, gender } = req.body;
+
+        
+        // Validation
+        if (!firstName || firstName.length < 1 || firstName.length > 50) {
+            return res.status(400).json({ error: 'First name must be between 1 and 50 characters' });
+        }
+        if (!lastName || lastName.length < 1 || lastName.length > 50) {
+            return res.status(400).json({ error: 'Last name must be between 1 and 50 characters' });
+        }
+        const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!email || !emailCheck.test(email)) {
+            return res.status(400).json({ error: 'Invalid email format' });
+        }
+        const phoneCheck = /^\d{10}$/;
+        if (contact && !phoneCheck.test(contact)) {
+            return res.status(400).json({ error: 'Invalid phone number format' });
+        }
+        const validGenders = ['Male', 'Female', 'Others'];
+        if (!validGenders.includes(gender)) {
+            return res.status(400).json({ error: 'Invalid gender' });
+        }
+        
 
         const updatedCustomer = await updateCustomer(userId, firstName, lastName, address, dob, email, contact, gender);
         if (!updatedCustomer) {

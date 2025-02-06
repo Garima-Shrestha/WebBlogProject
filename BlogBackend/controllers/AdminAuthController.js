@@ -9,6 +9,16 @@ export const adminRegister= async (req, res) => {
 
     const { adminName, adminEmail, adminPassword } = req.body;
 
+    //validation
+    const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!adminEmail || !emailCheck.test(adminEmail)) {
+        return res.status(400).json({ error: 'Invalid email format' });
+    }
+    if (!adminPassword || adminPassword.length < 8 || adminPassword.length > 16) {
+      return res.status(400).json({ error: 'Password must be between 8 and 16 characters' });
+    }
+
+
     try {
         console.log('Checking if admin exists...');
         const existingAdmin = await findAdminEmail(adminEmail);
@@ -49,6 +59,16 @@ export const adminRegister= async (req, res) => {
 //login
     export const adminLogin = async (req, res) => {
       const { adminEmail, adminPassword } = req.body;
+
+      //validation
+      const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!adminEmail || !emailCheck.test(adminEmail)) {
+          return res.status(400).json({ error: 'Invalid email format' });
+      }
+      if (!adminPassword || adminPassword.length < 8 || adminPassword.length > 16) {
+        return res.status(400).json({ error: 'Password must be between 8 and 16 characters' });
+      }
+
   
       try {
           console.log('Finding admin by email...');

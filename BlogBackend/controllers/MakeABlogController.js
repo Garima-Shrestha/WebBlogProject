@@ -31,9 +31,24 @@ export const createNewBlog = async (req, res) => {
         const { title, content, bannerImage } = req.body; 
 
 
+        //validation
         if (!title || !content || !bannerImage || !email) {
             return res.status(400).json({ message: 'Title, content, banner image, and email are required' });
         }
+        if (!title || title.length < 1 || title.length > 100) {
+            return res.status(400).json({ message: 'Title must be between 1 and 100 characters' });
+        }
+        if (!content || content.length < 1) {
+            return res.status(400).json({ message: 'Content cannot be empty' });
+        }
+        if (!bannerImage) {
+            return res.status(400).json({ message: 'Banner image is required' });
+        }
+        const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!email || !emailCheck.test(email)) {
+            return res.status(400).json({ message: 'Invalid email format' });
+        }
+
 
         // Database ma blog lai add garna
         const newBlog = await createBlog(userId, email, title, content, bannerImage);
@@ -61,7 +76,7 @@ export const getBlog = async (req, res) => {
 
         if (!id) {
             return res.status(400).json({ message: 'Blog ID is required' });
-        }
+        }        
 
         const fetchBlog = await getBlogById(id, userId);
         if (!fetchBlog) {
@@ -85,8 +100,22 @@ export const updateExistingBlog = async (req, res) => {
         const { id } = req.params;
         const { email, title, content, bannerImage } = req.body;
 
+        //validation
         if (!id || !title || !content || !bannerImage || !email) {
             return res.status(400).json({ message: 'Blog ID, title, content, banner image, and email are required' });
+        }
+        if (!title || title.length < 1 || title.length > 100) {
+            return res.status(400).json({ message: 'Title must be between 1 and 100 characters' });
+        }
+        if (!content || content.length < 1) {
+            return res.status(400).json({ message: 'Content cannot be empty' });
+        }
+        if (!bannerImage) {
+            return res.status(400).json({ message: 'Banner image is required' });
+        }
+        const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!email || !emailCheck.test(email)) {
+            return res.status(400).json({ message: 'Invalid email format' });
         }
 
 
@@ -114,6 +143,10 @@ export const deleteBlogPageContent = async(req,res) => {
     try {
         const userId = req.user.id;
         const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ message: 'Blog ID is required' });
+        }        
         
         console.log("Deleting the Blog content...");
         const deletedBlog = await deleteBlog(id, userId);
