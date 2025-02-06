@@ -9,6 +9,8 @@ const MakeABlogPage = () => {
     const [banner, setBanner] = useState(null); 
     const [blogTitle, setBlogTitle] = useState(""); 
     const [blogContent, setBlogContent] = useState(""); 
+    const [saveError, setSaveError] = useState("");
+    const [fetchError, setFetchError] = useState("");
     const editorRef = useRef(null); 
 
     const navigate = useNavigate();
@@ -108,16 +110,30 @@ const MakeABlogPage = () => {
 
 
   const handlePublish = async () => {
+    const token = localStorage.getItem('token');
+    const email = localStorage.getItem('email'); // Move this line up before creating the blogData object
+
+    if (!token) {
+        setSaveError("You are not authenticated. Please log in.");
+        navigate('/login');
+        return;
+    }
+
+    if (!email) {
+        setSaveError("Email not found. Please log in again.");
+        navigate('/login');
+        return;
+    }
+
     const blogData = {
         title: blogTitle,
         content: editorRef.current.innerHTML,
         bannerImage: banner,
+        email: email,
         createdAt: new Date().toISOString(),
       };
 
 
-    // Getting token from localStorage
-    const token = localStorage.getItem('token');
     if (!token) {
         setSaveError("You are not authenticated. Please log in.");
         navigate('/login');
@@ -193,6 +209,7 @@ const MakeABlogPage = () => {
 
     return(
         <section className="make-blog-page">
+            {fetchError && <p className="error-message">{fetchError}</p>}
             <div className="banner">
                 <input
                     type="file"
@@ -304,6 +321,7 @@ const MakeABlogPage = () => {
 
 
             <div className="publish-container"> 
+                {saveError && <p className="error-message">{saveError}</p>}
                 <button className="btn publish-btn" onClick={handlePublish}>Publish</button> 
             </div>
 

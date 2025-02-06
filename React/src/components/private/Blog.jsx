@@ -93,10 +93,6 @@ const BlogPage = () => {
                     </div>
 
 
-                    <h1 className="sub-heading">Read more</h1>
-
-
-
                     <div className="blog-actions">
                         <button className="edit-btn" onClick={() => navigate(`/makeablog/${blogData.id}`)}> Edit </button>
                         <button className="delete-btn" onClick={handleDeleteBlog}> Delete </button>

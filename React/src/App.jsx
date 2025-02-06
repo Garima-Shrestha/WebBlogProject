@@ -64,6 +64,7 @@ function LocationWrapper({setToken, token}) {
         <Route path="/makeablog/:blogPageId" element={<PrivateRoute token={token} element={<MakeABlogPage />} />} />
         <Route path="/home" element={<PrivateRoute token={token} element={<HomePage />} />} />
         <Route path="/blog" element={<PrivateRoute token={token} element={<BlogPage />} />} />
+        <Route path="/blog/:id" element={<PrivateRoute token={token} element={<BlogPage />} />} /> 
       </Routes>
     </>
   );
