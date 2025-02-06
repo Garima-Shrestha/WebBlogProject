@@ -75,7 +75,7 @@ const HomePage = () => {
                                     <span>Posted on: {new Date(blog.created_at).toLocaleDateString()}</span>
                                 </p>
 
-                                <div className="blog-article" dangerouslySetInnerHTML={{ __html: blog.content }} />
+                                {/* <div className="blog-article" dangerouslySetInnerHTML={{ __html: blog.content }} /> */}
                             </div>
                         </div>
                     ))
