@@ -1,12 +1,15 @@
 import pkg from 'pg';
 const {Pool}= pkg;
 
+import dotentv from 'dotenv';
+dotentv.config();
+
 const pool = new Pool({
-    user: 'postgres', 
-    host: 'localhost',
-    database: 'webblogproject', 
-    password: 'post123sql', 
-    port: 5432, 
+    user: process.env.DB_USER, 
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME, 
+    password: process.env.DB_PASSWORD, 
+    port:  process.env.DB_PORT, 
 });
 
 // //Code to CREATE DATABASE
@@ -92,6 +95,7 @@ export const createAdminTable = async () => {
         const query = `CREATE TABLE IF NOT EXISTS blogs (
             id SERIAL PRIMARY KEY,
             user_id INT REFERENCES users(id) ON DELETE CASCADE,
+            email VARCHAR(100) NOT NULL,
             title VARCHAR(100) NOT NULL,
             content TEXT NOT NULL,
             banner_image VARCHAR(255),
@@ -103,7 +107,8 @@ export const createAdminTable = async () => {
     } catch (err) {
         console.error("Error creating blog table", err);
     }
-};
+  };
+
 
 
 export const createCommentsTable = async () => {

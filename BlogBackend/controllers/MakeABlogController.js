@@ -1,4 +1,4 @@
-import { createBlog, deleteBlog, getBlogById, updateBlog } from '../models/MakeABlogModel.js'; 
+import { createBlog, deleteBlog, getBlogById, updateBlog, getAllBlogsWithAuthors } from '../models/MakeABlogModel.js'; 
 // import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
@@ -26,16 +26,17 @@ const jwtSecret = process.env.JWT_SECRET;
 export const createNewBlog = async (req, res) => {
     try {
         const userId = req.user.id;   // Access userId from req.user
+        const email = req.user.email;
 
         const { title, content, bannerImage } = req.body; 
 
 
-        if (!title || !content || !bannerImage) {
-            return res.status(400).json({ message: 'Title, content, and banner image are required' });
+        if (!title || !content || !bannerImage || !email) {
+            return res.status(400).json({ message: 'Title, content, banner image, and email are required' });
         }
 
         // Database ma blog lai add garna
-        const newBlog = await createBlog(userId, title, content, bannerImage);
+        const newBlog = await createBlog(userId, email, title, content, bannerImage);
 
         if (!newBlog) {
             return res.status(500).json({ message: 'Failed to create blog' });
@@ -82,10 +83,10 @@ export const updateExistingBlog = async (req, res) => {
         console.log("User ID:", userId);
 
         const { id } = req.params;
-        const { title, content, bannerImage } = req.body;
+        const { email, title, content, bannerImage } = req.body;
 
-        if (!id || !title || !content || !bannerImage) {
-            return res.status(400).json({ message: 'Blog ID, title, content, and banner image are required' });
+        if (!id || !title || !content || !bannerImage || !email) {
+            return res.status(400).json({ message: 'Blog ID, title, content, banner image, and email are required' });
         }
 
 
@@ -94,7 +95,7 @@ export const updateExistingBlog = async (req, res) => {
             return res.status(404).json({ message: 'Blog not found' });
         }
 
-        const updatedBlog = await updateBlog(id, title, content, bannerImage, userId);
+        const updatedBlog = await updateBlog(id, title, content, bannerImage, userId, email);
 
         if (!updatedBlog) {
             return res.status(500).json({ message: 'Failed to update blog' });
@@ -127,3 +128,15 @@ export const deleteBlogPageContent = async(req,res) => {
         res.status(500).json({ message: 'Error deleting blog page', error: error.message });
     }
 }
+
+
+//fetching all blogs homepage ko lagi
+export const fetchAllBlogs = async (req, res) => {
+    try {
+        const blogs = await getAllBlogsWithAuthors();
+        res.status(200).json({message: 'Fetching all blogs', blogs });
+    } catch (error) {
+        console.error('Error fetching blogs:', error.message);
+        res.status(500).json({ message: 'Error fetching blogs', error: error.message });
+    }
+};
