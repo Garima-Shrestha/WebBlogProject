@@ -111,7 +111,7 @@ const MakeABlogPage = () => {
 
   const handlePublish = async () => {
     const token = localStorage.getItem('token');
-    const email = localStorage.getItem('email'); // Move this line up before creating the blogData object
+    const email = localStorage.getItem('email');
 
     if (!token) {
         setSaveError("You are not authenticated. Please log in.");
@@ -159,7 +159,7 @@ const MakeABlogPage = () => {
                 setBlogContent('');
                 setBanner(null);
                 editorRef.current.innerHTML = '';
-                navigate(`/blog`); // Redirect to the blog page after editing
+                navigate(`/blog/${result.blog.id}`); // Redirect to the updated blog page
                 console.log('Blog updated:', result);
             } else {
                 console.error('Error updating blog:', result.error);
@@ -187,7 +187,7 @@ const MakeABlogPage = () => {
                 setBlogContent('');
                 setBanner(null);
                 editorRef.current.innerHTML = '';
-                navigate(`/blog`); // Redirect to the newly created blog page
+                navigate(`/blog/${result.blog.id}`); // Redirect to the newly created blog pagee
                 console.log('Blog created:', result);
             } else {
                 console.error('Error creating blog:', result.error);

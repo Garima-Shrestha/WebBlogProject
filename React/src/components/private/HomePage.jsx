@@ -44,7 +44,7 @@ const HomePage = () => {
                         'Authorization': `Bearer ${token}` // Attach token to headers
                     }
                 });
-                console.log("Response received:", response);
+                
                 const data = await response.json();
                 if (response.ok) {
                     setBlogs(data.blogs); // Assuming the API returns an array of blogs

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 import '../css/BlogPage.css'
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import userProfileComment from '../../images/comment.png'
 
@@ -10,23 +10,57 @@ const BlogPage = () => {
     const[comment, setComment]=useState("");
     const [storeComments, setStoreComments] = useState([]); // State to store all comments
     const [blogData, setBlogData] = useState(null); 
+    const [fetchError, setFetchError] = useState(''); 
+
+    const { id } = useParams(); // Get blog ID from URL parameters
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const storedBlog = localStorage.getItem("publishedBlog");
-        if (storedBlog) {
-            try {
-                const parsedBlog = JSON.parse(storedBlog);
-                setBlogData(parsedBlog);
-            } catch (error) {
-                console.error('Failed to parse blog data:', error);
-            }
-        } else {
-            console.error('No blog data found in localStorage');
-        }
-    }, []);    
+    // useEffect(() => {
+    //     const storedBlog = localStorage.getItem("publishedBlog");
+    //     if (storedBlog) {
+    //         try {
+    //             const parsedBlog = JSON.parse(storedBlog);
+    //             setBlogData(parsedBlog);
+    //         } catch (error) {
+    //             console.error('Failed to parse blog data:', error);
+    //         }
+    //     } else {
+    //         console.error('No blog data found in localStorage');
+    //     }
+    // }, []);    
 
+
+    useEffect(() => {
+        const fetchBlogData = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                setFetchError("You are not authenticated. Please log in.");
+                navigate('/login');
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:5003/api/createblog/makeblog/fetch/${id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    setBlogData(data.fetchBlog); // Ensure you access the correct nested object
+                } else {
+                    console.error('Error fetching blog data:', data.error);
+                }
+            } catch (error) {
+                console.error('Request failed:', error);
+                setFetchError("An error occurred while fetching the blog data.");
+            }
+        };
+
+        fetchBlogData();
+    }, [id, navigate]);
 
 
     const handleDeleteBlog = async () => {
@@ -77,6 +111,7 @@ const BlogPage = () => {
 
     return(
         <section className="blog-page-container">        
+            {fetchError && <p className="error-message">{fetchError}</p>}
             {blogData? (
                 <div>
                     <div className="banner">
