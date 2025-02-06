@@ -133,13 +133,6 @@ const MakeABlogPage = () => {
         createdAt: new Date().toISOString(),
       };
 
-
-    if (!token) {
-        setSaveError("You are not authenticated. Please log in.");
-        navigate('/login');
-        return;
-    }
-
     try {
 
         if(blogPageId){

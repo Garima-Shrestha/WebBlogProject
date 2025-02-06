@@ -33,20 +33,20 @@ export const createNewBlog = async (req, res) => {
 
         //validation
         if (!title || !content || !bannerImage || !email) {
-            return res.status(400).json({ message: 'Title, content, banner image, and email are required' });
+            return res.status(400).json({ error: 'Title, content, banner image, and email are required' });
         }
         if (!title || title.length < 1 || title.length > 100) {
-            return res.status(400).json({ message: 'Title must be between 1 and 100 characters' });
+            return res.status(400).json({ error: 'Title must be between 1 and 100 characters' });
         }
         if (!content || content.length < 1) {
-            return res.status(400).json({ message: 'Content cannot be empty' });
+            return res.status(400).json({ error: 'Content cannot be empty' });
         }
         if (!bannerImage) {
-            return res.status(400).json({ message: 'Banner image is required' });
+            return res.status(400).json({ error: 'Banner image is required' });
         }
         const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!email || !emailCheck.test(email)) {
-            return res.status(400).json({ message: 'Invalid email format' });
+            return res.status(400).json({ error: 'Invalid email format' });
         }
 
 
@@ -102,20 +102,20 @@ export const updateExistingBlog = async (req, res) => {
 
         //validation
         if (!id || !title || !content || !bannerImage || !email) {
-            return res.status(400).json({ message: 'Blog ID, title, content, banner image, and email are required' });
+            return res.status(400).json({ error: 'Blog ID, title, content, banner image, and email are required' });
         }
         if (!title || title.length < 1 || title.length > 100) {
-            return res.status(400).json({ message: 'Title must be between 1 and 100 characters' });
+            return res.status(400).json({ error: 'Title must be between 1 and 100 characters' });
         }
         if (!content || content.length < 1) {
-            return res.status(400).json({ message: 'Content cannot be empty' });
+            return res.status(400).json({ error: 'Content cannot be empty' });
         }
         if (!bannerImage) {
-            return res.status(400).json({ message: 'Banner image is required' });
+            return res.status(400).json({ error: 'Banner image is required' });
         }
         const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!email || !emailCheck.test(email)) {
-            return res.status(400).json({ message: 'Invalid email format' });
+            return res.status(400).json({ error: 'Invalid email format' });
         }
 
 
