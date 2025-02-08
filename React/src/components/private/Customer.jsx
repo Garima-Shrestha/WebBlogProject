@@ -269,7 +269,7 @@ const CustomerPage = () => {
                         <br/>
 
 
-                        <br/><br/>{fetchError && <p className="error-message">{fetchError}</p>}
+                        <br/>{fetchError && <p className="error-message">{fetchError}</p>}<br/>
                         {saveError && <p className="error-message">{saveError}</p>}
 
 
