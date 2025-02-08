@@ -13,6 +13,7 @@ import MakeABlogPage from './components/private/MakeABlog';
 import HomePage from './components/private/HomePage';
 import BlogPage from './components/private/Blog';
 import AdminLogin from './components/public/AdminLogin';
+import DeleteAccountPage from './components/private/DeleteAccount';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token')); 
@@ -65,6 +66,7 @@ function LocationWrapper({setToken, token}) {
         <Route path="/home" element={<PrivateRoute token={token} element={<HomePage />} />} />
         <Route path="/blog" element={<PrivateRoute token={token} element={<BlogPage />} />} />
         <Route path="/blog/:id" element={<PrivateRoute token={token} element={<BlogPage />} />} /> 
+        <Route path="/deleteaccount" element={<PrivateRoute token={token} element={<DeleteAccountPage />} />} />
       </Routes>
     </>
   );
