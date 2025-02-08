@@ -1,9 +1,9 @@
 import {pool} from '../config/db.js';
 
-export const createAdmin = async (adminName, adminEmail, adminPassword) => {
+export const createAdmin = async (adminName, adminEmail, adminPassword, role) => {
     try {
-      const query = `INSERT INTO admin (username, email, password) VALUES ($1, $2, $3) RETURNING *`;
-      const values = [adminName, adminEmail, adminPassword];
+      const query = `INSERT INTO admin (username, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *`;
+      const values = [adminName, adminEmail, adminPassword, role];
       const result = await pool.query(query, values);
       return result.rows[0];
     } catch (error) {

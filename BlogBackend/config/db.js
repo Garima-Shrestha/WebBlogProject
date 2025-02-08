@@ -1,8 +1,8 @@
 import pkg from 'pg';
 const {Pool}= pkg;
 
-import dotentv from 'dotenv';
-dotentv.config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 const pool = new Pool({
     user: process.env.DB_USER, 
@@ -30,7 +30,8 @@ export const createTable = async () => {
         username VARCHAR(50) NOT NULL,
         email VARCHAR(100) UNIQUE NOT NULL,
         password TEXT NOT NULL,
-       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        role VARCHAR(10) NOT NULL DEFAULT 'blogger',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
         );
     `;
@@ -49,8 +50,8 @@ export const createAdminTable = async () => {
         username VARCHAR(50) NOT NULL,
         email VARCHAR(100) UNIQUE NOT NULL,
         password TEXT NOT NULL,
+        role VARCHAR(10) NOT NULL DEFAULT 'admin',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
         );
     `;
       await pool.query(query);

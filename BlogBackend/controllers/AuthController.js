@@ -6,7 +6,7 @@ dotenv.config();
 const jwtSecret=process.env.JWT_SECRET;
 
 export const register= async (req, res) => {
-    const { userName, email, password} = req.body;
+    const { userName, email, password, role='blogger'} = req.body;
 
 
     //validation
@@ -32,7 +32,7 @@ export const register= async (req, res) => {
         console.log('Creating new user...');
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = await createUser(userName, email, hashedPassword);
+        const newUser = await createUser(userName, email, hashedPassword, role);
     
         console.log('User created: ', newUser);
         
@@ -43,7 +43,7 @@ export const register= async (req, res) => {
     
         console.log('Generating JWT...');
         const token = jwt.sign(
-          { id: newUser.id, email: newUser.email }, 
+          { id: newUser.id, email: newUser.email, role:newUser.role  }, 
           jwtSecret, 
           { expiresIn: '24h' }
         );
@@ -89,14 +89,14 @@ export const register= async (req, res) => {
   
           console.log('Password matched. Generating JWT...');
           const token = jwt.sign(
-              { id: user.id, email: user.email },
+              { id: user.id, email: user.email, role:user.role  },
               jwtSecret,
               { expiresIn: '24h' }
           );
   
           res.status(200).json({
               message: 'Login successful',
-              user: { id: user.id, username: user.userName, email: user.email },
+              user: { id: user.id, username: user.userName, email: user.email, role:user.role  },
               token,
           });
       } catch (error) {

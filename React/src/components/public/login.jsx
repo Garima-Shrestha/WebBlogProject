@@ -75,6 +75,8 @@ const LoginPage = ({setToken}) => {
             setToken(data.token);
             localStorage.setItem("token", data.token);  // stores the token in local storage
             localStorage.setItem('email', login_email); // Store email in localStorage
+
+            localStorage.setItem("user", JSON.stringify({ isAuthenticated: true, role: data.user.role }));     // role: data.user.role => Storing user role received from backend
             navigate('/home');
           } else {
             console.error('Login failed:', data.error);

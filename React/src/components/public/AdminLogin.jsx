@@ -57,6 +57,7 @@ const AdminLogin= () => {
       
             if (response.ok) {
                 localStorage.setItem('token', data.token);
+                localStorage.setItem("user", JSON.stringify({ isAuthenticated: true, role: data.admin.role }));      // role: data.user.role => Storing user role received from backend
                 navigate('/home');
             } else {
               console.error('Admin Login failed:', data.error);
