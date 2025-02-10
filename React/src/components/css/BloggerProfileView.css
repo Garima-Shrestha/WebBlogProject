@@ -1,0 +1,7 @@
+table,th,td {
+    border: 1px solid black;
+    border-collapse: collapse;          /* 2 ota borders lai euta ma banai dinxa */
+    margin-top: 40px;
+    margin-left: 650px;
+}
+
