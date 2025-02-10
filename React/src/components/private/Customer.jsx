@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import '../css/Customer.css'
 import'../layout/Header';
 
 const CustomerPage = () => {
+    const { id } = useParams(); 
+
     const [CustomerFirstName, setCustomerFirstName]=useState("");
     const [CustomerLastName, setCustomerLastName]=useState("");
     const [CustomerAddress, setCustomerAddress]=useState("");
@@ -24,8 +26,9 @@ const CustomerPage = () => {
 
     // Fetch resume data on initial render
     useEffect(() => {
-        fetchCustomerDetails(); // Assuming you're fetching existing customer data on page load
-    }, []);
+        fetchCustomerDetails(); // Fetch existing customer data on page load
+    }, [id]); // Add id to the dependency array
+
 
 
     // Fetch existing customer details for editing
@@ -38,7 +41,7 @@ const CustomerPage = () => {
         }
         
         try {
-            const response = await fetch('http://localhost:5003/api/customerProfile/customer', {
+            const response = await fetch(`http://localhost:5003/api/customerProfile/customer/${id}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -132,7 +135,7 @@ const CustomerPage = () => {
         try {
             const url = CustomerID 
                 ? `http://localhost:5003/api/customerProfile/customer/update/${CustomerID}`
-                : 'http://localhost:5003/api/customerProfile/customer/add';
+                : `http://localhost:5003/api/customerProfile/customer/add`;
             const method = CustomerID ? 'PUT' : 'POST';
             const response = await fetch(url, {
                 method,

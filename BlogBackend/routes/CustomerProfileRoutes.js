@@ -4,7 +4,7 @@ import { getCustomer, addNewCustomer, updateCustomerDetails } from '../controlle
 
 const router = express.Router();
 
-router.get('/customer', authMiddleware, getCustomer);
+router.get('/customer/:id', authMiddleware, getCustomer);
 router.post('/customer/add', authMiddleware, addNewCustomer);
 router.put('/customer/update/:id', authMiddleware, updateCustomerDetails);
 
