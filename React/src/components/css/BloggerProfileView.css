@@ -5,3 +5,8 @@ table,th,td {
     margin-left: 650px;
 }
 
+.selected-row {
+    /* background-color: #d1e7dd; Light green background */
+    color: #2355df; /* Dark green text color */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}

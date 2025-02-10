@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import '../css/BloggerProfileView.css';
 
 const BloggerProfileViewPage = () =>{
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState([]); 
+    const [selectedUser, setSelectedUser] = useState(null);
     const navigate = useNavigate(); 
 
     useEffect(() => {
@@ -44,8 +45,37 @@ const BloggerProfileViewPage = () =>{
     const handleViewProfile = (id) => {
         navigate(`/customerProfile/${id}`);    // customer profile page ma nagivate garxa with the ID
     };
-    
 
+
+
+    const deleteBlogger = async () => {
+        if (!selectedUser) return; // If no user is selected, do nothing
+    
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`http://localhost:5003/api/bloggerprofileview/profileview/delete/${selectedUser}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+    
+            if (response.ok) {
+                // Remove the deleted user from the state
+                setUsers(users.filter(user => user.id !== selectedUser));
+                setSelectedUser(null); // Reset selected user ID
+            }
+        } catch (error) {
+            console.error('Error deleting blogger:', error);
+        }
+    };
+
+    const handleRowClick = (userId) => {
+        setSelectedUser(userId); // Set the selected user ID
+    };
+
+    
 
     return (
         <section className="blogger-view-container">
@@ -62,7 +92,10 @@ const BloggerProfileViewPage = () =>{
 
                     <tbody>
                         {users.map(user => (
-                            <tr key={user.id}>
+                            <tr key={user.id} 
+                                onClick={() => handleRowClick(user.id)}
+                                className={selectedUser  === user.id ? 'selected-row' : ''}
+                            >
                                 <td>{user.id}</td>
                                 <td>{user.username}</td>
                                 <td>{user.email}</td>
@@ -76,7 +109,7 @@ const BloggerProfileViewPage = () =>{
             </div>
 
             <div className="delete-button">
-                <button onClick={() => deleteBlogger()}>Delete Blogger</button>
+                <button onClick={deleteBlogger}>Delete</button>
             </div>
         </section>
     );
