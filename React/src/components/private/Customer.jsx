@@ -273,7 +273,7 @@ const CustomerPage = () => {
                         {saveError && <p className="error-message">{saveError}</p>}
 
 
-                        <button type="submit" id="customer_submit">Submit</button>            
+                        <button type="submit" id="customer_submit">{CustomerID ? 'Update Profile' : 'Submit Profile'}</button>            
                     </div>
                 </div>
             </form>
