@@ -8,14 +8,13 @@ import RegisterPage from './components/public/Register';
 import HeaderSection from './components/layout/Header';
 import CustomerPage from './components/private/Customer';
 import ContactPage from './components/private/Contacts'
-import AdminRegister from './components/public/AdminRegister';
 import MakeABlogPage from './components/private/MakeABlog';
 import HomePage from './components/private/HomePage';
 import BlogPage from './components/private/Blog';
-import AdminLogin from './components/public/AdminLogin';
 import DeleteAccountPage from './components/private/DeleteAccount';
 import BloggerProfileViewPage from './components/admin/BloggerProfileView';
 import BlogViewPage from './components/admin/BlogView';
+import PrivateRoute from './components/layout/PrivateRoute'; 
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token')); 
@@ -59,30 +58,29 @@ function LocationWrapper({setToken, token}) {
 
         
         {/* Private Routes */}
-        {/* <Route path="/customer" element={<PrivateRoute element={<CustomerPage />} />} /> */}
-        <Route path="/customer" element={<PrivateRoute token={token} element={<CustomerPage />} />} />
-        <Route path="/contact" element={<PrivateRoute token={token} element={<ContactPage />} />} />
-        <Route path="/makeblog" element={<PrivateRoute token={token} element={<MakeABlogPage />} />} />
-        <Route path="/makeablog/:blogPageId" element={<PrivateRoute token={token} element={<MakeABlogPage />} />} />
-        <Route path="/home" element={<PrivateRoute token={token} element={<HomePage />} />} />
-        <Route path="/blog" element={<PrivateRoute token={token} element={<BlogPage />} />} />
-        <Route path="/blog/:id" element={<PrivateRoute token={token} element={<BlogPage />} />} /> 
-        <Route path="/deleteaccount" element={<PrivateRoute token={token} element={<DeleteAccountPage />} />} />
+        <Route element={<PrivateRoute allowedRoles={["blogger", "admin"]} />}>
+            <Route path="/customer" element={<CustomerPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/makeblog" element={<MakeABlogPage />} />
+            <Route path="/makeablog/:blogPageId" element={<MakeABlogPage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:id" element={<BlogPage />} /> 
+            <Route path="/deleteaccount" element={<DeleteAccountPage />} />
+        </Route>
 
-        <Route path="/profileview" element={<PrivateRoute token={token} element={<BloggerProfileViewPage />} />} />
-        <Route path="/customerProfile/:id" element={<PrivateRoute token={token} element={<CustomerPage />} />} />
-        <Route path="/blogview" element={<PrivateRoute token={token} element={<BlogViewPage />} />} />
+
+
+        {/* Admin Route */}
+        <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
+            <Route path="/profileview" element={<BloggerProfileViewPage />} />
+            <Route path="/customerProfile/:id" element={<CustomerPage />} />
+            <Route path="/blogview" element={<BlogViewPage />} />
+        </Route>
+
       </Routes>
     </>
   );
-
-
-// Private Route Component
-function PrivateRoute({ token, element }) {
-  // If no token, redirect to login page
-  return token ? element : <Navigate to="/login" />;
-}
-
 }
 
 export default App;
