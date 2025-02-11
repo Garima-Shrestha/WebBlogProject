@@ -75,19 +75,17 @@
   }
   
   #delete-button {
-    width: 100%;
+    width: 400px;
     padding: 16px;
     background: #dc2626;
     color: white;
     border: none;
     border-radius: 8px;
     font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
     margin-top: 20px;
+    margin-left: 160px;
     position: relative;
     overflow: hidden;
   }
