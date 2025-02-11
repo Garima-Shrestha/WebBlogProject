@@ -1,4 +1,4 @@
-import { getBloggerInfo, deleteBloggerById } from '../models/BloggerProfileViewModel.js';
+import { getBloggerInfo, deleteBloggerById, updateBloggerById } from '../models/BloggerProfileViewModel.js';
 
 export const fetchBloggerInfo = async (req, res) => {
     try {
@@ -27,5 +27,26 @@ export const deleteBlogger = async (req, res) => {
     } catch (error) {
         console.error('Error deleting blogger:', error);
         res.status(500).json({ message: 'Error deleting blogger', error: error.message });
+    }
+};
+
+
+
+export const updateBlogger = async (req, res) => {
+    const bloggerId = req.params.id; 
+    const { username, email, password } = req.body; 
+
+    try {
+        const result = await updateBloggerById(bloggerId, username, email, password);
+        if (result.rowCount === 0) {
+            return res.status(404).json({ message: 'Blogger not found' });
+        }
+        res.status(200).json({ 
+            message: 'Blogger updated successfully',
+            updatedUser: result.rows[0] 
+          });
+    } catch (error) {
+        console.error('Error updating blogger:', error);
+        res.status(500).json({ message: 'Error updating blogger', error: error.message });
     }
 };

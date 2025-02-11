@@ -22,3 +22,20 @@ export const deleteBloggerById = async (id) => {
         throw error;  
     }
 };
+
+
+export const updateBloggerById = async (id, username, email, password) => {
+    const query = `
+        UPDATE users
+        SET username = $1, email = $2, password = $3
+        WHERE id = $4
+        RETURNING id, username, email
+    `; 
+    try {
+        const result = await pool.query(query, [username, email, password, id]);
+        return result;
+    } catch (error) {
+        console.error('Error updating blogger:', error);
+        throw error;
+    }
+};
