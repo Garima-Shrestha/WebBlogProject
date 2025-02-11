@@ -14,6 +14,8 @@ import HomePage from './components/private/HomePage';
 import BlogPage from './components/private/Blog';
 import AdminLogin from './components/public/AdminLogin';
 import DeleteAccountPage from './components/private/DeleteAccount';
+import BloggerProfileViewPage from './components/admin/BloggerProfileView';
+import BlogViewPage from './components/admin/BlogView';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token')); 
@@ -54,9 +56,8 @@ function LocationWrapper({setToken, token}) {
         {/* Public Routes */}
         <Route path="/login" element={<LoginPage setToken={setToken} />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/adminRegister" element={<AdminRegister />} />
-        <Route path="/adminLogin" element={<AdminLogin />} />
 
+        
         {/* Private Routes */}
         {/* <Route path="/customer" element={<PrivateRoute element={<CustomerPage />} />} /> */}
         <Route path="/customer" element={<PrivateRoute token={token} element={<CustomerPage />} />} />
@@ -67,6 +68,10 @@ function LocationWrapper({setToken, token}) {
         <Route path="/blog" element={<PrivateRoute token={token} element={<BlogPage />} />} />
         <Route path="/blog/:id" element={<PrivateRoute token={token} element={<BlogPage />} />} /> 
         <Route path="/deleteaccount" element={<PrivateRoute token={token} element={<DeleteAccountPage />} />} />
+
+        <Route path="/profileview" element={<PrivateRoute token={token} element={<BloggerProfileViewPage />} />} />
+        <Route path="/customerProfile/:id" element={<PrivateRoute token={token} element={<CustomerPage />} />} />
+        <Route path="/blogview" element={<PrivateRoute token={token} element={<BlogViewPage />} />} />
       </Routes>
     </>
   );
