@@ -39,3 +39,20 @@ export const updateBloggerById = async (id, username, email, password) => {
         throw error;
     }
 };
+
+
+
+export const addBloggersByAdmin = async (username, email, password) => {
+    const query = `
+        INSERT INTO users (username, email, password)
+        VALUES ($1, $2, $3)
+        RETURNING id, username, email
+    `;
+    try {
+        const result = await pool.query(query, [username, email, password]);
+        return result.rows[0]; // Return the newly added blogger
+    } catch (error) {
+        console.error('Error adding blogger to DB:', error);
+        throw error;  
+    }
+};

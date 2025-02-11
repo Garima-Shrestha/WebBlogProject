@@ -11,6 +11,7 @@ const BloggerProfileViewPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [forceUpdate, setForceUpdate] = useState(0); // State variable to trigger re-render
+    const [addError, setAddError] = useState('');
 
     const navigate = useNavigate();
 
@@ -117,6 +118,46 @@ const BloggerProfileViewPage = () => {
         }
     };
 
+
+    const addBlogger = async () => {
+        try {
+            if (!username || !email || !password) {
+                setAddError("All fields are required.");
+                return;
+            }
+        
+            const token = localStorage.getItem('token');
+            const response = await fetch(`http://localhost:5003/api/bloggerprofileview/profileview/add`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    username: username,
+                    email: email,
+                    password: password
+                }),
+            });
+
+            if (response.ok) {
+                await fetchUsers(); // Re-fetch the user data to ensure updated state
+                setForceUpdate(forceUpdate + 1); // Trigger re-render
+                // Reset form fields
+                setUsername('');
+                setEmail('');
+                setPassword('');
+                setAddError(''); // Clear the error message
+            } else {
+                const errorData = await response.json();
+                setAddError(errorData.error || "Failed to add blogger.");
+            }
+        } catch (error) {
+            console.error('Error adding blogger:', error);
+            setAddError("Error adding blogger.");
+        }
+    }
+
     return (
         <section className="blogger-view-container">
             <div className="blogger-input">
@@ -165,6 +206,9 @@ const BloggerProfileViewPage = () => {
                     onClick={togglePasswordVisibility}
                 />
                 <label htmlFor="showPass" style={{ fontSize: '14px' }}>Show Password</label><br />
+
+                {addError && <p className="error-message">{addError}</p>}
+
             </div>
 
             <div className="blogger-table-list">
@@ -190,6 +234,10 @@ const BloggerProfileViewPage = () => {
                         ))}
                     </tbody>
                 </table>
+            </div>
+
+            <div className="add-button">
+                <button onClick={addBlogger}>Add</button>
             </div>
 
             <div className="edit-button">

@@ -1,4 +1,4 @@
-import { getBloggerInfo, deleteBloggerById, updateBloggerById } from '../models/BloggerProfileViewModel.js';
+import { getBloggerInfo, deleteBloggerById, updateBloggerById, addBloggersByAdmin } from '../models/BloggerProfileViewModel.js';
 
 export const fetchBloggerInfo = async (req, res) => {
     try {
@@ -48,5 +48,19 @@ export const updateBlogger = async (req, res) => {
     } catch (error) {
         console.error('Error updating blogger:', error);
         res.status(500).json({ message: 'Error updating blogger', error: error.message });
+    }
+};
+
+
+
+export const addBlogger = async (req, res) => {
+    const { username, email, password } = req.body; // Get data from request body
+
+    try {
+        const newBlogger = await addBloggersByAdmin(username, email, password); // Call the model function to add the blogger
+        res.status(201).json({ message: 'Blogger added successfully', blogger: newBlogger });
+    } catch (error) {
+        console.error('Error adding blogger:', error);
+        res.status(500).json({ message: 'Error adding blogger', error: error.message });
     }
 };
