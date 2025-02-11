@@ -1,4 +1,4 @@
-.blogger-view-container .blogger-view-container {
+.blogger-view-container {
     max-width: 1200px;
     margin: 32px auto;
     padding: 32px;
@@ -15,7 +15,7 @@
     border: 1px solid #e2e8f0;
   }
   
-  .blogger-view-container  .blogger-input label {
+  .blogger-view-container .blogger-input label {
     display: inline-block;
     width: 120px;
     margin-bottom: 8px;
@@ -38,8 +38,8 @@
   
   .blogger-view-container .blogger-input input:focus {
     outline: none;
-    border-color: #6384f1;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    border-color: #89acdd;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.blogger-view-container .1);
   }
   
   .blogger-view-container .blogger-input input:hover {
@@ -69,12 +69,18 @@
     border-bottom: 2px solid #334155;
   }
   
+
   .blogger-view-container .blogger-table-list td {
     padding: 16px;
     border-bottom: 1px solid #e2e8f0;
     color: #475569;
   }
   
+
+  
+  .blogger-view-container .blogger-table-list tr:last-child td {
+    border-bottom: none;
+  }
   
   .blogger-view-container .blogger-table-list tr:hover {
     background: #f1f5f9;
@@ -106,13 +112,13 @@
   .blogger-view-container .add-button button {
     background: #10b981;
     color: white;
-    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.blogger-view-container .2);
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
   }
   
   .blogger-view-container .edit-button button {
     background: #6366f1;
     color: white;
-    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.blogger-view-container .2);
+    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
   }
   
   .blogger-view-container .delete-button button {
@@ -121,7 +127,7 @@
     box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
   }
   
-   .blogger-view-containerbutton:hover {
+  .blogger-view-container button:hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
@@ -130,7 +136,7 @@
     transform: translateY(0);
   }
   
-.blogger-view-container .error-message {
+  .blogger-view-container .error-message {
     color: #ef4444;
     margin-top: 8px;
     font-size: 14px;
@@ -141,18 +147,17 @@
   }
   
   /* Checkbox styling */
-  input[type="checkbox"] {
+  .blogger-view-container input[type="checkbox"] {
     margin-right: 8px;
     width: 16px;
     height: 16px;
-    accent-color: #6366f1;
+    accent-color: #2047e4;
   }
   
-
-
+  
   /* Responsive adjustments */
   @media (max-width: 768px) {
-     .blogger-view-container.blogger-view-container {
+    .blogger-view-container .blogger-view-container {
       padding: 16px;
       margin: 16px;
     }
