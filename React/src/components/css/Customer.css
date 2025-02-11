@@ -85,7 +85,13 @@ body{
     color: #F1F5F9;
     transform: scale(1.02);
 }
-
+.customer_WebBody .error-message{
+    color: red;
+    font-size: 12px;
+    margin-left: 170px;
+    margin-top: -10px;
+    margin-bottom: -5px;
+}
 
 
 

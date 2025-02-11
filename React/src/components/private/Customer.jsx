@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import '../css/Customer.css'
 import'../layout/Header';
 
 const CustomerPage = () => {
-    const { id } = useParams(); 
-
     const [CustomerFirstName, setCustomerFirstName]=useState("");
     const [CustomerLastName, setCustomerLastName]=useState("");
     const [CustomerAddress, setCustomerAddress]=useState("");
@@ -26,9 +24,8 @@ const CustomerPage = () => {
 
     // Fetch resume data on initial render
     useEffect(() => {
-        fetchCustomerDetails(); // Fetch existing customer data on page load
-    }, [id]); // Add id to the dependency array
-
+        fetchCustomerDetails(); // Assuming you're fetching existing customer data on page load
+    }, []); 
 
 
     // Fetch existing customer details for editing
@@ -41,7 +38,7 @@ const CustomerPage = () => {
         }
         
         try {
-            const response = await fetch(`http://localhost:5003/api/customerProfile/customer/${id}`, {
+            const response = await fetch(`http://localhost:5003/api/customerProfile/customer`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,

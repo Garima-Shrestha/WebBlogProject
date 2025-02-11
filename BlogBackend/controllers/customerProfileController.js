@@ -25,9 +25,7 @@ const jwtSecret=process.env.JWT_SECRET;
 export const getCustomer = async (req, res) => {
     try {
         // const userId = verifyTokenAndGetUserId(req);
-
-        // For Admin view profile: req.params.id | For Customer view profile: req.user.id
-        const userId = req.params.id && req.params.id !== 'undefined' ? req.params.id : req.user.id;
+        const userId = req.user.id; // Get user ID from the request
 
         const customer = await getCustomerByUserId(userId);
         if (!customer) {
