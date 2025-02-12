@@ -62,17 +62,23 @@ const BloggerProfileViewPage = () => {
     
         try {
             const token = localStorage.getItem('token');
+
+            const updateData = {
+                username: username,
+                email: email
+              };
+
+            if (password.trim() !== "") {
+              updateData.password = password;
+            }
+                
             const response = await fetch(`http://localhost:5003/api/bloggerprofileview/profileview/update/${selectedUser}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({
-                    username: username,
-                    email: email,
-                    password: password
-                }),
+                body: JSON.stringify(updateData),
             });
 
             if (response.ok) {

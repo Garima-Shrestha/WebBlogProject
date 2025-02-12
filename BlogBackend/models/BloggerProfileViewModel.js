@@ -24,21 +24,27 @@ export const deleteBloggerById = async (id) => {
 };
 
 
-export const updateBloggerById = async (id, username, email, password) => {
-    const query = `
-        UPDATE users
-        SET username = $1, email = $2, password = $3
-        WHERE id = $4
-        RETURNING id, username, email
-    `; 
-    try {
-        const result = await pool.query(query, [username, email, password, id]);
-        return result;
-    } catch (error) {
-        console.error('Error updating blogger:', error);
-        throw error;
-    }
-};
+export const updateBloggerById = async (id, userData) => {
+    const fields = [];
+    const values = [];
+    let paramIndex = 1;
+  
+    Object.entries(userData).forEach(([key, value]) => {
+      if (value !== undefined) {
+        fields.push(`${key} = $${paramIndex}`);
+        values.push(value);
+        paramIndex++;
+      }
+    });
+  
+    if (fields.length === 0) throw new Error("No fields to update");
+  
+    values.push(id);
+    const query = `UPDATE users SET ${fields.join(', ')} WHERE id = $${paramIndex} RETURNING *`;
+    const result = await pool.query(query, values);
+    return result.rows[0];
+  };
+  
 
 
 
