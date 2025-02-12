@@ -19,6 +19,9 @@ import PublicRoute from './components/layout/PublicRoute';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token')); 
+  const user = JSON.parse(localStorage.getItem("user")); 
+  const role = user ? user.role : null; 
+
 
   // Store token in localStorage when it changes
   useEffect(() => {                                    
@@ -32,30 +35,28 @@ function App() {
 
   return (
     <Router>
-      <LocationWrapper setToken={setToken} token={token} />
+      <LocationWrapper setToken={setToken} token={token} role={role} />
     </Router>
   );
 }
 
-function LocationWrapper({setToken, token}) {
+function LocationWrapper({setToken, token, role}) {
   const location = useLocation();
-  console.log('Current Path:', location.pathname);  // Log to check the current path
+  console.log('Current Path:', location.pathname);  
+  console.log('User Role:', role); 
 
   return (
     <>
       {/* Header will not be in the login and register page */}
       {location.pathname !== '/' && location.pathname !== '/login' && 
-      location.pathname !== '/register' && location.pathname !=='/adminRegister' 
-      && location.pathname !== '/adminLogin' && <HeaderSection />}       {/* header is kept here not below because if we keep header below the routes then: 
+      location.pathname !== '/register' && <HeaderSection />}  {/* header is kept here not below because if we keep header below the routes then: 
                                                                                                                                     the routes would be displayed first, and only then would the header appear. */}
 
       <Routes>
         {/* Redirect to /home if logged in, else show login */}
-        <Route path="/" element={token ? <Navigate to="/home" /> : <LoginPage setToken={setToken} />} />
+        <Route path="/"  element={role === "admin" ? <Navigate to="/profileview" /> : role ? <Navigate to="/home" /> : <LoginPage setToken={setToken} />} />
 
         {/* Public Routes */}
-        {/* <Route path="/login" element={<LoginPage setToken={setToken} />} />
-        <Route path="/register" element={<RegisterPage />} /> */}
 
         <Route path="/login" element={ <PublicRoute> <LoginPage setToken={setToken} /> </PublicRoute> } />
         <Route path="/register" element={ <PublicRoute> <RegisterPage /> </PublicRoute> } />
