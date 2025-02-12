@@ -34,32 +34,6 @@ const LoginPage = ({setToken}) => {
     const handlelogin = async (e) => {
         e.preventDefault();
 
-        let hasError = false;   
-        
-        const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailCheck.test(login_email)) {
-            setEmailError("Please enter a valid email address");
-            hasError = true;
-        }
-        
-        // If email has an error, return early and stop further validation
-        if (hasError) {
-          return;
-      }   
-
-
-      if (!login_password) {
-        setPasswordError("Password is required.");
-        hasError = true;
-      }
-      
-      if (hasError) {
-        return; // Stop submission if there's an error
-      }
-
-
-
-        // If no errors, proceed with the login (this can be an API call)
         try {
           const response = await fetch('http://localhost:5003/api/auth/login', {
             method: 'POST',

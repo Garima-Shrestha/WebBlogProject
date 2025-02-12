@@ -60,16 +60,6 @@ export const register= async (req, res) => {
     //login
     export const login = async (req, res) => {
       const { email, password } = req.body;
-
-      //validation
-      const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      if (!email || !emailCheck.test(email)) {
-          return res.status(400).json({ error: 'Invalid email format' });
-      }
-      if (!password || password.length < 8 || password.length > 16) {
-        return res.status(400).json({ error: 'Password must be between 8 and 16 characters' });
-    }
-    
   
       try {
           console.log('Finding user by email...');
