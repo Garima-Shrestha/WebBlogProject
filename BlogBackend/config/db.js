@@ -43,26 +43,6 @@ export const createTable = async () => {
   };
 
 
-export const createAdminTable = async () => {
-    try {
-        const query = `CREATE TABLE IF NOT EXISTS admin (
-        id SERIAL PRIMARY KEY,
-        username VARCHAR(50) NOT NULL,
-        email VARCHAR(100) UNIQUE NOT NULL,
-        password TEXT NOT NULL,
-        role VARCHAR(10) NOT NULL DEFAULT 'admin',
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        );
-    `;
-      await pool.query(query);
-      console.log("Admin Table created");
-    } catch (err) {
-      console.error("Error creating table", err);
-    }
-  };
-
-
-
   //For customer profile/details
   export const createCustomerTable = async () => {
     try {
