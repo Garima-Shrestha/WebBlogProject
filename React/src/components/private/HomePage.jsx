@@ -33,6 +33,15 @@ const HomePage = () => {
     return (
         <section className="home-page-container">
             <section className="home-WebBody">
+            <input 
+                    type="search" 
+                    id="search_bar" 
+                    name="search_bar" 
+                    placeholder="Search Article"
+                />
+                <button id="search_button">Search</button>
+
+
                 {blogs.length > 0 ? (
                     blogs.map((blog) => (
                         <div key={blog.id} className="body_details" onClick={() => navigate(`/blog/${blog.id}`)}>

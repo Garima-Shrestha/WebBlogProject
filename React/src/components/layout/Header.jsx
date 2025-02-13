@@ -40,15 +40,7 @@ const HeaderSection = ({ setToken }) => {
                 </ul>
             </div>
 
-            <div className="search_dashboard">
-                <input 
-                    type="search" 
-                    id="search_bar" 
-                    name="search_bar" 
-                    placeholder="Search Article"
-                />
-                <button id="search_button">Search</button>
-
+            <div className="dropdown-menu">
                 <select name="dropdown" id="dropdown" onChange={handleSelectChange}>
                     <option value="delete-account">Manage Account</option>
                     <option value="logout">Logout</option>
