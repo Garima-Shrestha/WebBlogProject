@@ -3,17 +3,16 @@
     max-width: 1200px;
     margin: auto;
     padding: 20px;
+    background-color: #ffffff;
 }
 
 .blog-page-container .banner{
     width: 100%;
     height: 400px;
     position: relative;
-    background: #e7e7e7;
     background-size: cover;
     background-position: center;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden; /* Hide any part of the image that goes out of bounds */
     top: 3px;
 }
@@ -30,7 +29,7 @@
 
 /* Blog Content Section */
 .blog-page-container .blogss {
-    margin-top: 30px;
+    margin-top: 130px;
     background: white;
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
@@ -69,11 +68,13 @@
 }
 
 .blog-page-container .blog-page-article img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
-  margin: 24px 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 300px;
+    max-height: 300px; 
+    width: auto;     
+    height: auto;     
+    margin: 10px 0;
+    display: block; 
+    object-fit: cover;
 }
 
 /* Action Buttons */
@@ -227,30 +228,54 @@
   color: #1e293b;
 }
 
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .blog-page-container {
-    margin: 20px auto;
+    padding: 15px;
   }
 
   .blog-page-container .banner {
-    height: 300px;
+      height: 300px;
   }
 
   .blog-page-container .blogss {
-    padding: 24px;
+      padding: 24px;
   }
 
   .blog-page-container .blog-page-title {
-    font-size: 24px;
+      font-size: 24px;
   }
 
   .blog-page-container .comment_section {
-    padding: 20px;
+      padding: 20px;
   }
 
-  .blog-actions button {
-    padding: 10px 16px;
+  .blog-page-container .blog-actions {
+      flex-direction: column;
+  }
+
+  .blog-page-container .blog-actions button {
+      width: 100%;
+      padding: 10px 16px;
   }
 }
 
+@media (max-width: 480px) {
+  .banner {
+      height: 200px;
+  }
+
+  .blogss {
+      padding: 16px;
+  }
+
+  .blog-page-title {
+      font-size: 20px;
+  }
+
+  .commentbox {
+      flex-direction: column;
+      gap: 12px;
+  }
+} 
