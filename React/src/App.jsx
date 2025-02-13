@@ -49,7 +49,7 @@ function LocationWrapper({setToken, token, role}) {
     <>
       {/* Header will not be in the login and register page */}
       {location.pathname !== '/' && location.pathname !== '/login' && 
-      location.pathname !== '/register' && <HeaderSection />}  {/* header is kept here not below because if we keep header below the routes then: 
+      location.pathname !== '/register' && <HeaderSection setToken={setToken} />}  {/* header is kept here not below because if we keep header below the routes then: 
                                                                                                                                     the routes would be displayed first, and only then would the header appear. */}
 
       <Routes>

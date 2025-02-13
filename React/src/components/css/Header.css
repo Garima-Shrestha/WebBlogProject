@@ -82,7 +82,7 @@
     color: #F8FAFC;
 }
 
-.Header #admin_dashboard {
+.Header #dropdown {
     padding: 5px;
     font-size: 13px;
     background-color: #1E293B;
@@ -92,13 +92,13 @@
     margin-right: 5px;
 }
 
-.Header #admin_dashboard option {
+.Header #dropdown option {
     background-color: #1E293B;
     color: white;
 }
 
 
-.Header #admin_dashboard:hover {
+.Header #dropdown:hover {
     background-color: #334155;
     color: #F8FAFC;
 }
