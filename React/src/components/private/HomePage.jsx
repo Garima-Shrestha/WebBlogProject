@@ -1,31 +1,3 @@
-// import React, {useState} from "react";
-// import '../css/HomePage.css'
-
-
-// const HomePage =()=>{
-    
-
-//     return(
-//     <section className="home-page-container">
-//         <section className="home-WebBody">
-//             <div className="body_details">
-//                 <div className="card-body">
-//                     <div className="banner-image"></div>
-//                     <h1 className="Blogtitle"></h1>
-//                     <p className="published-by">
-//                         <span>Posted by:- </span>
-//                     </p>
-//                     <div className="blog-article"></div>
-//                 </div>
-//             </div>
-//         </section>
-//     </section>  
-//     )
-// }
-
-// export default HomePage;
-
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import '../css/HomePage.css';
@@ -66,7 +38,7 @@ const HomePage = () => {
                         <div key={blog.id} className="body_details" onClick={() => navigate(`/blog/${blog.id}`)}>
                             <div className="card-body">
                                 <div className="banner-image">
-                                    <img src={blog.banner_image} alt="Blog Banner" />
+                                    <img src={`http://localhost:5003/uploads/${blog.banner_image}`} alt="Blog Banner" />
                                 </div>
                                 <h1 className="Blogtitle">{blog.title}</h1>
                                 <p className="published-by">

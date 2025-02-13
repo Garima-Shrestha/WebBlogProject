@@ -16,20 +16,6 @@ const BlogPage = () => {
 
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     const storedBlog = localStorage.getItem("publishedBlog");
-    //     if (storedBlog) {
-    //         try {
-    //             const parsedBlog = JSON.parse(storedBlog);
-    //             setBlogData(parsedBlog);
-    //         } catch (error) {
-    //             console.error('Failed to parse blog data:', error);
-    //         }
-    //     } else {
-    //         console.error('No blog data found in localStorage');
-    //     }
-    // }, []);    
-
 
     useEffect(() => {
         const fetchBlogData = async () => {
@@ -120,7 +106,7 @@ const BlogPage = () => {
             {blogData? (
                 <div>
                     <div className="banner">
-                        <img src={blogData.banner_image} alt="Blog Banner" />
+                        <img src={`http://localhost:5003/uploads/${blogData.banner_image}`} alt="Blog Banner" /> 
                     </div>
 
                     <div className="blogss">

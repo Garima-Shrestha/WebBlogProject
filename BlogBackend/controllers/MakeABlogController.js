@@ -1,25 +1,23 @@
 import { createBlog, deleteBlog, getBlogById, updateBlog, getAllBlogsWithAuthors } from '../models/MakeABlogModel.js'; 
-// import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-
-dotenv.config();
-const jwtSecret = process.env.JWT_SECRET;
+import multer from 'multer';
+import path from 'path';
 
 
-// // Middleware to verify the JWT token and extract the user ID
-// const verifyTokenAndGetUserId = (req) => {
-//     try {
-//         const token = req.headers.authorization?.split(' ')[1];
-//         if (!token) {
-//             res.status(401).json({ message: 'No token provided' });
-//         }
-//         const decoded = jwt.verify(token, jwtSecret);
-//         return decoded.id; // User ID from JWT
-//     } catch (error) {
-//         res.status(401).json({ message: 'Invalid token' });
-//     }
-// };
+// Set up multer for file storage
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads/'); // Directory to save uploaded files
+    },
+    filename: (req, file, cb) => {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+      cb(null, uniqueSuffix + path.extname(file.originalname)); // Append file extension
+    }
+  });
+  
+  const upload = multer({ storage: storage });
 
+
+  
 
 
 // Controller to handle blog creation
@@ -28,9 +26,10 @@ export const createNewBlog = async (req, res) => {
         const userId = req.user.id;   // Access userId from req.user
         const email = req.user.email;
 
-        const { title, content, bannerImage } = req.body; 
+        const { title, content } = req.body; 
+        const bannerImage = req.file ? req.file.filename : null; // Get the uploaded file path
 
-
+        
         //validation
         if (!title || !content || !bannerImage || !email) {
             return res.status(400).json({ error: 'Title, content, banner image, and email are required' });
@@ -93,12 +92,14 @@ export const getBlog = async (req, res) => {
 //update lai handle garna
 export const updateExistingBlog = async (req, res) => {
     try {
-        const userId = req.user.id;
+       const userId = req.user.id;
         console.log("User ID:", userId);
 
         const { id } = req.params;
-        const { email, title, content, bannerImage } = req.body;
-
+        const { email, title, content } = req.body;
+        const bannerImage = req.file ? req.file.filename : req.body.imageFile;
+    
+    
         //validation
         if (!id || !title || !content || !bannerImage || !email) {
             return res.status(400).json({ error: 'Blog ID, title, content, banner image, and email are required' });
@@ -123,7 +124,10 @@ export const updateExistingBlog = async (req, res) => {
             return res.status(404).json({ message: 'Blog not found' });
         }
 
-        const updatedBlog = await updateBlog(id, title, content, bannerImage, userId, email);
+        const finalBannerImage = req.file ? req.file.filename : blog.banner_image; // Use uploaded file or existing
+
+        const updatedBlog = await updateBlog(id, title, content, finalBannerImage, userId, email);
+
 
         if (!updatedBlog) {
             return res.status(500).json({ message: 'Failed to update blog' });

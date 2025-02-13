@@ -11,14 +11,31 @@ import MakeABlogRoutes from './routes/MakeABlogRoutes.js';
 import BloggerProfileViewRoutes from './routes/BloggerProfileViewRoutes.js';
 
 
+import path from 'path';  // Import path to handle static files
+import { fileURLToPath } from 'url';  // Import to use fileURLToPath
+import { dirname } from 'path';  // Import to use dirname
+
+
+
 dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const app = express();
+
+
 
 //Initializing the database
 createTable();
 createCustomerTable();
 createBlogTable(); 
 
+
+
+
+// Serve static files from the 'uploads' directory
+const uploadsPath = path.join(__dirname, 'uploads');
+console.log("Uploads directory:", uploadsPath);
+app.use('/uploads', express.static(uploadsPath)); // This line serves the static files
 
 
 

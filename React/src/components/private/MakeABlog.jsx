@@ -6,12 +6,15 @@ import updoad from '../../images/upload.jpg'
 
 const MakeABlogPage = () => {
 
-    const [banner, setBanner] = useState(null); 
     const [blogTitle, setBlogTitle] = useState(""); 
     const [blogContent, setBlogContent] = useState(""); 
     const [saveError, setSaveError] = useState("");
     const [fetchError, setFetchError] = useState("");
     const editorRef = useRef(null); 
+    const [bannerFile, setBannerFile] = useState(null); // For the file object
+    const [bannerPreview, setBannerPreview] = useState(null); // For the preview URL
+    const [existingBannerImagePath, setExistingBannerImagePath] = useState(''); // New state for existing image path
+
 
     const navigate = useNavigate();
 
@@ -45,7 +48,9 @@ const MakeABlogPage = () => {
                         const fetchedBlog = data.fetchBlog;  // Access the nested fetchBlog object
                         setBlogTitle(fetchedBlog.title || "");
                         setBlogContent(fetchedBlog.content || "");
-                        setBanner(fetchedBlog.banner_image || null);
+                        setBannerPreview(`http://localhost:5003/uploads/${fetchedBlog.banner_image}`);
+                        setExistingBannerImagePath(fetchedBlog.banner_image); 
+
                         if (editorRef.current) {
                             editorRef.current.innerHTML = fetchedBlog.content || "";
                         }
@@ -64,13 +69,14 @@ const MakeABlogPage = () => {
 
 
 
-    //yo code le banner ma chai image halna help garxa
     const handleBannerUpload = (e) => {
-        const file = e.target.files[0];                //Access the first file in the file input.
+        const file = e.target.files?.[0];
         if (file) {
-            setBanner(URL.createObjectURL(file));      // Create a temporary URL to display the uploaded file.
-        }
+            setBannerFile(file);       // Store the file object
+            setBannerPreview(URL.createObjectURL(file));
+        } 
     };
+    
 
 
     const handleImageUpload = (e) => {
@@ -125,13 +131,18 @@ const MakeABlogPage = () => {
         return;
     }
 
-    const blogData = {
-        title: blogTitle,
-        content: editorRef.current.innerHTML,
-        bannerImage: banner,
-        email: email,
-        createdAt: new Date().toISOString(),
-      };
+
+    const blogData = new FormData();     // Use FormData to send files
+    blogData.append('title', blogTitle);
+    blogData.append('content', editorRef.current.innerHTML);
+    blogData.append('email', email);
+    if (bannerFile) {
+        blogData.append('imageFile', bannerFile); // Append the new file object
+    } else {
+        // Append the existing banner image path if available
+        blogData.append('imageFile', `uploads/${existingBannerImagePath}`); // Use the existing image path
+    }
+
 
     try {
 
@@ -140,14 +151,12 @@ const MakeABlogPage = () => {
             const response = await fetch(`http://localhost:5003/api/createblog/makeblog/edit/${blogPageId}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify(blogData),
+                body: blogData, // Send FormData
             });
 
             const result = await response.json();
-
             if (response.ok) {
                 // Update localStorage with the updated blog data
                 localStorage.setItem("publishedBlog", JSON.stringify(result.blog));
@@ -157,7 +166,10 @@ const MakeABlogPage = () => {
                 // Reset the form if the blog is updated
                 setBlogTitle('');
                 setBlogContent('');
-                setBanner(null);
+                setBannerFile(null); 
+                setBannerPreview(null); 
+
+
                 editorRef.current.innerHTML = '';
                 navigate(`/blog/${result.blog.id}`); // Redirect to the updated blog page
                 console.log('Blog updated:', result);
@@ -168,12 +180,11 @@ const MakeABlogPage = () => {
         else{   
             // Post lai add garna 
             const response = await fetch('http://localhost:5003/api/createblog/makeblog/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify(blogData),
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: blogData, // Send FormData
             });
         
             const result = await response.json();
@@ -185,7 +196,10 @@ const MakeABlogPage = () => {
                 // Reset the form after the blog is created
                 setBlogTitle('');
                 setBlogContent('');
-                setBanner(null);
+                setBannerFile(null); 
+                setBannerPreview(null); 
+
+
                 editorRef.current.innerHTML = '';
                 navigate(`/blog/${result.blog.id}`); // Redirect to the newly created blog pagee
                 console.log('Blog created:', result);
@@ -214,7 +228,7 @@ const MakeABlogPage = () => {
                 <label htmlFor ="banner-upload" className = "banner-upload-btn">
                     <img src={updoad} alt="upload banner"/>
                 </label>
-                {banner && <img src={banner} alt="Banner" className="banner-uploaded-image" />}           {/* This line checks if the banner image exists (i.e., it has been uploaded). If true, it displays the banner image. */}
+                {bannerPreview && <img src={bannerPreview} alt="Banner" className="banner-uploaded-image" />}     {/* This line checks if the banner image exists (i.e., it has been uploaded). If true, it displays the banner image. */}
             </div>
 
             <div className="blog">
