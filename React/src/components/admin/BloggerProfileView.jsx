@@ -12,6 +12,8 @@ const BloggerProfileViewPage = () => {
     const [password, setPassword] = useState('');
     const [forceUpdate, setForceUpdate] = useState(0); // State variable to trigger re-render
     const [addError, setAddError] = useState('');
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState('');
 
     const navigate = useNavigate();
 
@@ -100,6 +102,9 @@ const BloggerProfileViewPage = () => {
     const deleteBlogger = async () => {
         if (!selectedUser) return;
 
+        const isConfirmed = window.confirm("Are you sure you want to delete this blogger?");
+        if (!isConfirmed) return;
+
         try {
             const token = localStorage.getItem('token');
             const response = await fetch(`http://localhost:5003/api/bloggerprofileview/profileview/delete/${selectedUser}`, {
@@ -131,6 +136,32 @@ const BloggerProfileViewPage = () => {
                 setAddError("All fields are required.");
                 return;
             }
+
+            let hasError = false;   
+            
+            const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailCheck.test(email)) {  
+                setEmailError("Please enter a valid email address");                                   
+                hasError = true;
+            } else {
+                setEmailError(""); 
+            }
+            if (hasError) {
+                return;
+            }   
+        
+            if (password.length < 8 || password.length > 16) {
+                setPasswordError("Password must be between 8 and 16 characters");
+                hasError = true;
+            } else {
+                setPasswordError(''); 
+            }
+            if (hasError) {
+                return; // Stop submission if there's an error
+            }
+        
+        
+    
         
             const token = localStorage.getItem('token');
             const response = await fetch(`http://localhost:5003/api/bloggerprofileview/profileview/add`, {
@@ -213,7 +244,9 @@ const BloggerProfileViewPage = () => {
                 />
                 <label htmlFor="showPass" style={{ fontSize: '14px' }}>Show Password</label><br />
 
-                {addError && <p className="error-message">{addError}</p>}
+                {addError && <p className="error-message">{addError}</p>} <br/>
+                {emailError && <p className="error-message">{emailError}</p>} <br/>
+                {passwordError && <p className="error-message">{passwordError}</p>}
 
             </div>
 
