@@ -70,10 +70,46 @@ const BloggerProfileViewPage = () => {
                 email: email
               };
 
-            if (password.trim() !== "") {
-              updateData.password = password;
-            }
+            // if (password.trim() !== "") {
+            //   updateData.password = password;
+            // }
                 
+
+
+            let hasError = false;
+
+        // Validate email if it has changed
+        if (email !== users.find(user => user.id === selectedUser ).email) {                // Check if the entered email is different from the current email of the selected user
+            const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailCheck.test(email)) {
+                setEmailError("Please enter a valid email address");
+                hasError = true;
+            } else {
+                setEmailError(""); // Clear error if valid
+            }
+        }
+
+        if (hasError) {
+            return;
+        }
+
+        // Validate password if it has been changed
+        if (password.trim() !== "") {
+            if (password.length < 8 || password.length > 16) {
+                setPasswordError("Password must be between 8 and 16 characters");
+                hasError = true;
+            } else {
+                setPasswordError(''); // Clear error if valid
+                updateData.password = password; // Include password in updateData
+            }
+        }
+
+        if (hasError) {
+            return;
+        }
+
+
+
             const response = await fetch(`http://localhost:5003/api/bloggerprofileview/profileview/update/${selectedUser}`, {
                 method: 'PUT',
                 headers: {
@@ -138,7 +174,7 @@ const BloggerProfileViewPage = () => {
             }
 
             let hasError = false;   
-            
+
             const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!emailCheck.test(email)) {  
                 setEmailError("Please enter a valid email address");                                   
