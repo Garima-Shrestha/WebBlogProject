@@ -1,0 +1,161 @@
+.blog-view-container {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    min-height: 100vh;
+}
+
+.blog-view-container h1 {
+    color: #2d3436;
+    font-size: 32px;
+    margin-bottom: 35px;
+    text-align: center;
+    font-weight: 500;
+    position: relative;
+}
+
+.blog-view-container p {
+    text-align: center;
+    color: #636e72;
+    font-size: 16px;
+    margin-top: 40px;
+}
+
+/* Table container */
+.blog-view-container .blog-table-list {
+    margin-top: 30px;
+    margin-bottom: 20px; 
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #dfe6e9;
+}
+
+.blog-view-container table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.blog-view-container thead {
+    background-color: #f5f7fa;
+    border-bottom: 2px solid #dfe6e9;
+}
+
+.blog-view-container th {
+    color: #2d3436;
+    font-weight: 500;
+    padding: 16px;
+    text-align: left;
+}
+
+.blog-view-container td {
+    padding: 16px;
+    border-bottom: 1px solid #dfe6e9;
+    color: #4a4a4a;
+}
+
+.blog-view-container tr {
+    cursor: pointer;
+}
+
+.blog-view-container tr:hover {
+    background-color: #f8fafc;
+    transition: background-color 0.2s ease;
+}
+
+/* Selected row styling */
+.blog-view-container .selected-row {
+    background-color: #f0f7ff !important;
+    border-left: 4px solid #1b4f9e;
+}
+
+.blog-view-container .selected-row:hover {
+    background-color: #e8f1ff !important;
+}
+
+/* Button styles */
+.blog-view-container .view-button {
+    background-color: #1b4f9e;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.blog-view-container .view-button:hover {
+    background-color: #174081;
+    transform: translateY(-1px);
+}
+
+/* Delete button styles */
+.blog-view-container .delete-btn {
+    background-color: #dc3545;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    margin-top: 40px;
+    display: block;
+    margin-left: auto;  /* Aligns button to the right */
+}
+
+.blog-view-container .delete-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .blog-view-container {
+        padding: 20px;
+    }
+
+    .blog-view-container h1 {
+        font-size: 26px;
+    }
+
+    .blog-view-container table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .blog-view-container th, 
+    .blog-view-container td {
+        padding: 12px;
+    }
+
+    .blog-view-container .delete-btn {
+        width: 100%;
+        margin-top: 15px;
+    }
+}
+
+.blog-view-container .blog-table-list::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.blog-view-container .blog-table-list::-webkit-scrollbar-thumb {
+    background: #b2bec3;
+    border-radius: 4px;
+}
+
+.blog-view-container .blog-table-list::-webkit-scrollbar-thumb:hover {
+    background: #95a5a6;
+}
+
+/* Animation */
+.blog-view-container .blog-table-list {
+    animation: fadeIn 0.3s ease-out;
+}

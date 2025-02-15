@@ -1,4 +1,4 @@
-import { createBlog, deleteBlog, getBlogById, updateBlog, getAllBlogsWithAuthors } from '../models/MakeABlogModel.js'; 
+import { createBlog, deleteBlog, getBlogById, updateBlog, getAllBlogsWithAuthors, deleteBlogByAdmin } from '../models/MakeABlogModel.js'; 
 import multer from 'multer';
 import path from 'path';
 
@@ -174,5 +174,27 @@ export const fetchAllBlogs = async (req, res) => {
     } catch (error) {
         console.error('Error fetching blogs:', error.message);
         res.status(500).json({ message: 'Error fetching blogs', error: error.message });
+    }
+};
+
+
+
+
+
+
+// Admin le blogs haru ko data lai delete garna milne
+export const adminDeleteBlog = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Call the deleteBlog function to delete the blog
+        const deletedBlog = await deleteBlogByAdmin(id); 
+        if (!deletedBlog) {
+            return res.status(404).json({ error: 'Blog not found' });
+        }
+        res.status(200).json({ message: 'Blog deleted successfully', deletedBlog });
+    } catch (error) {
+        console.error('Error deleting blog:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };

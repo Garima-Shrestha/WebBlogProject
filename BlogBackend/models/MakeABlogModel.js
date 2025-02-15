@@ -78,3 +78,21 @@ export const getAllBlogsWithAuthors = async () => {
         throw new Error('Error fetching blogs');
     }
 };
+
+
+
+
+
+
+// Admin le blogs haru ko data lai delete garna milne
+export const deleteBlogByAdmin = async (id) => {
+    try {
+        const query = `DELETE FROM blogs WHERE id = $1 RETURNING *`;
+        const values = [id];
+        const result = await pool.query(query, values);
+        return result.rows[0];
+    } catch (error) {
+        console.error('Error deleting blog:', error);
+        throw new Error('Error deleting blog');
+    }
+};
