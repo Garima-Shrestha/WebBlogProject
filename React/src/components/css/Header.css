@@ -24,6 +24,10 @@
     margin-left: 30px;
 
 } 
+.Header #logo:hover {
+    transform: scale(1.05);
+    transition:  all 0.3s ease;;
+}
 
 
 .Header #NavIcons{
