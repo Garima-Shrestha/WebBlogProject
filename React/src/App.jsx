@@ -17,6 +17,7 @@ import BlogViewPage from './components/admin/BlogView';
 import PrivateRoute from './components/layout/PrivateRoute'; 
 import PublicRoute from './components/layout/PublicRoute';
 import AdminHeaderSection from './components/layout/AdminHeader';
+import YourBlogPage from './components/private/YourBlog';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token')); 
@@ -78,6 +79,7 @@ function LocationWrapper({setToken, token, role}) {
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:id" element={<BlogPage />} /> 
             <Route path="/deleteaccount" element={<DeleteAccountPage />} />
+            <Route path="/yourblog" element={<YourBlogPage />} />
         </Route>
 
 

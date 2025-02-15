@@ -1,0 +1,70 @@
+.your-blog-page {
+    width: 100%;
+    padding: 20px;
+    margin-left: 115px; 
+    overflow-x: hidden;
+    max-width: 1200px;   
+}
+
+.your-blog-page h1 {
+    margin-bottom: 40px; 
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: 500px;
+    font-size: 25px;
+    font-family: 'Arial', sans-serif;
+}
+
+.your-blog-page h1:hover {
+    font-size: 28px;
+    transition: all 0.3s ease;
+}
+
+
+.your-blog-page .body-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.your-blog-page .blog-item {
+    display: flex;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s;
+    border-radius: 12px;
+    overflow: hidden;      
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.your-blog-page .blog-item:hover {
+    transform: translateY(-5px);       
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.your-blog-page .blog-banner {
+    width: 300px;
+    height: 235px;
+    border-radius: 6px;
+    overflow: hidden;
+    padding-left: 0.5px;
+}
+
+.your-blog-page .blog-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+}
+
+.your-blog-page .Blogtitle {
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+.your-blog-page .blog-item p {
+    margin: 5px 0 0;
+    color: #666;
+}

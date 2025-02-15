@@ -22,6 +22,8 @@ const HeaderSection = ({ setToken }) => {
             handleLogout(); 
         } else if (value === "delete-account") {
             navigate('/deleteaccount'); 
+        } else if (value === "your-blog"){
+            navigate('/yourblog');
         }
     };
 
@@ -43,6 +45,7 @@ const HeaderSection = ({ setToken }) => {
             <div className="dropdown-menu">
                 <select name="dropdown" id="dropdown" onChange={handleSelectChange}>
                     <option value="delete-account">Manage Account</option>
+                    <option value="your-blog">Your Blog</option>
                     <option value="logout">Logout</option>
                 </select>
             </div>

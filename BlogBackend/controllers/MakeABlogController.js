@@ -1,4 +1,4 @@
-import { createBlog, deleteBlog, getBlogById, updateBlog, getAllBlogsWithAuthors, deleteBlogByAdmin } from '../models/MakeABlogModel.js'; 
+import { createBlog, deleteBlog, getBlogById, updateBlog, getAllBlogsWithAuthors, deleteBlogByAdmin, getBlogsByUserId } from '../models/MakeABlogModel.js'; 
 import multer from 'multer';
 import path from 'path';
 
@@ -196,5 +196,20 @@ export const adminDeleteBlog = async (req, res) => {
     } catch (error) {
         console.error('Error deleting blog:', error);
         res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
+
+
+//Your Blog (blogger le aafule banayeko blog herna paune)
+export const fetchUserBlogs = async (req, res) => {
+    try {
+        const userId = req.user.id; 
+        const blogs = await getBlogsByUserId(userId); 
+        res.status(200).json({ message: 'Fetching user blogs', blogs });
+    } catch (error) {
+        console.error('Error fetching user blogs:', error.message);
+        res.status(500).json({ message: 'Error fetching user blogs', error: error.message });
     }
 };

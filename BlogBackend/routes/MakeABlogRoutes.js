@@ -1,5 +1,5 @@
 import express from 'express';
-import { createNewBlog, getBlog, updateExistingBlog, deleteBlogPageContent, fetchAllBlogs, adminDeleteBlog } from "../controllers/MakeABlogController.js"
+import { createNewBlog, getBlog, updateExistingBlog, deleteBlogPageContent, fetchAllBlogs, adminDeleteBlog, fetchUserBlogs } from "../controllers/MakeABlogController.js"
 import authMiddleware from '../middleware/AuthMiddleware.js';
 import upload from '../middleware/upload.js';
 
@@ -14,5 +14,6 @@ router.put('/makeblog/edit/:id', upload.single('imageFile'), authMiddleware, upd
 router.delete('/makeblog/delete/:id', authMiddleware, deleteBlogPageContent);
 router.get('/makeblog/all', authMiddleware, fetchAllBlogs);   //homepage
 router.delete('/makeblog/admin/delete/:id', authMiddleware, adminDeleteBlog);   //admin
+router.get('/yourblog', authMiddleware , fetchUserBlogs);   //Your Blog
 
 export default router;

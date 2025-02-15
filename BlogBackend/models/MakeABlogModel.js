@@ -96,3 +96,20 @@ export const deleteBlogByAdmin = async (id) => {
         throw new Error('Error deleting blog');
     }
 };
+
+
+
+
+
+//Your Blog (blogger le aafule banayeko blog herna paune)
+export const getBlogsByUserId = async (userId) => {
+    try {
+        const query = `SELECT * FROM blogs WHERE user_id = $1`; // Use parameterized query
+        const values = [userId];
+        const result = await pool.query(query, values); // Execute the query
+        return result.rows; // Return the rows from the result
+    } catch (error) {
+        console.error('Error fetching blogs by user ID:', error);
+        throw new Error('Error fetching blogs by user ID');
+    }
+};
