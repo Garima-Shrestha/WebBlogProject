@@ -16,6 +16,7 @@ import BloggerProfileViewPage from './components/admin/BloggerProfileView';
 import BlogViewPage from './components/admin/BlogView';
 import PrivateRoute from './components/layout/PrivateRoute'; 
 import PublicRoute from './components/layout/PublicRoute';
+import AdminHeaderSection from './components/layout/AdminHeader';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token')); 
@@ -48,9 +49,13 @@ function LocationWrapper({setToken, token, role}) {
   return (
     <>
       {/* Header will not be in the login and register page */}
-      {location.pathname !== '/' && location.pathname !== '/login' && 
-      location.pathname !== '/register' && <HeaderSection setToken={setToken} />}  {/* header is kept here not below because if we keep header below the routes then: 
-                                                                                                                                    the routes would be displayed first, and only then would the header appear. */}
+      {role === "admin" ? (
+        <AdminHeaderSection setToken={setToken} />
+      ) : (
+        location.pathname !== '/' && location.pathname !== '/login' && 
+        location.pathname !== '/register' && <HeaderSection setToken={setToken} />
+        )}                                                                    {/* header is kept here not above because if we keep header below the routes then: 
+                                                                              the routes would be displayed first, and only then would the header appear. */}
 
       <Routes>
         {/* Redirection */}
@@ -80,7 +85,6 @@ function LocationWrapper({setToken, token, role}) {
         {/* Admin Route */}
         <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
             <Route path="/profileview" element={<BloggerProfileViewPage />} />
-            {/* <Route path="/customerProfile/:id" element={<CustomerPage />} /> */}
             <Route path="/blogview" element={<BlogViewPage />} />
         </Route>
 
