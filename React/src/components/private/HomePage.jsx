@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import '../css/HomePage.css';
+import pic from '../../images/happy_img.webp';
 
 const HomePage = () => {
     const [blogs, setBlogs] = useState([]);
@@ -31,11 +32,6 @@ const HomePage = () => {
         fetchBlogs();
     }, []);
 
-    const handleSearch = (e) => {
-        e.preventDefault();
-        setSearch(document.getElementById('search_bar').value.toLowerCase());
-    };
-
     return (
         <section className="home-page-container">
             <section className="home-WebBody">
@@ -51,19 +47,40 @@ const HomePage = () => {
                     />
                 </div>
 
+                {/* Conditionally render the moto section only if the search input is empty */}
+                {search === '' && (
+                    <div className="moto">
+                        <div className="moto-text">
+                            <h2>Innovate, Inspire, Inform</h2>
+                            <p>
+                                "Welcome to our blog, where innovation meets inspiration!
+                                Dive into a world of insightful articles that spark creativity and keep you informed.
+                                Join us on this journey to explore new ideas and empower your mind!"
+                            </p>
+                        </div>
+                        <img src={pic} loading="lazy" className="moto-image" alt="Inspiration" />
+                    </div>
+                )}
+
                 {blogs.filter(blog => blog.title.toLowerCase().includes(search)).length > 0 ? (
                     blogs.filter(blog => blog.title.toLowerCase().includes(search)).map((blog) => (
                         <div key={blog.id} className="body_details" onClick={() => navigate(`/blog/${blog.id}`)}>
                             <div className="card-body">
                                 <div className="banner-image">
-                                    <img src={`http://localhost:5003/uploads/${blog.banner_image}`} alt="Blog Banner" />
+                                    <img 
+                                        src={`http://localhost:5003/uploads/${blog.banner_image}`} 
+                                        alt="Blog Banner" 
+                                        loading="lazy" 
+                                    />
                                 </div>
-                                <h1 className="Blogtitle">{blog.title}</h1>
-                                <p className="published-by">
-                                    <span>Posted by: {blog.email || "Unknown Author"}</span>
-                                    <br />
-                                    <span>Posted on: {new Date(blog.created_at).toLocaleDateString()}</span>
-                                </p>
+                                <div className="blog-text">
+                                    <h1 className="Blogtitle">{blog.title}</h1>
+                                    <p className="published-by">
+                                        <span>Posted by: {blog.email || "Unknown Author"}</span>
+                                        <br />
+                                        <span>Posted on: {new Date(blog.created_at).toLocaleDateString()}</span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     ))
