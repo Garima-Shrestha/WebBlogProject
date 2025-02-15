@@ -4,10 +4,11 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 
 import AuthRoute from './routes/AuthRoute.js';   
-import {createTable, createCustomerTable, createBlogTable } from './config/db.js';
+import {createTable, createCustomerTable, createBlogTable, createCommentsTable } from './config/db.js';
 import HomePageRoute from './routes/HomePageRoutes.js';
 import CustomerRoutes from './routes/CustomerProfileRoutes.js';
 import MakeABlogRoutes from './routes/MakeABlogRoutes.js';
+import CommentRoutes from './routes/CommentRoute.js';
 
 
 import path from 'path';  // Import path to handle static files
@@ -27,6 +28,7 @@ const app = express();
 createTable();
 createCustomerTable();
 createBlogTable(); 
+createCommentsTable();
 
 
 
@@ -51,6 +53,7 @@ app.use('/api/auth', AuthRoute);
 app.use('/api/protected', HomePageRoute);
 app.use('/api/customerProfile', CustomerRoutes);
 app.use('/api/createblog', MakeABlogRoutes);
+app.use('/api/bloggercomment', CommentRoutes);
 
 
 

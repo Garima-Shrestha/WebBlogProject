@@ -90,15 +90,71 @@ const BlogPage = () => {
     
 
 
-    const handlePostComment = () => {
+    // const handlePostComment = () => {
+    //     if (commentUserName && comment) {
+    //       setStoreComments([...storeComments, { name: commentUserName, comment: comment }]);
+    //       setCommentUserName(""); 
+    //       setComment("");
+    //     } else {
+    //       alert("Please enter both name and comment.");
+    //     }
+    //   };
+    
+    const handlePostComment = async () => {
         if (commentUserName && comment) {
-          setStoreComments([...storeComments, { name: commentUserName, comment: comment }]);
-          setCommentUserName(""); 
-          setComment("");
+            const token = localStorage.getItem('token');
+            const blogId = blogData.id; 
+    
+            try {
+                const response = await fetch(`http://localhost:5003/api/bloggercomment/comments`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ blogId, userName: commentUserName, comment }),
+                });
+    
+                if (response.ok) {
+                    const newComment = await response.json();
+                    setStoreComments([...storeComments, newComment]); // Add the new comment to the state
+                    setCommentUserName(""); 
+                    setComment("");
+                } else {
+                    alert("Failed to post comment.");
+                }
+            } catch (error) {
+                console.error('Error posting comment:', error);
+            }
         } else {
-          alert("Please enter both name and comment.");
+            alert("Please enter both name and comment.");
         }
-      };
+    };
+
+
+    const fetchComments = async () => {
+        const blogId = blogData.id; 
+        try {
+            const response = await fetch(`http://localhost:5003/api/bloggercomment/comments/${blogId}`);
+            if (response.ok) {
+                const comments = await response.json();
+                setStoreComments(comments); 
+            } else {
+                console.error("Failed to fetch comments.");
+            }
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+        }
+    };
+    
+    useEffect(() => {
+        if (blogData) {
+            fetchComments(); 
+        }
+    }, [blogData]);
+
+
+
 
     return(
         <section className="blog-page-container">        
@@ -118,12 +174,6 @@ const BlogPage = () => {
                         <div className="blog-page-article" dangerouslySetInnerHTML={{ __html: blogData.content || "No content available" }}></div>
                     </div>
 
-
-                    {/* <div className="blog-actions">
-                        <button className="edit-btn" onClick={() => navigate(`/makeablog/${blogData.id}`)}> Edit </button>
-                        <button className="delete-btn" onClick={handleDeleteBlog}> Delete </button>
-                    </div> */}
-
                     <div className="blog-actions">
                         {blogData?.email === localStorage.getItem('email') && (
                             <>
@@ -140,14 +190,6 @@ const BlogPage = () => {
                     <div className="head"><h2>What’s on your mind?</h2></div>
                     <div><span id="noComment">{storeComments.length} </span>Comments</div>
                     <div className="text">Hearing from you makes our day!</div>
-
-                    {/* <div className="comment">
-                        {storeComments.map((item, index) => (
-                        <div key={index} className="commentItem">
-                            <p><strong>{item.name}:</strong> {item.comment}</p>
-                        </div>
-                        ))}
-                    </div> */}
                     
                     <div className="commentbox">
                         <img src={userProfileComment} alt="User Picture" id="commentImg"/>
@@ -181,7 +223,11 @@ const BlogPage = () => {
                 <div className="comment">
                     {storeComments.map((item, index) => (
                     <div key={index} className="commentItem">
-                        <p><strong>{item.name}:</strong> {item.comment}</p>
+                        <p>
+                            <strong>{item.user_name}:</strong> 
+                            <br/> 
+                            {item.comment}
+                        </p>
                     </div>
                     ))}
                 </div>

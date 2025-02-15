@@ -116,7 +116,21 @@
   transform: translateY(-1px);
 }
 
+
+
+
+
+
+
 /* Comment Section */
+.blog-page-container .Commentss {
+  max-width: 850px;
+  margin: 100px auto;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  border-top: 2px solid #e2e8f0; 
+  padding-top: 30px;
+}
+
 .blog-page-container .comment_section {
   background-color: white;
   width: 100%;
@@ -127,53 +141,71 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
-.blog-page-container .head {
-  margin-bottom: 20px;
+.blog-page-container .comment_section .head h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
 }
 
-.blog-page-container .head h2 {
-  color: #1e293b;
-  font-size: 24px;
-  margin-bottom: 8px;
+.blog-page-container .comment_section .text {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 30px;
+  line-height: 1.6;
 }
 
 .blog-page-container #noComment {
-  font-size: 15px;
-  color: #64748b;
-  margin-right: 4px;
+  background: linear-gradient(135deg, #2941ef, #5c83f6);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-block;
+  margin: 0 8px;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
 }
 
-.blog-page-container .text {
-  color: #64748b;
-  margin-bottom: 24px;
-}
 
 .blog-page-container .commentbox {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 24px;
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 30px;
+  margin-top: 30px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
 }
 
 .blog-page-container #commentImg {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   object-fit: cover;
+  border: 2px solid white;
+  transition: transform 0.3s ease;
 }
 
-.blog-page-container .content {
-  flex: 1;
+.blog-page-container .commentbox #commentImg:hover {
+  transform: scale(1.05);
+}
+
+.blog-page-container .commentbox .content {
+  margin-left: 15px;
+  margin-top: 10px;
 }
 
 .blog-page-container .content h3 {
-  font-size: 15px;
-  color: #475569;
-  margin-bottom: 12px;
+  font-size: 16px;
+  color: #374151;
+  margin-bottom: 16px;
 }
 
 .blog-page-container .userName,
 .blog-page-container .userComment {
-  width: 100%;
+  width: 98%;
   padding: 12px;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
@@ -185,48 +217,82 @@
 .blog-page-container .userName:focus,
 .blog-page-container .userComment:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #b0cefe;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
 }
 
-.blog-page-container #post {
-  background-color: #3b82f6;
+.commentbox .userName::placeholder,
+.commentbox .userComment::placeholder {
+  color: #9ca3af;
+}
+
+
+.commentbox .buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.blog-page-container .commentbox #post {
+  background: linear-gradient(135deg, #4856f5, #5c5ff6);
   color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-size: 15px;
   font-weight: 600;
+  border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
 }
 
-.blog-page-container #post:hover {
-  background-color: #2563eb;
-  transform: translateY(-1px);
+.blog-page-container .commentbox #post:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
 }
+
+
 
 /* Comment Display */
 .blog-page-container .comment {
-  margin-top: 30px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .blog-page-container .commentItem {
-  background: #f8fafc;
-  padding: 16px;
-  border-radius: 12px;
-  margin-bottom: 12px;
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.blog-page-container .commentItem p {
-  color: #475569;
-  font-size: 15px;
-  line-height: 1.5;
+.blog-page-container .commentItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  border-left: 5px solid rgb(69, 69, 240);
 }
 
 .blog-page-container .commentItem strong {
-  color: #1e293b;
+  color: #1f2937;
+  font-size: 16px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 10px;
 }
+
+.blog-page-container .commentItem p {
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+
+
 
 
 /* Responsive Design */
