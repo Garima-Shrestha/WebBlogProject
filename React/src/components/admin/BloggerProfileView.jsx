@@ -31,7 +31,7 @@ const BloggerProfileViewPage = () => {
                 return;
             }
 
-            const response = await fetch(`http://localhost:5003/api/bloggerprofileview/profileview`, {
+            const response = await fetch(`http://localhost:5003/api/auth/profileview`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ const BloggerProfileViewPage = () => {
 
 
 
-            const response = await fetch(`http://localhost:5003/api/bloggerprofileview/profileview/update/${selectedUser}`, {
+            const response = await fetch(`http://localhost:5003/api/auth/profileview/update/${selectedUser}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -143,7 +143,7 @@ const BloggerProfileViewPage = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5003/api/bloggerprofileview/profileview/delete/${selectedUser}`, {
+            const response = await fetch(`http://localhost:5003/api/auth/profileview/delete/${selectedUser}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -200,7 +200,7 @@ const BloggerProfileViewPage = () => {
     
         
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5003/api/bloggerprofileview/profileview/add`, {
+            const response = await fetch(`http://localhost:5003/api/auth/profileview/add`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

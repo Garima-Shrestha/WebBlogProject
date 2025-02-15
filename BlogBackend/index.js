@@ -8,7 +8,6 @@ import {createTable, createCustomerTable, createBlogTable } from './config/db.js
 import HomePageRoute from './routes/HomePageRoutes.js';
 import CustomerRoutes from './routes/CustomerProfileRoutes.js';
 import MakeABlogRoutes from './routes/MakeABlogRoutes.js';
-import BloggerProfileViewRoutes from './routes/BloggerProfileViewRoutes.js';
 
 
 import path from 'path';  // Import path to handle static files
@@ -52,7 +51,6 @@ app.use('/api/auth', AuthRoute);
 app.use('/api/protected', HomePageRoute);
 app.use('/api/customerProfile', CustomerRoutes);
 app.use('/api/createblog', MakeABlogRoutes);
-app.use('/api/bloggerprofileview', BloggerProfileViewRoutes);
 
 
 
