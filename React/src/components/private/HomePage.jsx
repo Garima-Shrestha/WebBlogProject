@@ -4,6 +4,7 @@ import '../css/HomePage.css';
 
 const HomePage = () => {
     const [blogs, setBlogs] = useState([]);
+    const [search, setSearch] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -30,20 +31,28 @@ const HomePage = () => {
         fetchBlogs();
     }, []);
 
+    const handleSearch = (e) => {
+        e.preventDefault();
+        setSearch(document.getElementById('search_bar').value.toLowerCase());
+    };
+
     return (
         <section className="home-page-container">
             <section className="home-WebBody">
-            <input 
-                    type="search" 
-                    id="search_bar" 
-                    name="search_bar" 
-                    placeholder="Search Article"
-                />
-                <button id="search_button">Search</button>
 
+                <div className="search">
+                    <input 
+                        type="search" 
+                        id="search_bar" 
+                        name="search_bar" 
+                        placeholder="Search Blog"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </div>
 
-                {blogs.length > 0 ? (
-                    blogs.map((blog) => (
+                {blogs.filter(blog => blog.title.toLowerCase().includes(search)).length > 0 ? (
+                    blogs.filter(blog => blog.title.toLowerCase().includes(search)).map((blog) => (
                         <div key={blog.id} className="body_details" onClick={() => navigate(`/blog/${blog.id}`)}>
                             <div className="card-body">
                                 <div className="banner-image">
@@ -55,8 +64,6 @@ const HomePage = () => {
                                     <br />
                                     <span>Posted on: {new Date(blog.created_at).toLocaleDateString()}</span>
                                 </p>
-
-                                {/* <div className="blog-article" dangerouslySetInnerHTML={{ __html: blog.content }} /> */}
                             </div>
                         </div>
                     ))
