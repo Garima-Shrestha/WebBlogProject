@@ -50,11 +50,6 @@ const HeaderSection = ({ setToken }) => {
                 </select>
             </div>
 
-            <div className="hamburger_menu">
-                <div className="line"></div>
-                <div className="line"></div>
-                <div className="line"></div>
-            </div>
         </section>
     );
 }

@@ -191,3 +191,76 @@
     font-family: 'Georgia', serif;
 }
 
+
+
+
+
+@media (max-width: 1200px) {
+    .make-blog-page .text-editor-main {
+        width: 100%;
+        margin: 20px auto;
+    }
+
+    .make-blog-page .banner {
+        height: 300px;
+    }
+
+    .make-blog-page h1 {
+        font-size: 30px;
+    }
+
+    .make-blog-page h2 {
+        font-size: 28px;
+    }
+
+    .make-blog-page h3 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .make-blog-page .banner {
+        height: 250px;
+    }
+
+    .make-blog-page .title {
+        font-size: 30px;
+    }
+
+    .make-blog-page .blog {
+        width: 90%;
+    }
+
+    .make-blog-page .options {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .make-blog-page .my-button-text {
+        flex: 1 1 45%; /* Allow buttons to wrap */
+        margin: 5px;
+    }
+
+    .make-blog-page .contentOutput {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .make-blog-page .banner {
+        height: 200px;
+    }
+
+    .make-blog-page .title {
+        font-size: 24px;
+    }
+
+    .make-blog-page .my-button-text {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .make-blog-page .contentOutput {
+        height: 250px;
+    }
+}

@@ -2,18 +2,18 @@
     /* background-color: #F8FAFC; */
     overflow-x: hidden;
 }
-.wave_bottom {
+.login-page-container .wave_bottom {
     height: 150px;
     width: 100%;
 }
-#waveTop{
+.login-page-container #waveTop{
     position: absolute;
     top:0;
     left:0;
     z-index: -1;
     width: 1538px;
 }
-#waveBottom {
+.login-page-container #waveBottom {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -21,7 +21,7 @@
     width: 1538px;
 }
 
-#signupSVG1 {
+.login-page-container #signupSVG1 {
     position: absolute;
     bottom: 20px; 
     left: 20px;   
@@ -30,7 +30,7 @@
     transform: rotate(-15deg);
     z-index: -1;  /* Ensure it doesn't overlap content */
 }
-#signupSVG2 {
+.login-page-container #signupSVG2 {
     position: absolute;
     bottom: 40px;
     left: 100px;  
@@ -39,7 +39,7 @@
     transform: rotate(10deg);
     z-index: -1;
 }
-#signupSVG3 {
+.login-page-container #signupSVG3 {
     position: absolute; 
     bottom: 5px;
     left: 190px; 
@@ -48,7 +48,7 @@
     transform: rotate(10deg);
     z-index: -1;    
 }
-#signupSVG4 {
+.login-page-container #signupSVG4 {
     position: absolute; 
     bottom: 30px;
     left: 290px; 
@@ -57,7 +57,7 @@
     transform: rotate(-15deg);
     z-index: -1;   
 }
-#signupSVG5 {
+.login-page-container #signupSVG5 {
     position: absolute; 
     bottom: 10px;
     left: 380px; 
@@ -67,19 +67,19 @@
     z-index: -1;   
 }
 
-#innovate{
+.login-page-container #innovate{
     width:28px;
     height:28px;
 }
-#inspire{
+.login-page-container #inspire{
     width:28px;
     height:28px;
 }
-#inform{
+.login-page-container #inform{
     width:28px;
     height: 28pxs;
 }
-.moto{
+.login-page-container .moto{
     margin-left: 400px;
     margin-top: 118px;
     font-family: 'Merriweather';
@@ -87,7 +87,7 @@
     line-height: 1.6;
     
 }
-.moto strong {
+.login-page-container .moto strong {
     color: #0c61a7;
     font-size: 35px;
     text-transform: uppercase;
@@ -96,7 +96,7 @@
 }
 
 
-.loginBody{
+.login-page-container .loginBody{
     background-color: #363952;
     /* margin-top: -343px; */
     margin-top: -376px;
@@ -116,7 +116,7 @@
 
 }
 
-.loginBody #logo{
+.login-page-container .loginBody #logo{
     width: 100px;
     height: 90px;
     border-radius: 50px;
@@ -127,29 +127,29 @@
     border-radius: 50;
 }
 
-.loginBody h2 {
+.login-page-container .loginBody h2 {
     margin-top: 36px;
     /* margin-left: 185px; */
     margin-left: 212px !important;
     margin-bottom: 30px;
 }
 
-.loginBody .log_details{
+.login-page-container .loginBody .log_details{
     margin-left: 55px;
     margin-top: 55px;
 }
 
 
-.loginBody label {
+.login-page-container .loginBody label {
     font-size: 17px;
     margin-bottom: 15px;
     margin-left: 17px;
 }
-.loginBody #email_label, #password_label {
+.login-page-container .loginBody #email_label, #password_label {
     display: block;
 }
 
-.loginBody #login_email, #login_password{
+.login-page-container .loginBody #login_email, #login_password{
     margin-left: 17px;
     margin-bottom: 20px;
     border: 1px solid #cccccc;  
@@ -159,7 +159,7 @@
     outline: none;
 }
 
-.loginBody #log_show_pass{
+.login-page-container .loginBody #log_show_pass{
     margin-left: 215px;
     margin-top: 14px;
     margin-bottom: 17px;
@@ -171,7 +171,7 @@
     margin-top: -10px;
     margin-bottom: -5px;
 }
-#login_Button{
+.login-page-container #login_Button{
     border-radius: 5px;
     margin-top: 33px;
     margin-left: 140px;
@@ -185,77 +185,57 @@
     background-color: transparent;
     border: 2px inset rgb(237, 232, 232);
 }
-.loginBody #login_Button:hover{
+.login-page-container .loginBody #login_Button:hover{
     background-color: #1d3557;  
     transform: scale(1.05);
     transition: all 0.3s ease; /* Smooth transition */
 }
-.loginBody #ask{
+.login-page-container .loginBody #ask{
     font-size: 14px;
     margin-left: 85px;
 }
-.loginBody #link{
+.login-page-container .loginBody #link{
     color: rgb(145, 149, 251);
 }
-.loginBody #link:hover{
+.login-page-container .loginBody #link:hover{
     color: rgb(242, 30, 30);
 }
 
 
 
-@media (max-width: 1500px) {
-    body {
-        /* overflow-x: hidden;    Disable horizontal scrolling */
-    }
-}
+/* Responsive Design */
 @media (max-width: 1410px) {
-    .loginBody{
-        margin-left: 800px;
+    .login-page-container .loginBody{
+        margin-left: 600px;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
     }   
-    .moto{
-        margin-left: 280px;
+    .login-page-container .moto{
+        margin-left: 150px;
     }  
 }
-@media (max-width: 1295px) {
-    .loginBody{
-        margin-left: 500px;
-    }   
-    .moto{
-        margin-left: 80px;
-    }  
-}
-@media (max-width: 1005px){
-    .loginBody{
-        margin-left: 250px;
+@media (max-width: 1105px){
+    .login-page-container .loginBody{
+        margin-left: 300px;
         margin-top: -100px;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
     }
-    .moto{
+    .login-page-container .moto{
         display: none;
     } 
-    #signupSVG1, #signupSVG2, #signupSVG3, #signupSVG4, #signupSVG5{ 
+    .login-page-container #signupSVG1, #signupSVG2, #signupSVG3, #signupSVG4, #signupSVG5{ 
         display: none;
     }  
 }
-@media (max-width: 745px){
-    .loginBody{
-        margin-left: 125px;
+@media (max-width: 810px){
+    .login-page-container .loginBody{
+        margin-left: 2px;
         margin-top: -100px;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
     }
-    .moto{
+    .login-page-container .moto{
         display: none;
     } 
-    #signupSVG1, #signupSVG2, #signupSVG3, #signupSVG4, #signupSVG5{ 
-        display: none;
-    }  
-}
-@media (max-width: 630px){
-    .loginBody{
-        margin-left: 1.5px;
-    }
-    .moto{
-        display: none;
-    } 
-    #signupSVG1, #signupSVG2, #signupSVG3, #signupSVG4, #signupSVG5{ 
+    .login-page-container #signupSVG1, #signupSVG2, #signupSVG3, #signupSVG4, #signupSVG5{ 
         display: none;
     }  
 }

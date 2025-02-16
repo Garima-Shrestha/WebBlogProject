@@ -35,12 +35,6 @@ const AdminHeaderSection = ({ setToken }) => {
                     <button className="logout-btn" onClick={handleLogout}>Logout</button>
                 </div>
             </div>
-
-            <div className="hamburger_menu">
-                <div className="line"></div>
-                <div className="line"></div>
-                <div className="line"></div>
-            </div>
         </section>
     );
 }

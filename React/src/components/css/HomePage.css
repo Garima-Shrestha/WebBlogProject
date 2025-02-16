@@ -191,22 +191,62 @@
   }
   
   
-  /* Responsive adjustments for search */
-  @media (max-width: 768px) {
-    .home-page-container #search_bar {
-        width: calc(100% - 100px); /* Adjust width accounting for button */
-        max-width: 300px;
-    }
-  }
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
+  /* Responsive adjustments */
+  @media (max-width: 1290px) {
     .home-page-container .home-WebBody {
         padding: 15px;
     }
 
-    .home-page-container .body_details {
-        max-width: 100%;
+    .home-page-container .search {
+        margin-left: 0;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .home-page-container #search_bar {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+@media (max-width: 850px) {
+    .home-page-container .body_details{
+        margin-left: 150px;
+    }
+
+    .home-page-container .body_details:nth-child(n+9) {
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-page-container .home-WebBody {
+        padding: 10px;
+    }
+
+    .home-page-container .moto {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+    }
+
+    .home-page-container .moto-image {
+        width: 300px;
+        height: 300px;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .home-page-container .moto h2 {
+        font-size: 24px;
+    }
+
+    .home-page-container .moto p {
+        font-size: 16px;
+    }
+
+    .home-page-container .body_details{
+        margin-left: 20px;
     }
 
     .home-page-container .banner-image {
@@ -215,17 +255,114 @@
 
     .home-page-container .Blogtitle {
         font-size: 18px;
-        padding: 12px 16px;
         margin-top: 60px;
     }
 
     .home-page-container .published-by {
-        padding: 0 16px 12px;
+        font-size: 12px;
+    }
+
+    .home-page-container .search {
+        margin-left: 0;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .home-page-container #search_bar {
+        width: 100%;
+        max-width: none;
+    }
+
+    .home-page-container .body_details:nth-child(n+9) {
+        margin-left: 20px;
     }
 }
 
+@media (max-width: 570px) {
+    .home-page-container .body_details:nth-child(n+9) {
+        width: 305px; 
+        display: flex;  
+        flex-direction: column; 
+        margin-left: 50px;
+    }
+
+    .home-page-container .body_details:nth-child(n+9) .card-body {
+        flex-direction: column; 
+        width: 100%; 
+    }
+
+    .home-page-container .body_details:nth-child(n+9) .banner-image {
+        height: 180px; 
+        width: 50px; 
+    }
+
+    .home-page-container .body_details:nth-child(n+9) img {
+        width: 100%; 
+        height: auto;
+    }
+
+    .home-page-container .body_details:nth-child(n+9) .Blogtitle {
+        font-size: 18px;
+        margin-left: -20px;
+    }
+
+    .home-page-container .body_details:nth-child(n+9) .published-by {
+        font-size: 12px;
+        margin-left: -20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-page-container .moto {
+        padding: 10px;
+    }
+
+    .home-page-container .moto h2 {
+        font-size: 20px;
+    }
+
+    .home-page-container .moto p {
+        font-size: 14px;
+    }
+
+    .home-page-container .body_details {
+        margin-bottom: 20px;
+    }
 
 
+
+    .home-page-container .body_details:nth-child(n+9) {
+        width: 305px; 
+        display: flex;  
+        flex-direction: column; 
+        margin-left: 50px;
+    }
+
+    .home-page-container .body_details:nth-child(n+9) .card-body {
+        flex-direction: column; 
+        width: 100%; 
+    }
+
+    .home-page-container .body_details:nth-child(n+9) .banner-image {
+        height: 180px; 
+        width: 50px; 
+    }
+
+    .home-page-container .body_details:nth-child(n+9) img {
+        width: 100%; 
+        height: auto;
+    }
+
+    .home-page-container .body_details:nth-child(n+9) .Blogtitle {
+        font-size: 18px;
+        margin-left: -20px;
+    }
+
+    .home-page-container .body_details:nth-child(n+9) .published-by {
+        font-size: 12px;
+        margin-left: -20px;
+    }
+}
 
 
 

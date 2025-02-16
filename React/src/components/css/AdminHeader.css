@@ -12,10 +12,7 @@
     height: 92px;
 }
 
-.admin-header .hamburger_menu{
-    margin-right: -28px;
-    display:none;
-}
+
 .admin-header #logo{
     width: 100px;
     height: 90px;
@@ -82,93 +79,69 @@
 }
 
 
-@media (max-width: 1330px) {
-    .admin-header{
-        padding: 0 50px;
-    }
-}
 
 
 
-
-
-
-
-
-
-
-
-/* Hamburger menu styles */
-.admin-header .hamburger_menu {
-    display: none;
-    cursor: pointer;
-    padding: 10px;
-}
-
-.admin-header .hamburger_menu .line {
-    width: 25px;
-    height: 2px;
-    background-color: #fff;
-    margin: 5px 0;
-    transition: all 0.3s ease;
-}
-
-/* Responsive styles */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
     .admin-header {
-        padding: 8px 20px;
-        margin: 0 10px;
+        flex-direction: column;
+        padding: 10px 20px;
+        align-items: flex-start;
+        height: auto; /* Allow height to adjust based on content */
+    }
+
+    .admin-header #logo {
+        width: 80px;
+        height: 70px;
+        margin-left: 0;
+        margin-bottom: -57px;
+        margin-top: 30px;
+    }
+
+    .admin-header .NavLists {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        width: 100%; /* Ensure it takes full width */
     }
 
     .admin-header #NavIcons {
-        gap: 15px;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%; /* Ensure it takes full width */
     }
 
     .admin-header #NavIcons li a {
         font-size: 14px;
         padding: 6px 12px;
+        width: 100%; /* Make links full width */
+        text-align: left; /* Align text to the left */
+    }
+
+    .admin-header .logout-btn {
+        width: auto; 
+        padding: 8px;
+        font-size: 16px;
+        margin-left: 350px;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
     .admin-header {
-        padding: 8px 15px;
-        margin: 0 5px;
-    }
-
-    .admin-header .NavLists {
-        display: none;
-    }
-
-    .admin-header .hamburger_menu {
-        display: block;
+        padding: 10px 10px;
     }
 
     .admin-header #logo {
-        width: 45px;
-        height: 45px;
+        width: 60px;
+        height: 60px;
     }
-}
 
-/* Optional: Add this if you want to show a mobile menu */
-.mobile-menu-active .NavLists {
-    display: flex !important;
-    flex-direction: column;
-    position: absolute;
-    top: 70px;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to right, #1a237e, #283593);
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+    .admin-header #NavIcons li a {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
 
-.mobile-menu-active #NavIcons {
-    flex-direction: column;
-    width: 100%;
-}
-
-.mobile-menu-active .logout-btn {
-    margin-top: 15px;
-    width: 100%;
+    .admin-header .logout-btn {
+        font-size: 14px;
+    }
 }

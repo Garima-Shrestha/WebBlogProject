@@ -68,3 +68,73 @@
     margin: 5px 0 0;
     color: #666;
 }
+
+
+
+
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .your-blog-page {
+        margin-left: 20px;
+    }
+
+    .your-blog-page h1 {
+        margin-left: 0;
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 768px) {
+    .your-blog-page {
+        padding: 10px;
+    }
+
+    .your-blog-page h1 {
+        font-size: 20px;
+    }
+
+    .your-blog-page .blog-item {
+        flex-direction: column;
+    }
+    
+    .your-blog-page .body-card {
+        width: 305px;
+        margin-left: 50px;
+    }
+
+    .your-blog-page .blog-banner {
+        width: 300px;
+        height: 250px;
+    }
+
+    .your-blog-page .blog-text {
+        padding: 10px;
+    }
+
+    .your-blog-page .Blogtitle {
+        font-size: 16px;
+    }
+
+    .your-blog-page .blog-item p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .your-blog-page h1 {
+        font-size: 18px;
+    }
+
+    .your-blog-page .blog-item {
+        margin-bottom: 15px;
+    }
+
+    .your-blog-page .Blogtitle {
+        font-size: 14px;
+    }
+
+    .your-blog-page .blog-item p {
+        font-size: 12px;
+    }
+}

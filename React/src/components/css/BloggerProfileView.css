@@ -169,7 +169,7 @@
     .blogger-view-container .blogger-input input[type="text"],
     .blogger-input input[type="email"],
     .blogger-input input[type="password"] {
-      width: 100%;
+      width: 95%;
     }
   
     .blogger-view-container .add-button,

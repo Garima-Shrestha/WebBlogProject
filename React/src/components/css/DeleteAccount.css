@@ -1,22 +1,22 @@
-.delete-page-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 0 20px;
+  .delete-page-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
   }
-  
-  .delete-form {
-    background: white;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid #fee2e2;
+
+  .delete-page-container .delete-form {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border: 1px solid #fee2e2;
   }
-  
-  .message-section {
+
+  .delete-page-container .message-section {
     margin-bottom: 40px;
   }
-  
-  .message-section h1 {
+
+  .delete-page-container .message-section h1 {
     color: #dc2626;
     font-size: 28px;
     font-weight: 600;
@@ -24,8 +24,8 @@
     padding-bottom: 16px;
     border-bottom: 2px solid #fee2e2;
   }
-  
-  .message-section p {
+
+  .delete-page-container .message-section p {
     color: #4b5563;
     line-height: 1.6;
     font-size: 16px;
@@ -34,22 +34,22 @@
     border-radius: 8px;
     border-left: 4px solid #dc2626;
   }
-  
-  .options-section {
+
+  .delete-page-container .options-section {
     background: #f9fafb;
     padding: 24px;
     border-radius: 12px;
     margin-bottom: 30px;
   }
-  
-  .options-section p {
+
+  .delete-page-container .options-section p {
     color: #374151;
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 16px;
   }
-  
-  .options-section label {
+
+  .delete-page-container .options-section label {
     display: flex;
     align-items: center;
     padding: 12px;
@@ -60,21 +60,21 @@
     cursor: pointer;
     border: 1px solid #e5e7eb;
   }
-  
-  .options-section label:hover {
+
+  .delete-page-container .options-section label:hover {
     background: #f8fafc;
     border-color: #dc2626;
   }
-  
-  .options-section input[type="checkbox"] {
+
+  .delete-page-container .options-section input[type="checkbox"] {
     margin-right: 12px;
     width: 18px;
     height: 18px;
     accent-color: #dc2626;
     cursor: pointer;
   }
-  
-  #delete-button {
+
+  .delete-page-container #delete-button {
     width: 400px;
     padding: 16px;
     background: #dc2626;
@@ -89,19 +89,18 @@
     position: relative;
     overflow: hidden;
   }
-  
-  #delete-button:hover {
+
+  .delete-page-container #delete-button:hover {
     background: #b91c1c;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
   }
-  
-  
-  #delete-button:active {
+
+  .delete-page-container #delete-button:active {
     transform: translateY(0);
   }
-  
-  .error-message-delete {
+
+  .delete-page-container .error-message-delete {
     display: block;
     color: #dc2626;
     background: #fee2e2;
@@ -113,62 +112,36 @@
     border-left: 4px solid #dc2626;
     animation: shake 0.5s ease-in-out;
   }
-  
-  
-  /* Hover effect for checkbox labels */
-  .options-section label {
-    position: relative;
-  }
-  
+
   /* Responsive Design */
   @media (max-width: 768px) {
     .delete-page-container {
-      margin: 20px auto;
+        margin: 20px auto;
     }
-  
-    .delete-form {
-      padding: 24px;
+
+    .delete-page-container .delete-form {
+        padding: 24px;
     }
-  
-    .message-section h1 {
-      font-size: 24px;
+
+    .delete-page-container #delete-button {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 20px;
     }
-  
-    .options-section {
-      padding: 16px;
+
+    .delete-page-container .message-section h1 {
+        font-size: 24px;
     }
-  
-    .options-section label {
-      padding: 10px;
+
+    .delete-page-container .options-section {
+        padding: 16px;
+    }
+
+    .delete-page-container .options-section label {
+        padding: 10px;
     }
   }
- 
-  .delete-form {
+
+  .delete-page-container .delete-form {
     animation: fadeIn 0.4s ease-out;
   }
-  
-  /* Custom scrollbar */
-  .delete-page-container {
-    scrollbar-width: thin;
-    scrollbar-color: #dc2626 #fee2e2;
-  }
-  
-  .delete-page-container::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  .delete-page-container::-webkit-scrollbar-track {
-    background: #fee2e2;
-    border-radius: 4px;
-  }
-  
-  .delete-page-container::-webkit-scrollbar-thumb {
-    background: #dc2626;
-    border-radius: 4px;
-  }
-  
-  .delete-page-container::-webkit-scrollbar-thumb:hover {
-    background: #b91c1c;
-  }
-  
-  

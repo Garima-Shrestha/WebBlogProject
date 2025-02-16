@@ -224,31 +224,23 @@
 
 
 
-@media (max-width: 1500px) {
-    body {
-        /* overflow-x: hidden;    Disable horizontal scrolling */
-    }
-}
+
 @media (max-width: 1410px) {
     .signUpBody{
-        margin-left: 800px;
+        margin-left: 600px;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
+
     }  
     .moto{
-        margin-left: 280px;
+        margin-left: 150px;
     }  
 }
-@media (max-width: 1295px) {
-    .signUpBody{
-        margin-left: 500px;
-    }   
-    .moto{
-        margin-left: 80px;
-    } 
-}
-@media (max-width: 1005px){
+@media (max-width: 1105px){
     .signUpBody{
         margin-left: 250px;
         margin-top: -100px;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
+
     }
     .moto{
         display: none;
@@ -259,19 +251,10 @@
 }
 @media (max-width: 745px){
     .signUpBody{
-        margin-left: 125px;
+        margin-left: 2px;
         margin-top: -100px;
-    }
-    .moto{
-        display: none;
-    } 
-    #signupSVG1, #signupSVG2, #signupSVG3, #signupSVG4, #signupSVG5{ 
-        display: none;
-    }  
-}
-@media (max-width: 630px){
-    .signUpBody{
-        margin-left: 1.5px;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
+
     }
     .moto{
         display: none;
