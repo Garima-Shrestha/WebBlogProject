@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import emailjs from "emailjs-com"; 
 
 import '../css/Contacts.css'
 import about from '../../images/about_us.jpg'
@@ -8,29 +9,48 @@ const ContactPage = () => {
     const [ContactEmail, setContactEmail] = useState("");
     const [ContactPhone, setContactPhone] = useState("");
     const [ContactMessage, setContactMessage] = useState("");
+    const [Error, setError] = useState("");
 
     const handleContact = (event) => {
         event.preventDefault();
         
         if (!ContactName || !ContactEmail || !ContactPhone || !ContactMessage) {
-            alert("Please fill in all required fields");
+            setError("Please fill in all required fields");
             return;
         }
 
         const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailCheck.test(ContactEmail)) {
-            alert("Please enter a valid email address");
+            setError("Please enter a valid email address");
             return;
         }
 
-        const phoneCheck = /^\d{10}$/;                           //  ensures the phone number consists of exactly 10 digits
+        const phoneCheck = /^\d{10}$/; // ensures the phone number consists of exactly 10 digits
         if (ContactPhone && !phoneCheck.test(ContactPhone)) {
-            alert("Please enter a valid phone number");
+            setError("Please enter a valid phone number");
             return;
         }
 
-        alert("Your message has been submitted successfully!");
+        // EmailJS configuration
+        const templateParams = {
+            from_name: ContactName,
+            from_email: ContactEmail,
+            from_contact: ContactPhone,
+            message: ContactMessage,
+        };
 
+        emailjs.send('service_iz5oop9', 'template_v2br4wu', templateParams, 'j0dWmJ5CfRsbSIvOe')
+            .then((response) => {
+                console.log('SUCCESS!', response.status, response.text);
+                setError("Your message has been submitted successfully!");
+                setContactName("");
+                setContactEmail("");
+                setContactPhone("");
+                setContactMessage("");
+            }, (err) => {
+                console.error('FAILED...', err);
+                setError("There was an error sending your message. Please try again later.");
+            });
     };
 
     
@@ -114,6 +134,8 @@ const ContactPage = () => {
                         required>
                     </textarea>
                     <br/>
+
+                    {Error && <p className="error-message">{Error}</p>}
 
                     <button id="submit_button">Submit</button>
                 </form>
