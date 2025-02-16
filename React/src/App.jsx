@@ -18,6 +18,7 @@ import PrivateRoute from './components/layout/PrivateRoute';
 import PublicRoute from './components/layout/PublicRoute';
 import AdminHeaderSection from './components/layout/AdminHeader';
 import YourBlogPage from './components/private/YourBlog';
+import FooterSection from './components/layout/Footer';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token')); 
@@ -91,6 +92,9 @@ function LocationWrapper({setToken, token, role}) {
         </Route>
 
       </Routes>
+
+       {/* Footer will not be displayed on login and register pages */}
+       {location.pathname !== '/login' && location.pathname !== '/register' && <FooterSection />}
     </>
   );
 }
