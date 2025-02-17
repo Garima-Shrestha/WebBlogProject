@@ -26,7 +26,7 @@
     background: linear-gradient(135deg, #f0f4f8, #e0e7ff); 
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    height: auto; 
+    height: 125px; 
     margin-bottom: 40px;
 }
 
@@ -51,8 +51,8 @@
 }
 
 .home-page-container .moto-image {
-    width: 160px; 
-    height: 160px; 
+    width: 120px; 
+    height: 120px; 
     border-radius: 50%; 
     object-fit: cover;
     margin-left: 20px; 

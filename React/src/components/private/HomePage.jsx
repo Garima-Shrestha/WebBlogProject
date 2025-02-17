@@ -49,13 +49,12 @@ const HomePage = () => {
 
                 {/* Conditionally render the moto section only if the search input is empty */}
                 {search === '' && (
-                    <div className="moto">
+                    <div className="moto" onClick={() => navigate('/makeblog')} style={{ cursor: 'pointer' }}>
                         <div className="moto-text">
-                            <h2>Innovate, Inspire, Inform</h2>
+                            <h2>Have Something to Say? Start Your Blog Today!</h2>
                             <p>
-                                "Welcome to our blog, where innovation meets inspiration!
-                                Dive into a world of insightful articles that spark creativity and keep you informed.
-                                Join us on this journey to explore new ideas and empower your mind!"
+                                "Share your unique perspective and connect with a community of like-minded individuals. 
+                                Your voice has the power to inspire and make an impact—start your blog today!"
                             </p>
                         </div>
                         <img src={pic} loading="lazy" className="moto-image" alt="Inspiration" />
