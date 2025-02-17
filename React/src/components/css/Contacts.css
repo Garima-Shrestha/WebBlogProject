@@ -87,7 +87,7 @@
 
 .contact_WebBody #contact_form textarea {
     min-height: 200px;
-    resize: vertical;
+    resize: none;
     overflow-y: auto; 
 }
 
@@ -103,6 +103,35 @@
 .contact_WebBody #contact_form textarea::-webkit-scrollbar-thumb:hover {
     background: #abb5c2;
 }
+
+.contact_WebBody #contact-reason {
+    width: 40%;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    margin-left: -13px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.2s ease;
+}
+
+.contact_WebBody #contact-reason:focus {
+    outline: none;
+    border-color: #64748b;
+}
+
+.contact_WebBody .disclaimer {
+    font-size: 14px;
+    margin: 10px 0; 
+    text-align: center; 
+    margin-bottom: 25px;
+}
+.contact_WebBody .disclaimer strong {
+    color: #272727; 
+}.contact_WebBody .disclaimer {
+    color: #3e3e3e; 
+}
+
 
 .contact_WebBody #submit_button {
     background-color: #1e293b;
@@ -142,6 +171,10 @@
     .contact_WebBody #about_image {
         max-width: 300px;
     }
+
+    .contact_WebBody #contact-reason {
+        width: 300px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -161,6 +194,11 @@
     .contact_WebBody #contact_form textarea {
         font-size: 14px;
     }
+
+    .contact_WebBody #contact-reason {
+        width: 300px;
+    }
+    
 }
 
 @media (max-width: 480px) {

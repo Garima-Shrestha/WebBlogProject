@@ -10,11 +10,12 @@ const ContactPage = () => {
     const [ContactPhone, setContactPhone] = useState("");
     const [ContactMessage, setContactMessage] = useState("");
     const [Error, setError] = useState("");
+    const [ContactReason, setContactReason] = useState("");
 
     const handleContact = (event) => {
         event.preventDefault();
         
-        if (!ContactName || !ContactEmail || !ContactPhone || !ContactMessage) {
+        if (!ContactName || !ContactEmail || !ContactPhone) {
             setError("Please fill in all required fields");
             return;
         }
@@ -31,11 +32,18 @@ const ContactPage = () => {
             return;
         }
 
+        if (!ContactReason && !ContactMessage) {
+            setError("Please either choose a reason or type your issue(or both).");
+            return;
+        }
+
+
         // EmailJS configuration
         const templateParams = {
             from_name: ContactName,
             from_email: ContactEmail,
             from_contact: ContactPhone,
+            reason: ContactReason,
             message: ContactMessage,
         };
 
@@ -46,6 +54,7 @@ const ContactPage = () => {
                 setContactName("");
                 setContactEmail("");
                 setContactPhone("");
+                setContactReason("");
                 setContactMessage("");
             }, (err) => {
                 console.error('FAILED...', err);
@@ -124,6 +133,19 @@ const ContactPage = () => {
                     />
                     <br/>
 
+                    <select 
+                        id="contact-reason" 
+                        value={ContactReason} 
+                        onChange={(e) => setContactReason(e.target.value)}
+                    >
+                        <option value="">Select a reason for contacting us</option>
+                        <option value="blog-creation-issues">Blog Creation Issues</option>
+                        <option value="commenting-issues">Commenting Issues</option>
+                        <option value="profile-management">Profile Management</option>
+                        <option value="forgot-password">Forgot Password</option> 
+                        <option value="general-inquiries">General Inquiries</option>
+                    </select> <br/>
+
                     <textarea
                         id="description"
                         name="contact_desc"
@@ -131,11 +153,16 @@ const ContactPage = () => {
                         cols="121"
                         placeholder="Enter your comments, suggestions, or inquiries here."
                         onChange={(e) => setContactMessage(e.target.value)} 
-                        required>
+                    >
                     </textarea>
                     <br/>
 
-                    {Error && <p className="error-message">{Error}</p>}
+                    {Error && <p className="error-message">{Error}</p>}<br/>
+
+                    <p className="disclaimer">
+                        <strong>Disclaimer: </strong>
+                        You may either select a reason, type your issue, or do both.
+                    </p>
 
                     <button id="submit_button">Submit</button>
                 </form>
