@@ -42,7 +42,6 @@ const LoginPage = ({setToken}) => {
           });
     
           const data = await response.json();
-          console.log('Login response data:', data); // Add this line remember
     
           if (response.ok) {
             setToken(data.token);
@@ -50,8 +49,6 @@ const LoginPage = ({setToken}) => {
             localStorage.setItem('email', login_email); // Store email in localStorage
             localStorage.setItem("user", JSON.stringify({ isAuthenticated: true, role: data.user.role }));     // role: data.user.role => Storing user role received from backend
             localStorage.setItem('userName', data.user.username);
-            console.log('Logged in, storing username:', data.user.username); // Debugging line remember
-
             
             // Redirect based on user role
             if (data.user.role === 'admin') {
