@@ -161,6 +161,14 @@ export const updateBlogger = async (req, res) => {
   const { id } = req.params;
   let updateData = { ...req.body };
 
+  // Extract email from the request body
+  const email = updateData.email; 
+  const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!email || !emailCheck.test(email)) {
+    return res.status(400).json({ error: 'Invalid email format' });
+  }
+
+  
   try {
     // If the request includes a password, hash it before updating
     if (updateData.password) {
@@ -183,6 +191,17 @@ export const updateBlogger = async (req, res) => {
 // Add
 export const addBlogger = async (req, res) => {
     const { username, email, password } = req.body; // Get data from request body
+
+    if (!username || !email || !password) {
+      return res.status(400).json({ error: "All fields are required."});
+    }
+    const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!email || !emailCheck.test(email)) {
+      return res.status(400).json({ error: 'Invalid email format' });
+    }
+    if (!password || password.length < 8 || password.length > 16) {
+      return res.status(400).json({ error: 'Password must be between 8 and 16 characters' });
+    }
 
     try {
          const hashedPassword = await bcrypt.hash(password, 10);
