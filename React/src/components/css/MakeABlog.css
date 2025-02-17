@@ -171,8 +171,13 @@
 }
 
 
-
-
+.make-blog-page .error-message{
+    color: red;
+    font-size: 12px;
+    margin-left: 650px;
+    margin-top: 40px;
+    margin-bottom: -10px;
+}
 
 
 .make-blog-page .publish-container {
@@ -244,6 +249,11 @@
     .make-blog-page .contentOutput {
         height: 300px;
     }
+
+    .make-blog-page .error-message {
+        font-size: 14px; 
+        margin: 15px auto; 
+    }
 }
 
 @media (max-width: 480px) {
@@ -262,5 +272,10 @@
 
     .make-blog-page .contentOutput {
         height: 250px;
+    }
+
+    .make-blog-page .error-message {
+        font-size: 16px;  
+        margin: 10px auto; 
     }
 }

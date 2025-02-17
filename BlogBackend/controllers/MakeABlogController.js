@@ -107,7 +107,7 @@ export const updateExistingBlog = async (req, res) => {
         if (!title || title.length < 1 || title.length > 100) {
             return res.status(400).json({ error: 'Title must be between 1 and 100 characters' });
         }
-        if (!content || content.length < 1) {
+        if (!content || content.length < 1 || content === '<br>') {
             return res.status(400).json({ error: 'Content cannot be empty' });
         }
         if (!bannerImage) {

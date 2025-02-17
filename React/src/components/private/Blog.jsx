@@ -11,6 +11,7 @@ const BlogPage = () => {
     const [storeComments, setStoreComments] = useState([]); // State to store all comments
     const [blogData, setBlogData] = useState(null); 
     const [fetchError, setFetchError] = useState(''); 
+    const [commentError, setCommentError] = useState('');
 
     const { id } = useParams(); // Get blog ID from URL parameters
 
@@ -62,7 +63,7 @@ const BlogPage = () => {
         
         const token = localStorage.getItem('token');
         if (!token) {
-            alert("You are not authenticated. Please log in.");
+            setFetchError("You are not authenticated. Please log in.");
             return;
         }
 
@@ -87,18 +88,7 @@ const BlogPage = () => {
             console.error('Request failed:', error);
         }
     };
-    
 
-
-    // const handlePostComment = () => {
-    //     if (commentUserName && comment) {
-    //       setStoreComments([...storeComments, { name: commentUserName, comment: comment }]);
-    //       setCommentUserName(""); 
-    //       setComment("");
-    //     } else {
-    //       alert("Please enter both name and comment.");
-    //     }
-    //   };
     
     const handlePostComment = async () => {
         if (commentUserName && comment) {
@@ -121,13 +111,13 @@ const BlogPage = () => {
                     setCommentUserName(""); 
                     setComment("");
                 } else {
-                    alert("Failed to post comment.");
+                    setCommentError("Failed to post comment.");
                 }
             } catch (error) {
                 console.error('Error posting comment:', error);
             }
         } else {
-            alert("Please enter both name and comment.");
+            setCommentError("Please enter both name and comment.");
         }
     };
 
@@ -211,6 +201,9 @@ const BlogPage = () => {
                                     value={comment}
                                     onChange={(e) => setComment(e.target.value)}
                                 />
+
+                                {commentError && <p className="error-message">{commentError}</p>}
+
 
                                 <div className="buttons">
                                     <button type="button" id="post" onClick={handlePostComment}>Post</button>

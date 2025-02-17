@@ -132,6 +132,22 @@ const MakeABlogPage = () => {
     }
 
 
+    //validation
+    if (!blogTitle || blogTitle.length < 1 || blogTitle.length > 100) {
+        setSaveError('Title must be between 1 and 100 characters');
+        return;
+    }
+    const content = editorRef.current.innerHTML;
+    if (!content || content.trim() === '' || content === '<br>') {
+        setSaveError('Content cannot be empty');
+        return;
+    }
+    if (!bannerFile && !existingBannerImagePath) {
+        setSaveError('Banner image is required');
+        return;
+    }
+
+
     const blogData = new FormData();     // Use FormData to send files
     blogData.append('title', blogTitle);
     blogData.append('content', editorRef.current.innerHTML);
@@ -326,10 +342,12 @@ const MakeABlogPage = () => {
             </div>
 
 
+            {saveError && <p className="error-message">{saveError}</p>}<br/>
 
             <div className="publish-container"> 
-                {saveError && <p className="error-message">{saveError}</p>}
-                <button className="btn publish-btn" onClick={handlePublish}>Publish</button> 
+                <button className="btn publish-btn" onClick={handlePublish}>
+                    {blogPageId ? "Update" : "Publish"} 
+                </button> 
             </div>
 
 
