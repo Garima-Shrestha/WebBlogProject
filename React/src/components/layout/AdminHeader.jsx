@@ -22,7 +22,9 @@ const AdminHeaderSection = ({ setToken }) => {
     return (
         <section className="admin-header">
             <div>
-                <img src={logo} alt="Blog Logo" title="Innovate, Inspire, Inform" id="logo" loading="lazy"/>   
+                <Link to="/profileview">
+                    <img src={logo} alt="Blog Logo" title="Innovate, Inspire, Inform" id="logo" loading="lazy"/>   
+                </Link>
             </div>
 
             <div className="NavLists">

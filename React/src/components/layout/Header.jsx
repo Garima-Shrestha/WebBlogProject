@@ -30,9 +30,11 @@ const HeaderSection = ({ setToken }) => {
     return (
         <section className="Header">
             <div>
-                <img src={logo} alt="Blog Logo" title="Innovate, Inspire, Inform" id="logo" loading="lazy"/>   
+                <Link to="/home">
+                    <img src={logo} alt="Blog Logo" title="Innovate, Inspire, Inform" id="logo" loading="lazy"/>   
+                </Link>
             </div>
-
+            
             <div className="NavLists">
                 <ul id="NavIcons">
                     <li><Link to="/home" title="Home">Home</Link></li>
@@ -44,6 +46,7 @@ const HeaderSection = ({ setToken }) => {
 
             <div className="dropdown-menu">
                 <select name="dropdown" id="dropdown" onChange={handleSelectChange}>
+                    <option value="delete-account">Select Options</option>
                     <option value="delete-account">Manage Account</option>
                     <option value="your-blog">Your Blog</option>
                     <option value="logout">Logout</option>
