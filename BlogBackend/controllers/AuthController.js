@@ -87,7 +87,7 @@ export const register= async (req, res) => {
   
           res.status(200).json({
               message: 'Login successful',
-              user: { id: user.id, username: user.userName, email: user.email, role:user.role  },
+              user: { id: user.id, username: user.username, email: user.email, role:user.role  },
               token,
           });
       } catch (error) {

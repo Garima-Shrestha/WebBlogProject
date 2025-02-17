@@ -11,6 +11,7 @@ const HeaderSection = ({ setToken }) => {
         localStorage.removeItem("token");
         localStorage.removeItem("email");
         localStorage.removeItem("user");
+        localStorage.removeItem('userName');
 
         setToken(null);        // Update the token state in the parent component
         navigate('/login');

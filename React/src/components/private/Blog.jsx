@@ -19,6 +19,13 @@ const BlogPage = () => {
 
 
     useEffect(() => {
+        // Retrieve the user's name from local storage
+        const storedUserName = localStorage.getItem('userName'); 
+        console.log('Stored Username:', storedUserName); //remember
+        if (storedUserName) {
+            setCommentUserName(storedUserName); 
+        }
+
         const fetchBlogData = async () => {
             const token = localStorage.getItem('token');
             if (!token) {
@@ -190,7 +197,7 @@ const BlogPage = () => {
                                 placeholder="Enter your name" 
                                 className="userName"
                                 value={commentUserName}
-                                onChange={(e) => setCommentUserName(e.target.value)}
+                                readOnly 
                             />
 
                             <div className="commentInput">

@@ -21,8 +21,6 @@ const LoginPage = ({setToken}) => {
     const[login_email, setEmail] = useState("");
     const[login_password, setPassword] = useState("");
     const[PasswordVisible,setPasswordVisible]=useState(false);
-    const [emailError, setEmailError] = useState("");
-    const [passwordError, setPasswordError] = useState('');
     const [errors, setErrors] = useState({});
 
     const navigate = useNavigate();
@@ -44,13 +42,16 @@ const LoginPage = ({setToken}) => {
           });
     
           const data = await response.json();
+          console.log('Login response data:', data); // Add this line remember
     
           if (response.ok) {
             setToken(data.token);
             localStorage.setItem("token", data.token);  // stores the token in local storage
             localStorage.setItem('email', login_email); // Store email in localStorage
             localStorage.setItem("user", JSON.stringify({ isAuthenticated: true, role: data.user.role }));     // role: data.user.role => Storing user role received from backend
-            
+            localStorage.setItem('userName', data.user.username);
+            console.log('Logged in, storing username:', data.user.username); // Debugging line remember
+
             
             // Redirect based on user role
             if (data.user.role === 'admin') {
@@ -122,7 +123,6 @@ const LoginPage = ({setToken}) => {
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
-                    {emailError && <p className="error-message">{emailError}</p>}
                     <br/>
 
                     <label htmlFor="login_password" id="password_label">Password:</label>
@@ -134,7 +134,6 @@ const LoginPage = ({setToken}) => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    {passwordError && <p className="error-message">{passwordError}</p>}
                     <br/>
 
 
