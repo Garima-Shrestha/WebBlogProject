@@ -12,6 +12,22 @@ const HeaderSection = ({ setToken }) => {
         localStorage.removeItem("email");
         localStorage.removeItem("user");
         localStorage.removeItem('userName');
+        localStorage.removeItem('userId');
+
+        // Check and remove reading time data if it has expired
+        const userId = localStorage.getItem('userId');
+        if (userId) {
+            const readingTimeKey = `readingTime_${userId}`;
+            const storedData = JSON.parse(localStorage.getItem(readingTimeKey));
+            if (storedData) {
+                const now = Date.now();
+                const hoursPassed = (now - storedData.timestamp) / (1000 * 60 * 60);
+                if (hoursPassed >= 24) {
+                    localStorage.removeItem(readingTimeKey); // Remove if older than 24 hours
+                }
+            }
+        }
+
 
         setToken(null);        // Update the token state in the parent component
         navigate('/login');

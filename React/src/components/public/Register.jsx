@@ -88,8 +88,8 @@ const RegisterPage=() =>{
             const data = await response.json();
   
             if (response.ok) {
-                // Store the user's name in local storage
                 localStorage.setItem('userName', userName);
+                localStorage.setItem('userId', data.user.id);
                 navigate('/login'); // Redirect to login page
             } else {
                 console.error('Signup failed:', data.error);

@@ -49,6 +49,7 @@ const LoginPage = ({setToken}) => {
             localStorage.setItem('email', login_email); // Store email in localStorage
             localStorage.setItem("user", JSON.stringify({ isAuthenticated: true, role: data.user.role }));     // role: data.user.role => Storing user role received from backend
             localStorage.setItem('userName', data.user.username);
+            localStorage.setItem('userId', data.user.id); 
             
             // Redirect based on user role
             if (data.user.role === 'admin') {

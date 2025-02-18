@@ -298,6 +298,15 @@
 }
 
 
+.highlighted-reading-time {
+  font-style: italic;
+  color: #dd6611; 
+  font-weight: bold;
+  margin: 10px 0; 
+  text-align: center; 
+  font-size: 18px; 
+}
+
 
 
 /* Responsive Design */

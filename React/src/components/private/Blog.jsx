@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useRef} from "react"
 import '../css/BlogPage.css'
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -12,6 +12,8 @@ const BlogPage = () => {
     const [blogData, setBlogData] = useState(null); 
     const [fetchError, setFetchError] = useState(''); 
     const [commentError, setCommentError] = useState('');
+    const [readingTime, setReadingTime] = useState(0); 
+    const timerRef = useRef(null);
 
     const { id } = useParams(); // Get blog ID from URL parameters
 
@@ -21,7 +23,6 @@ const BlogPage = () => {
     useEffect(() => {
         // Retrieve the user's name from local storage
         const storedUserName = localStorage.getItem('userName'); 
-        console.log('Stored Username:', storedUserName); //remember
         if (storedUserName) {
             setCommentUserName(storedUserName); 
         }
@@ -44,6 +45,65 @@ const BlogPage = () => {
                 const data = await response.json();
                 if (response.ok) {
                     setBlogData(data.fetchBlog); // Ensure you access the correct nested object
+                    
+
+                    const userId = localStorage.getItem('userId'); 
+                    const readingTimeKey = `readingTime_${userId}_${id}`; // Unique key for each user and blog
+                    const startTimeKey = `startTime_${userId}_${id}`;   // Unique key for start time
+        
+                    const storedData = JSON.parse(localStorage.getItem(readingTimeKey));
+                    const storedStartTime = localStorage.getItem(startTimeKey);
+
+                    // If start time is not set, set it
+                    if (!storedStartTime) {
+                        localStorage.setItem(startTimeKey, Date.now()); // Store the current timestamp
+                    }
+
+                    if (storedData) {
+                        const { time, timestamp } = storedData;
+                        const now = Date.now();
+                        const hoursPassed = (now - parseInt(localStorage.getItem(startTimeKey), 10)) / (1000 * 60 * 60);
+                        
+                        // Reset reading time if more than 24 hour have passed
+                        if (hoursPassed >= 24) {
+                            setReadingTime(0); 
+                            localStorage.removeItem(readingTimeKey); 
+                            localStorage.removeItem(startTimeKey); 
+                        } else {
+                            if (storedData) {
+                                const { time } = storedData;
+                                setReadingTime(time);
+                            } else {
+                                setReadingTime(0); // Initialize reading time if not found
+                            }
+                        }
+                    }
+
+                    // Clear any existing timer before setting a new one
+                    if (timerRef.current) {
+                        clearInterval(timerRef.current);
+                    }
+
+                    // Start the reading timer
+                    timerRef.current = setInterval(() => {
+                        const now = Date.now();
+                        const hoursPassed = (now - parseInt(localStorage.getItem(startTimeKey), 10)) / (1000 * 60 * 60); 
+
+                        // Check if 24 hour have passed
+                        if (hoursPassed >= 24) {
+                            setReadingTime(0); 
+                            localStorage.removeItem(readingTimeKey);
+                            localStorage.removeItem(startTimeKey);
+                        } else {
+                            setReadingTime(prevTime => {
+                                const newTime = prevTime + 1; 
+
+                                // Store the updated reading time and current timestamp
+                                localStorage.setItem(readingTimeKey, JSON.stringify({ time: newTime, timestamp: Date.now() }));
+                                return newTime; // Return the new time
+                            });
+                        }
+                    }, 60000); // Update every minute
                 } else {
                     if (response.status === 404) {
                         setFetchError("Blog not found.");
@@ -59,6 +119,12 @@ const BlogPage = () => {
         };
 
         fetchBlogData();
+
+        return () => {
+            if (timerRef.current) {
+                clearInterval(timerRef.current); 
+            }
+        };
     }, [id, navigate]);
 
 
@@ -168,6 +234,12 @@ const BlogPage = () => {
                             <span>Posted on:- </span>
                             {blogData.created_at ? new Date(blogData.created_at).toLocaleDateString() : "Unknown Date"}
                         </p>
+
+                        <br/><p className="highlighted-reading-time">
+                            <i className="fas fa-clock" style={{ marginRight: '5px', fontSize: '15px' }}></i>
+                            You have read this blog for: {readingTime} minute{readingTime !== 1 ? 's' : ''}
+                        </p><br/>                        
+                    
                         <div className="blog-page-article" dangerouslySetInnerHTML={{ __html: blogData.content || "No content available" }}></div>
                     </div>
 
