@@ -284,6 +284,11 @@ const BloggerProfileViewPage = () => {
                 {emailError && <p className="error-message">{emailError}</p>} <br/>
                 {passwordError && <p className="error-message">{passwordError}</p>}
 
+
+                <div className="add-button">
+                    <button onClick={addBlogger}>Add</button>
+                </div>
+
             </div>
 
             <div className="blogger-table-list">
@@ -309,10 +314,6 @@ const BloggerProfileViewPage = () => {
                         ))}
                     </tbody>
                 </table>
-            </div>
-
-            <div className="add-button">
-                <button onClick={addBlogger}>Add</button>
             </div>
 
             <div className="edit-button">
