@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import '../css/Login.css'
 
-import logo from '../../images/quiz.jpg'
+import logo from '../../images/authLogo.png'
 
 import svg1 from '../../svg/authentication_svg1.svg'
 import svg2 from '../../svg/authentication_svg2.svg'
