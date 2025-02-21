@@ -31,6 +31,7 @@ const AdminHeaderSection = ({ setToken }) => {
                 <ul id="NavIcons">
                     <li><Link to="/profileview" title="Profile View">Blogger Control Panel</Link></li>
                     <li><Link to="/blogview" title="Blog View">Blog Control Panel</Link></li>
+                    <li><Link to="/commentview" title="Comment View">Comment Control Panel</Link></li>
                 </ul>
 
                 <div>

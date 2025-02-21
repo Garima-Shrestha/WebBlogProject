@@ -1,4 +1,4 @@
-import { createComment, getCommentsByBlogId } from '../models/CommentModel.js';
+import { createComment, getCommentsByBlogId, getAllCommentsByAdmin, deleteCommentByAdmin } from '../models/CommentModel.js';
 
 export const postComment = async (req, res) => {
     const { blogId, userName, comment } = req.body;
@@ -25,5 +25,40 @@ export const getComments = async (req, res) => {
     } catch (error) {
         console.error('Error fetching comments:', error);
         return res.status(500).json({ error: 'An error occurred while fetching comments.' });
+    }
+};
+
+
+
+
+// Admin le comment herna milxa
+// Fetch
+export const getAllComments = async (req, res) => {
+    try {
+        const comments = await getAllCommentsByAdmin();
+        return res.status(200).json(comments);
+    } catch (error) {
+        console.error('Error fetching comments:', error);
+        return res.status(500).json({ error: 'An error occurred while fetching comments.' });
+    }
+};
+
+
+
+// Delete
+export const adminDeleteComment = async (req, res) => {
+    const { id } = req.params; 
+
+    try {
+        const deletedCount = await deleteCommentByAdmin(id);
+        
+        if (deletedCount === 0) {
+            return res.status(404).json({ error: 'Comment not found.' });
+        }
+
+        return res.status(200).json({ message: 'Comment deleted successfully.' });
+    } catch (error) {
+        console.error('Error deleting comment:', error);
+        return res.status(500).json({ error: 'An error occurred while deleting the comment.' });
     }
 };

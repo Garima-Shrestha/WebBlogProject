@@ -196,9 +196,16 @@ const BlogPage = () => {
 
 
     const fetchComments = async () => {
+        const token = localStorage.getItem('token');
         const blogId = blogData.id; 
         try {
-            const response = await fetch(`http://localhost:5003/api/bloggercomment/comments/${blogId}`);
+            const response = await fetch(`http://localhost:5003/api/bloggercomment/comments/${blogId}`, {
+                method: "GET",
+                headers: {
+                Authorization: `Bearer ${token}`,
+                },
+            });
+
             if (response.ok) {
                 const comments = await response.json();
                 setStoreComments(comments); 

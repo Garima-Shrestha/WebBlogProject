@@ -21,6 +21,8 @@ const DeleteAccountPage = lazy(() => import('./components/private/DeleteAccount'
 const BloggerProfileViewPage = lazy(() => import('./components/admin/BloggerProfileView'));
 const BlogViewPage = lazy(() => import('./components/admin/BlogView'));
 const YourBlogPage = lazy(() => import('./components/private/YourBlog'));
+const CommentViewPage = lazy(() => import('./components/admin/CommentView'));
+
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token')); 
@@ -85,6 +87,7 @@ function LocationWrapper({ setToken, token, role }) {
           <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
             <Route path="/profileview" element={<BloggerProfileViewPage />} />
             <Route path="/blogview" element={<BlogViewPage />} />
+            <Route path="/commentview" element={<CommentViewPage />} />
           </Route>
         </Routes>
       </Suspense>

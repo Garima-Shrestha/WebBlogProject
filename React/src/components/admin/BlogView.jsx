@@ -6,6 +6,8 @@ import '../css/BlogView.css';
 const BlogViewPage = () => {
     const [viewblogs, setViewBlog] = useState([]);
     const [selectedBlog, setSelectedBlog] = useState(null);
+    const [selectedBlogTitle, setSelectedBlogTitle] = useState(''); 
+    
     const navigate = useNavigate();
 
     // Fetch all blogs from the backend
@@ -37,6 +39,7 @@ const BlogViewPage = () => {
 
     const handleRowClick = (viewblog) => {
         setSelectedBlog(viewblog.id); 
+        setSelectedBlogTitle(viewblog.title); 
     };
 
 
@@ -44,7 +47,7 @@ const BlogViewPage = () => {
     const deleteBlog = async () => {
         if (!selectedBlog) return;
 
-        const isConfirmed = window.confirm("Are you sure you want to delete this blog?");
+        const isConfirmed = window.confirm(`Are you sure you want to delete the blog:    "${selectedBlogTitle}"? `);
         if (!isConfirmed) {
             return; // Exit if the user cancels the deletion
         }
