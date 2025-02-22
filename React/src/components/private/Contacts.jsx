@@ -161,7 +161,7 @@ const ContactPage = () => {
 
                     <p className="disclaimer">
                         <strong>Disclaimer: </strong>
-                        You may either select a reason, type your issue, or do both.
+                        You may either select a reason, type your issue, or do both. Submit your query, and we'll respond via email.
                     </p>
 
                     <button id="submit_button">Submit</button>

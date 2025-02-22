@@ -83,7 +83,7 @@ const BlogViewPage = () => {
                     <table>
                         <thead>
                             <tr>
-                                <th>User ID</th>
+                                <th>Blog ID</th>
                                 <th>Published By</th>
                                 <th>Published Date</th>
                                 <th>Title</th>

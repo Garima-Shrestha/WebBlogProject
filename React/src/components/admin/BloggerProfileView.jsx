@@ -14,6 +14,8 @@ const BloggerProfileViewPage = () => {
     const [addError, setAddError] = useState('');
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState('');
+    const [selectedUsers, setSelectedUsers] = useState(''); 
+
 
     const navigate = useNavigate();
 
@@ -57,6 +59,7 @@ const BloggerProfileViewPage = () => {
         setUsername(user.username);
         setEmail(user.email);
         setPassword(''); // Do not display the actual password
+        setSelectedUsers(user.email);
     };
 
     const handleEdit = async () => {
@@ -138,7 +141,7 @@ const BloggerProfileViewPage = () => {
     const deleteBlogger = async () => {
         if (!selectedUser) return;
 
-        const isConfirmed = window.confirm("Are you sure you want to delete this blogger?");
+        const isConfirmed = window.confirm(`Are you sure you want to delete this blogger:   ${selectedUsers} ?`);
         if (!isConfirmed) return;
 
         try {
