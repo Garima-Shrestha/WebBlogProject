@@ -11,6 +11,10 @@ export const register= async (req, res) => {
 
 
     //validation
+    const usernameCheck = /^[a-zA-Z0-9_ ]+$/; // Allow alphanumeric characters, underscores, and spaces
+    if (!usernameCheck.test(userName)) {
+        return res.status(400).json({ error: 'Invalid username format' });
+    }
     const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!email || !emailCheck.test(email)) {
         return res.status(400).json({ error: 'Invalid email format' });
@@ -50,7 +54,7 @@ export const register= async (req, res) => {
         );
     
         console.log('Sending response...');
-        res.status(201).json({ message: 'User created successfully', token });
+        res.status(201).json({ message: 'User created successfully', user: newUser , token });
     
       } catch (error) {
         console.error('Signup error:', error); // Logs full error details

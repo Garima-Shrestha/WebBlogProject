@@ -57,4 +57,11 @@ app.use('/api/bloggercomment', CommentRoutes);
 
 
 
+// Catch-all for 404 errors
+app.use((req, res) => {
+    res.status(404).json({ error: 'Route not found' }); // Added this line
+});
+
+
+
 export default app;
