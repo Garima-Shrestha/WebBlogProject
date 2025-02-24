@@ -60,7 +60,7 @@ describe('Security Tests for Authentication Routes', () => {
             });
         
         expect(res.status).toBe(400);
-        expect(res.body.error).toBe('Invalid email or password');
+        expect(res.body.error).toBe('Invalid email format');
     });
 
 

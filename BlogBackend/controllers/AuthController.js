@@ -3,23 +3,30 @@ import { getBloggerInfo, deleteBloggerById, updateBloggerById, addBloggersByAdmi
 import bcrypt from 'bcrypt'; // For password hashing
 import jwt from 'jsonwebtoken';  // For generating JWT tokens
 import dotenv from 'dotenv';
+import validator from 'validator'; 
+import xss from 'xss';
+
 dotenv.config();
 const jwtSecret=process.env.JWT_SECRET;
 
 export const register= async (req, res) => {
-    const { userName, email, password, role='blogger'} = req.body;
+    let { userName, email, password, role='blogger'} = req.body;
+
+    // Sanitize inputs
+    userName = xss(userName);
+    email = xss(email);
+    password = xss(password);
 
 
     //validation
     const usernameCheck = /^[a-zA-Z0-9_ ]+$/; // Allow alphanumeric characters, underscores, and spaces
     if (!usernameCheck.test(userName)) {
-        return res.status(400).json({ error: 'Invalid username format' });
+        return res.status(400).json({ error: 'Invalid username format. Only alphanumeric characters, underscores, and spaces are allowed.' });
     }
-    const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!email || !emailCheck.test(email)) {
-        return res.status(400).json({ error: 'Invalid email format' });
+    if (!email || !validator.isEmail(email)) {
+      return res.status(400).json({ error: 'Invalid email format' });
     }
-    if (!password || password.length < 8 || password.length > 16) {
+    if (!password || !validator.isLength(password, { min: 8, max: 16 })) {
         return res.status(400).json({ error: 'Password must be between 8 and 16 characters' });
     }
 
@@ -57,14 +64,26 @@ export const register= async (req, res) => {
         res.status(201).json({ message: 'User created successfully', user: newUser , token });
     
       } catch (error) {
-        console.error('Signup error:', error); // Logs full error details
+        console.error('Signup error:', error); 
         res.status(500).json({ error: 'Server error', details: error.message });
       }
     };
 
     //login
     export const login = async (req, res) => {
-      const { email, password } = req.body;
+      let { email, password } = req.body;
+
+      // Sanitize inputs
+      email = xss(email);
+      password = xss(password);
+
+      // Validation
+    if (!email || !validator.isEmail(email)) {
+      return res.status(400).json({ error: 'Invalid email format' });
+    }
+    if (!password) {
+        return res.status(400).json({ error: 'Password is required' });
+    }
   
       try {
           console.log('Finding user by email...');

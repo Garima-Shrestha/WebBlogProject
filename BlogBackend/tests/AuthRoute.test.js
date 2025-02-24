@@ -52,7 +52,7 @@ describe('Auth Route Tests', () => {
                 .send({ userName: 'invalid username!', email: 'test@example.com', password: 'password123' });
 
             expect(response.status).toBe(400);
-            expect(response.body.error).toBe('Invalid username format');
+            expect(response.body.error).toBe('Invalid username format. Only alphanumeric characters, underscores, and spaces are allowed.');
         });
         
 
