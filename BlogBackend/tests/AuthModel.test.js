@@ -1,5 +1,5 @@
 import { pool } from '../config/db.js';
-import { createUser, findEmail} from '../models/AuthModel.js';
+import { createUser, findEmail, deleteAccount} from '../models/AuthModel.js';
   
 jest.mock('../config/db.js');  // Mock the database query function
 
@@ -60,5 +60,40 @@ describe('AuthModel Tests', () => {
         pool.query.mockRejectedValueOnce(new Error('Database error')); // Simulate a database error
     
         await expect(createUser ('testUser ', 'test@example.com', 'hashedPassword', 'blogger')).rejects.toThrow('Database error');
+    });
+
+
+
+
+    // Delete Account Tests
+    it('should delete a user account successfully', async () => {
+        const mockUser  = { id: 1, username: 'testUser  ', email: 'test@example.com' };
+        pool.query.mockResolvedValueOnce({ rowCount: 1, rows: [mockUser ] }); // Simulate successful deletion
+
+        const result = await deleteAccount(mockUser.id); // Call the deleteAccount function
+
+        expect(result).toEqual(mockUser ); // Check if the result matches the mock user
+        expect(pool.query).toHaveBeenCalledWith(
+            expect.stringContaining('DELETE FROM users'),
+            [mockUser.id] // Check the parameters passed to the query
+        );
+    });
+
+    it('should return null if user not found during deletion', async () => {
+        pool.query.mockResolvedValueOnce({ rowCount: 0 }); // Simulate no user found
+
+        const result = await deleteAccount(999); // Attempt to delete a non-existent user
+
+        expect(result).toBeNull(); // Expect null when no user is found
+        expect(pool.query).toHaveBeenCalledWith(
+            expect.stringContaining('DELETE FROM users'),
+            [999] // Check the parameters passed to the query
+        );
+    });
+
+    it('should throw an error if database query fails during deletion', async () => {
+        pool.query.mockRejectedValueOnce(new Error('Database error')); // Simulate a database error
+    
+        await expect(deleteAccount(1)).rejects.toThrow('Could not delete account. Please try again.'); 
     });
 });

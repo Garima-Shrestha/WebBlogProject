@@ -2,12 +2,38 @@ import request from 'supertest';
 import app from '../index.js'; 
 import { pool } from '../config/db.js';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 jest.mock('../config/db.js');  
 jest.mock('bcrypt', () => ({
   hash: jest.fn().mockResolvedValue('hashedPassword'),
   compare: jest.fn().mockResolvedValue(true),
 }));
+
+
+jest.mock('../middleware/AuthMiddleware.js', () => (req, res, next) => {
+  req.user = { id: 1 }; 
+  next();
+});
+
+const mockToken = jwt.sign({ id: 1 }, process.env.JWT_SECRET || 'testsecret', { expiresIn: '1h' });
+
+
+
+let originalConsoleError;
+
+beforeAll(() => {
+    originalConsoleError = console.error; // Store the original console.error
+    console.error = jest.fn(); // Mock console.error
+});
+
+afterAll(() => {
+    console.error = originalConsoleError; // Restore original console.error
+});
+
+afterEach(() => {
+    jest.clearAllMocks(); // Clear mock data after each test
+});
 
 
 describe('Auth Route Tests', () => {
@@ -137,4 +163,46 @@ describe('Auth Route Tests', () => {
             expect(response.body.error).toBe('Invalid email or password');
         });
     });
+
+
+
+
+
+    // Delete Account Tests
+    describe('DELETE /api/auth/deleteaccount', () => {
+        it('should delete a user account successfully', async () => {
+            const mockUser  = { id: 1, username: 'testUser   ', email: 'test@example.com' };
+            pool.query.mockResolvedValueOnce({ rowCount: 1, rows: [mockUser ] }); // Simulate successful deletion
+
+            const response = await request(app)
+                .delete('/api/auth/deleteaccount') // Adjust to your actual route
+                .set('Authorization', `Bearer ${mockToken}`); // Use a valid token
+
+            expect(response.status).toBe(200);
+            expect(response.body.message).toBe('Account deleted successfully');
+        });
+
+        it('should return 404 if user not found', async () => {
+            pool.query.mockResolvedValueOnce({ rowCount: 0 }); // Simulate no user found
+
+            const response = await request(app)
+                .delete('/api/auth/deleteaccount') // Adjust to your actual route
+                .set('Authorization', `Bearer ${mockToken}`); // Use a valid token
+
+            expect(response.status).toBe(404);
+            expect(response.body.error).toBe('User not found');
+        });
+
+        it('should return 500 if there is a server error', async () => {
+            pool.query.mockRejectedValueOnce(new Error('Database error')); // Simulate a database error
+
+            const response = await request(app)
+                .delete('/api/auth/deleteaccount') // Adjust to your actual route
+                .set('Authorization', `Bearer ${mockToken}`); // Use a valid token
+
+            expect(response.status).toBe(500);
+            expect(response.body.error).toBe('Server error');
+        });
+    });
+
 });

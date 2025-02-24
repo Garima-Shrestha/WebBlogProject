@@ -24,6 +24,11 @@ export const deleteAccount = async (userId) => {              //Deletes a user w
   try{
   const query = `DELETE FROM users WHERE id = $1 RETURNING *`;
   const result = await pool.query(query, [userId]);
+
+  // Check if any rows were deleted
+  if (result.rowCount === 0) {
+    return null; // No user found to delete
+  }
   return result.rows[0];
   }catch (err) {
     console.error("Error deleting account", err);
