@@ -68,7 +68,7 @@ export const addNewCustomer = async (req, res) => {
         if (!validator.isEmail(email)) {
             return res.status(400).json({ error: 'Invalid email format' });
         }
-        if (contact && !validator.isMobilePhone(contact, 'any', { strictMode: false })) {
+        if (contact && (!validator.isMobilePhone(contact, 'any', { strictMode: false }) || contact.length !== 10)) {
             return res.status(400).json({ error: 'Invalid phone number format' });
         }
         const validGenders = ['Male', 'Female', 'Others'];
@@ -121,7 +121,7 @@ export const updateCustomerDetails = async (req, res) => {
         if (!validator.isEmail(email)) {
             return res.status(400).json({ error: 'Invalid email format' });
         }
-        if (contact && !validator.isMobilePhone(contact, 'any', { strictMode: false })) {
+        if (contact && (!validator.isMobilePhone(contact, 'any', { strictMode: false }) || contact.length !== 10)) {
             return res.status(400).json({ error: 'Invalid phone number format' });
         }
         const validGenders = ['Male', 'Female', 'Others'];
