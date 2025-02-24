@@ -1,6 +1,8 @@
 import {getCustomerByUserId, addCustomer, updateCustomer} from '../models/CustomerProfileModel.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import validator from 'validator'; 
+import xss from 'xss';
 
 dotenv.config();
 const jwtSecret=process.env.JWT_SECRET;
@@ -45,21 +47,28 @@ export const addNewCustomer = async (req, res) => {
         // const userId = verifyTokenAndGetUserId(req);
         const userId = req.user.id; // Get user ID from the request
 
-        const { firstName, lastName, address, dob, email, contact, gender } = req.body;
+        let { firstName, lastName, address, dob, email, contact, gender } = req.body;
 
-        // Validation
-        if (!firstName || firstName.length < 1 || firstName.length > 50) {
+        // Sanitize inputs
+        firstName = xss(firstName);
+        lastName = xss(lastName);
+        address = xss(address);
+        email = xss(email);
+        contact = xss(contact);
+        gender = xss(gender);
+
+
+        // Validation 
+        if (!validator.isLength(firstName, { min: 1, max: 50 })) {
             return res.status(400).json({ error: 'First name must be between 1 and 50 characters' });
         }
-        if (!lastName || lastName.length < 1 || lastName.length > 50) {
+        if (!validator.isLength(lastName, { min: 1, max: 50 })) {
             return res.status(400).json({ error: 'Last name must be between 1 and 50 characters' });
         }
-        const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!email || !emailCheck.test(email)) {
+        if (!validator.isEmail(email)) {
             return res.status(400).json({ error: 'Invalid email format' });
         }
-        const phoneCheck = /^\d{10}$/;
-        if (contact && !phoneCheck.test(contact)) {
+        if (contact && !validator.isMobilePhone(contact, 'any', { strictMode: false })) {
             return res.status(400).json({ error: 'Invalid phone number format' });
         }
         const validGenders = ['Male', 'Female', 'Others'];
@@ -91,22 +100,28 @@ export const updateCustomerDetails = async (req, res) => {
         const userId = req.user.id; // Get user ID from the request
 
         console.log('User ID:', userId); 
-        const { firstName, lastName, address, dob, email, contact, gender } = req.body;
+        let { firstName, lastName, address, dob, email, contact, gender } = req.body;
+
+        // Sanitize inputs
+        firstName = xss(firstName);
+        lastName = xss(lastName);
+        address = xss(address);
+        email = xss(email);
+        contact = xss(contact);
+        gender = xss(gender);
 
         
         // Validation
-        if (!firstName || firstName.length < 1 || firstName.length > 50) {
+        if (!validator.isLength(firstName, { min: 1, max: 50 })) {
             return res.status(400).json({ error: 'First name must be between 1 and 50 characters' });
         }
-        if (!lastName || lastName.length < 1 || lastName.length > 50) {
+        if (!validator.isLength(lastName, { min: 1, max: 50 })) {
             return res.status(400).json({ error: 'Last name must be between 1 and 50 characters' });
         }
-        const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!email || !emailCheck.test(email)) {
+        if (!validator.isEmail(email)) {
             return res.status(400).json({ error: 'Invalid email format' });
         }
-        const phoneCheck = /^\d{10}$/;
-        if (contact && !phoneCheck.test(contact)) {
+        if (contact && !validator.isMobilePhone(contact, 'any', { strictMode: false })) {
             return res.status(400).json({ error: 'Invalid phone number format' });
         }
         const validGenders = ['Male', 'Female', 'Others'];
