@@ -184,10 +184,23 @@ export const updateBlogger = async (req, res) => {
   const { id } = req.params;
   let updateData = { ...req.body };
 
-  // Extract email from the request body
-  const email = updateData.email; 
-  const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (!email || !emailCheck.test(email)) {
+
+  // Sanitize inputs
+  if (updateData.email) {
+    updateData.email = xss(updateData.email);
+  }
+  if (updateData.username) {
+      updateData.username = xss(updateData.username);
+  }
+  if (updateData.password) {
+      updateData.password = xss(updateData.password);
+  }
+
+  // Validation
+  if (updateData.username && !/^[a-zA-Z0-9_ ]+$/.test(updateData.username)) {
+    return res.status(400).json({ error: 'Invalid username format' });
+  }
+  if (updateData.email && !validator.isEmail(updateData.email)) {
     return res.status(400).json({ error: 'Invalid email format' });
   }
 
@@ -213,16 +226,25 @@ export const updateBlogger = async (req, res) => {
 
 // Add
 export const addBlogger = async (req, res) => {
-    const { username, email, password } = req.body; // Get data from request body
+    let { username, email, password } = req.body; // Get data from request body
+
+    // Sanitize inputs
+    username = xss(username);
+    email = xss(email);
+    password = xss(password);
+
 
     if (!username || !email || !password) {
       return res.status(400).json({ error: "All fields are required."});
     }
-    const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!email || !emailCheck.test(email)) {
+    const usernameCheck = /^[a-zA-Z0-9_ ]+$/; // Allow alphanumeric characters, underscores, and spaces
+    if (!usernameCheck.test(username)) {
+        return res.status(400).json({ error: 'Invalid username format. Only alphanumeric characters, underscores, and spaces are allowed.' });
+    }
+    if (!email || !validator.isEmail(email)) {
       return res.status(400).json({ error: 'Invalid email format' });
     }
-    if (!password || password.length < 8 || password.length > 16) {
+    if (!password || !validator.isLength(password, { min: 8, max: 16 })) {
       return res.status(400).json({ error: 'Password must be between 8 and 16 characters' });
     }
 
