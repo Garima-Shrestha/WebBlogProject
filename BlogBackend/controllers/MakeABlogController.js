@@ -1,6 +1,7 @@
 import { createBlog, deleteBlog, getBlogById, updateBlog, getAllBlogsWithAuthors, deleteBlogByAdmin, getBlogsByUserId } from '../models/MakeABlogModel.js'; 
 import multer from 'multer';
 import path from 'path';
+import xss from 'xss';
 
 
 // Set up multer for file storage
@@ -26,18 +27,21 @@ export const createNewBlog = async (req, res) => {
         const userId = req.user.id;   // Access userId from req.user
         const email = req.user.email;
 
+        // Sanitize input
         const { title, content } = req.body; 
+        const sanitizedTitle = xss(title);
+        const sanitizedContent = xss(content);
         const bannerImage = req.file ? req.file.filename : null; // Get the uploaded file path
 
         
-        //validation
-        if (!title || !content || !bannerImage || !email) {
+        // Validation
+        if (!sanitizedTitle || !sanitizedContent || !bannerImage || !email) {
             return res.status(400).json({ error: 'Title, content, banner image, and email are required' });
         }
-        if (!title || title.length < 1 || title.length > 100) {
+        if (sanitizedTitle.length < 1 || sanitizedTitle.length > 100) {
             return res.status(400).json({ error: 'Title must be between 1 and 100 characters' });
         }
-        if (!content || content.length < 1) {
+        if (sanitizedContent.length < 1) {
             return res.status(400).json({ error: 'Content cannot be empty' });
         }
         if (!bannerImage) {
@@ -50,7 +54,7 @@ export const createNewBlog = async (req, res) => {
 
 
         // Database ma blog lai add garna
-        const newBlog = await createBlog(userId, email, title, content, bannerImage);
+        const newBlog = await createBlog(userId, email, sanitizedTitle, sanitizedContent, bannerImage);
 
         if (!newBlog) {
             return res.status(500).json({ message: 'Failed to create blog' });
@@ -100,14 +104,18 @@ export const updateExistingBlog = async (req, res) => {
         const bannerImage = req.file ? req.file.filename : req.body.imageFile;
     
     
-        //validation
-        if (!id || !title || !content || !bannerImage || !email) {
+        // Sanitize input
+        const sanitizedTitle = xss(title);
+        const sanitizedContent = xss(content);
+
+        // Validation
+        if (!id || !sanitizedTitle || !sanitizedContent || !bannerImage || !email) {
             return res.status(400).json({ error: 'Blog ID, title, content, banner image, and email are required' });
         }
-        if (!title || title.length < 1 || title.length > 100) {
+        if (sanitizedTitle.length < 1 || sanitizedTitle.length > 100) {
             return res.status(400).json({ error: 'Title must be between 1 and 100 characters' });
         }
-        if (!content || content.length < 1 || content === '<br>') {
+        if (sanitizedContent.length < 1 || sanitizedContent === '<br>') {
             return res.status(400).json({ error: 'Content cannot be empty' });
         }
         if (!bannerImage) {
@@ -126,7 +134,7 @@ export const updateExistingBlog = async (req, res) => {
 
         const finalBannerImage = req.file ? req.file.filename : blog.banner_image; // Use uploaded file or existing
 
-        const updatedBlog = await updateBlog(id, title, content, finalBannerImage, userId, email);
+        const updatedBlog = await updateBlog(id, sanitizedTitle, sanitizedContent, finalBannerImage, userId, email);
 
 
         if (!updatedBlog) {

@@ -49,37 +49,37 @@ export const addNewCustomer = async (req, res) => {
 
         let { firstName, lastName, address, dob, email, contact, gender } = req.body;
 
-        // Sanitize inputs
-        firstName = xss(firstName);
-        lastName = xss(lastName);
-        address = xss(address);
-        email = xss(email);
-        contact = xss(contact);
-        gender = xss(gender);
-
+        
+        // Sanitize input
+        const sanitizedFirstName = xss(firstName);
+        const sanitizedLastName = xss(lastName);
+        const sanitizedAddress = xss(address);
+        const sanitizedDob = xss(dob);
+        const sanitizedEmail = xss(email);
+        const sanitizedContact = xss(contact);
+        const sanitizedGender = xss(gender);
 
         // Validation 
-        if (!validator.isLength(firstName, { min: 1, max: 50 })) {
+        if (!validator.isLength(sanitizedFirstName, { min: 1, max: 50 })) {
             return res.status(400).json({ error: 'First name must be between 1 and 50 characters' });
         }
-        if (!validator.isLength(lastName, { min: 1, max: 50 })) {
+        if (!validator.isLength(sanitizedLastName, { min: 1, max: 50 })) {
             return res.status(400).json({ error: 'Last name must be between 1 and 50 characters' });
         }
-        if (!validator.isEmail(email)) {
+        if (!validator.isEmail(sanitizedEmail)) {
             return res.status(400).json({ error: 'Invalid email format' });
         }
-        if (contact && (!validator.isMobilePhone(contact, 'any', { strictMode: false }) || contact.length !== 10)) {
+        if (sanitizedContact && (!validator.isMobilePhone(sanitizedContact, 'any', { strictMode: false }) || sanitizedContact.length !== 10)) {
             return res.status(400).json({ error: 'Invalid phone number format' });
         }
         const validGenders = ['Male', 'Female', 'Others'];
-        if (!validGenders.includes(gender)) {
+        if (!validGenders.includes(sanitizedGender)) {
             return res.status(400).json({ error: 'Invalid gender' });
         }
 
+        const newCustomer = await addCustomer(userId, sanitizedFirstName, sanitizedLastName, sanitizedAddress, sanitizedDob, sanitizedEmail, sanitizedContact, sanitizedGender);
         
-
-        const newCustomer = await addCustomer(userId, firstName, lastName, address, dob, email, contact, gender);
-
+        
         if (!newCustomer) {
             return res.status(500).json({ error: 'Failed to add Customer Profile' });
           }
@@ -102,35 +102,38 @@ export const updateCustomerDetails = async (req, res) => {
         console.log('User ID:', userId); 
         let { firstName, lastName, address, dob, email, contact, gender } = req.body;
 
-        // Sanitize inputs
-        firstName = xss(firstName);
-        lastName = xss(lastName);
-        address = xss(address);
-        email = xss(email);
-        contact = xss(contact);
-        gender = xss(gender);
 
-        
+        // Sanitize input
+        const sanitizedFirstName = xss(firstName);
+        const sanitizedLastName = xss(lastName);
+        const sanitizedAddress = xss(address);
+        const sanitizedDob = xss(dob);
+        const sanitizedEmail = xss(email);
+        const sanitizedContact = xss(contact);
+        const sanitizedGender = xss(gender);
+
         // Validation
-        if (!validator.isLength(firstName, { min: 1, max: 50 })) {
+        if (!validator.isLength(sanitizedFirstName, { min: 1, max: 50 })) {
             return res.status(400).json({ error: 'First name must be between 1 and 50 characters' });
         }
-        if (!validator.isLength(lastName, { min: 1, max: 50 })) {
+        if (!validator.isLength(sanitizedLastName, { min: 1, max: 50 })) {
             return res.status(400).json({ error: 'Last name must be between 1 and 50 characters' });
         }
-        if (!validator.isEmail(email)) {
+        if (!validator.isEmail(sanitizedEmail)) {
             return res.status(400).json({ error: 'Invalid email format' });
         }
-        if (contact && (!validator.isMobilePhone(contact, 'any', { strictMode: false }) || contact.length !== 10)) {
+        if (sanitizedContact && (!validator.isMobilePhone(sanitizedContact, 'any', { strictMode: false }) || sanitizedContact.length !== 10)) {
             return res.status(400).json({ error: 'Invalid phone number format' });
         }
         const validGenders = ['Male', 'Female', 'Others'];
-        if (!validGenders.includes(gender)) {
+        if (!validGenders.includes(sanitizedGender)) {
             return res.status(400).json({ error: 'Invalid gender' });
         }
-        
 
-        const updatedCustomer = await updateCustomer(userId, firstName, lastName, address, dob, email, contact, gender);
+
+
+        const updatedCustomer = await updateCustomer(userId, sanitizedFirstName, sanitizedLastName, sanitizedAddress, sanitizedDob, sanitizedEmail, sanitizedContact, sanitizedGender);
+
         if (!updatedCustomer) {
             console.log('Customer not found'); 
             return res.status(404).json({ message: 'Customer not found' });
