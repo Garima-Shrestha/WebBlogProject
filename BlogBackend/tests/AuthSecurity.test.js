@@ -27,6 +27,14 @@ jest.mock('../middleware/AuthMiddleware.js', () => (req, res, next) => {
 });
 
 
+// Mock the authentication middleware to simulate an admin user
+jest.mock('../middleware/AuthMiddleware.js', () => (req, res, next) => {
+    req.user = { id: 1, role: 'admin' }; // Mock an admin user
+    next();
+});
+
+
+
 describe('Security Tests for Authentication Routes', () => {
     const mockToken = jwt.sign({ id: 1 }, process.env.JWT_SECRET || 'testsecret', { expiresIn: '1h' });
 
@@ -125,6 +133,113 @@ describe('Security Tests for Authentication Routes', () => {
             const res = await request(app).get('/api/auth/unknown-route');  // Unknown route
             expect(res.status).toBe(404);  // Ensure 404 status is returned
             expect(res.body.error).toBe('Route not found');  // Ensure the error message is correct
+        });
+    });
+
+
+
+
+    describe('Admin Security Tests', () => {
+        // Fetch Bloggers Tests
+        describe('GET /api/auth/profileview', () => {
+            it('should prevent SQL Injection in fetch bloggers', async () => {
+                const res = await request(app)
+                    .get('/api/auth/profileview?id=1 OR 1=1 --') // SQL injection attempt
+                    .set('Authorization', `Bearer ${mockToken}`);
+                
+                expect(res.status).toBe(200);  // Ensure the request is processed
+                expect(res.body.bloggers).toBeDefined(); // Ensure bloggers are returned
+            });
+    
+            it('should return 404 for unknown routes', async () => {
+                const res = await request(app)
+                    .get('/api/auth/profileview/unknown-route') // Unknown route
+                    .set('Authorization', `Bearer ${mockToken}`);
+                
+                expect(res.status).toBe(404);  // Ensure 404 status is returned
+                expect(res.body.error).toBe('Route not found');  // Ensure the error message is correct
+            });
+        });
+    
+        // Add Blogger Tests
+        describe('POST /api/auth/profileview/add', () => {
+            it('should prevent SQL Injection in add blogger', async () => {
+                const res = await request(app)
+                    .post('/api/auth/profileview/add')
+                    .set('Authorization', `Bearer ${mockToken}`)
+                    .send({
+                        username: "newBlogger'; DROP TABLE users; --",  // SQL injection attempt
+                        email: 'newBlogger@example.com',
+                        password: 'password123',
+                    });
+                
+                expect(res.status).toBe(400);  // Ensure the request is rejected
+                expect(res.body.error).toMatch('Invalid username format');  
+            });
+    
+            it('should prevent XSS attacks in add blogger', async () => {
+                const res = await request(app)
+                    .post('/api/auth/profileview/add')
+                    .set('Authorization', `Bearer ${mockToken}`)
+                    .send({
+                        username: '<script>alert("XSS")</script>',  // XSS attempt
+                        email: 'newBlogger@example.com',
+                        password: 'password123',
+                    });
+                
+                expect(res.status).toBe(400);
+                expect(res.body.error).toMatch('Invalid username format');  
+            });
+        });
+    
+        // Update Blogger Tests
+        describe('PUT /api/auth/profileview/update/:id', () => {
+            it('should prevent SQL Injection in update blogger', async () => {
+                const res = await request(app)
+                    .put('/api/auth/profileview/update/1')
+                    .set('Authorization', `Bearer ${mockToken}`)
+                    .send({
+                        username: "updatedBlogger'; DROP TABLE users; --",  // SQL injection attempt
+                        email: 'updatedBlogger@example.com',
+                    });
+                
+                expect(res.status).toBe(400);  // Ensure the request is rejected
+                expect(res.body.error).toMatch('Invalid username format');  
+            });
+    
+            it('should prevent XSS attacks in update blogger', async () => {
+                const res = await request(app)
+                    .put('/api/auth/profileview/update/1')
+                    .set('Authorization', `Bearer ${mockToken}`)
+                    .send({
+                        username: '<script>alert("XSS")</script>',  // XSS attempt
+                        email: 'updatedBlogger@example.com',
+                    });
+                
+                expect(res.status).toBe(400);
+                expect(res.body.error).toMatch('Invalid username format');  
+            });
+        });
+    
+        // Delete Blogger Tests
+        describe('DELETE /api/auth/profileview/delete/:id', () => {
+            it('should prevent SQL Injection in delete blogger', async () => {
+                const res = await request(app)
+                    .delete('/api/auth/profileview/delete/1 OR 1=1 --')
+                    .set('Authorization', `Bearer ${mockToken}`);
+                
+                expect(res.status).toBe(500);
+                expect(res.body.message).toBe('Error deleting blogger');
+            });
+    
+            it('should return 404 if blogger not found', async () => {
+                const res = await request(app)
+                    .delete('/api/auth/profileview/delete/999') // Non-existent ID
+                    .set('Authorization', `Bearer ${mockToken}`);
+                
+                expect(res.status).toBe(404);
+                expect(res.body.message).toBe('Blogger not found');
+            });
         });
     });
 });
